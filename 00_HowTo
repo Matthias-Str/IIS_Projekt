@@ -1,0 +1,14 @@
+How the Process runs so far
+---------------------------
+
+- Datenbank anlegen (siehe Datenbankmodell/01_DatenbankEinrichten)
+- Datasource anlegen (siehe Datenbankmodell/02_DatasourceAnlegen)
+- Default Daten speichern (siehe Datenbankmodell/03_BasisdatenAnlegen)
+
+- Projekt GradeManagementWebServices bauen und auf dem Server publishen
+- Projekt manager deployen
+
+Vor jeder Prozessausführung:
+- Tabelle deadlines muss geleert werden (weil sonst keine neuen Deadlines gespeichert werden können weil gleiche ID mehrfach)
+    delete from deadline;
+

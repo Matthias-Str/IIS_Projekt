@@ -21,8 +21,8 @@
         <bpmn:flowNodeRef>BoundaryEvent_182zg5h</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1ujvaju</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_0lqjce1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_09fr7dy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_1tmt1o4</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:endEvent id="EndEvent_1f7vhu5" name="Ende wegen Prüfungsanmeldungszeitraum vorbei">
@@ -72,7 +72,6 @@
       <bpmn:outgoing>SequenceFlow_1auirdl</bpmn:outgoing>
       <bpmn:timerEventDefinition />
     </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0lc6ee4" sourceRef="StartEvent_1" targetRef="Task_0lqjce1" />
     <bpmn:sequenceFlow id="SequenceFlow_0dehwku" sourceRef="Task_1ujvaju" targetRef="Task_04cvxuh" />
     <bpmn:sequenceFlow id="SequenceFlow_100ogfk" sourceRef="Task_04cvxuh" targetRef="EndEvent_1onmi3r" />
     <bpmn:sequenceFlow id="SequenceFlow_1auirdl" sourceRef="BoundaryEvent_182zg5h" targetRef="EndEvent_1f7vhu5" />
@@ -95,68 +94,11 @@
     </bpmn:dataObjectReference>
     <bpmn:dataObject id="DataObject_0w13130" />
     <bpmn:startEvent id="StartEvent_1">
-      <bpmn:outgoing>SequenceFlow_0lc6ee4</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1ixv056</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:userTask id="Task_0lqjce1" name="Termine festlegen" camunda:assignee="pruefungsamt">
-      <bpmn:extensionElements>
-        <camunda:properties>
-          <camunda:property />
-        </camunda:properties>
-        <camunda:formData>
-          <camunda:formField id="start_registration" label="Beginn Anmeldezeitraum" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="end_registration" label="Ende Anmeldezeitraum" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="grade_registration" label="Noteneingabe durch Dozenten" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="announcement_date" label="Notenbekanntgabe" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="examdate_kao" label="Prüfungstermin KAO" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="examdate_iis" label="Prüfungstermin IIS" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="examdate_sesa" label="Prüfungstermin SESA" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="examdate_itim" label="Prüfungstermin ITIM" type="date">
-            <camunda:validation>
-              <camunda:constraint name="required" />
-            </camunda:validation>
-          </camunda:formField>
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0lc6ee4</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1a7h86i</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0hw95ub">
-        <bpmn:targetRef>DataObjectReference_0z459e6</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:userTask>
-    <bpmn:dataObjectReference id="DataObjectReference_0z459e6" name="Lite mit Prüfungsterminen" dataObjectRef="DataObject_08ses81" />
-    <bpmn:dataObject id="DataObject_08ses81" />
-    <bpmn:sequenceFlow id="SequenceFlow_1a7h86i" sourceRef="Task_0lqjce1" targetRef="Task_09fr7dy" />
     <bpmn:sequenceFlow id="SequenceFlow_16xfwmd" sourceRef="Task_09fr7dy" targetRef="Task_1ujvaju" />
-    <bpmn:serviceTask id="Task_09fr7dy" name="Termine persistieren">
-      <bpmn:incoming>SequenceFlow_1a7h86i</bpmn:incoming>
+    <bpmn:serviceTask id="Task_09fr7dy" name="Termine persistieren" camunda:class="thi.iis.project.pruefungen.servicetasks.CallCreateDeadlineWS">
+      <bpmn:incoming>SequenceFlow_14w7jp9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_16xfwmd</bpmn:outgoing>
       <bpmn:property id="Property_0iafhlw" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_1xly8jj">
@@ -164,13 +106,71 @@
         <bpmn:targetRef>Property_0iafhlw</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:association id="Association_0c3r3y7" sourceRef="Task_0lqjce1" targetRef="TextAnnotation_0c61srj" />
+    <bpmn:userTask id="UserTask_1tmt1o4" name="Termine festlegen" camunda:assignee="demo">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property />
+        </camunda:properties>
+        <camunda:formData>
+          <camunda:formField id="start_registration" label="Beginn Anmeldezeitraum (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="end_registration" label="Ende Anmeldezeitraum (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="grade_registration" label="Noteneingabe durch Dozenten (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="announcement_date" label="Notenbekanntgabe (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="examdate_kao" label="Prüfungstermin KAO (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="examdate_iis" label="Prüfungstermin IIS (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="examdate_sesa" label="Prüfungstermin SESA (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="examdate_itim" label="Prüfungstermin ITIM (dd.mm.yyyy hh:mm:hh)" type="string">
+            <camunda:validation>
+              <camunda:constraint name="required" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1ixv056</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14w7jp9</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0b1kdq6">
+        <bpmn:targetRef>DataObjectReference_0z459e6</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1ixv056" sourceRef="StartEvent_1" targetRef="UserTask_1tmt1o4" />
+    <bpmn:sequenceFlow id="SequenceFlow_14w7jp9" sourceRef="UserTask_1tmt1o4" targetRef="Task_09fr7dy" />
+    <bpmn:dataObjectReference id="DataObjectReference_0z459e6" name="Lite mit Prüfungsterminen" dataObjectRef="DataObject_08ses81" />
+    <bpmn:dataObject id="DataObject_08ses81" />
     <bpmn:textAnnotation id="TextAnnotation_0c61srj">
       <bpmn:text>Prüfungstermine,
 Prüfungsanmeldungzeitraum,
 Noteneingabetermin durch Dozenten
 Notenbekanntgabe</bpmn:text>
     </bpmn:textAnnotation>
+    <bpmn:association id="Association_1ehevq0" sourceRef="UserTask_1tmt1o4" targetRef="TextAnnotation_0c61srj" />
   </bpmn:process>
   <bpmn:process id="Process_18d6a42" isExecutable="false">
     <bpmn:laneSet id="LaneSet_0epht28">
@@ -655,13 +655,6 @@ Notenbekanntgabe</bpmn:text>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="195" y="70" width="36" height="36" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0lc6ee4_di" bpmnElement="SequenceFlow_0lc6ee4">
-        <di:waypoint x="231" y="88" />
-        <di:waypoint x="264" y="88" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="UserTask_180xh3s_di" bpmnElement="Task_0lqjce1">
-        <dc:Bounds x="264" y="48" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SendTask_0ottgk2_di" bpmnElement="Task_1ujvaju">
         <dc:Bounds x="604" y="48" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -1072,15 +1065,11 @@ Notenbekanntgabe</bpmn:text>
         <di:waypoint x="219" y="972" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="DataObjectReference_0z459e6_di" bpmnElement="DataObjectReference_0z459e6">
-        <dc:Bounds x="296" y="-92" width="36" height="50" />
+        <dc:Bounds x="314" y="-89" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="270" y="-129" width="87" height="27" />
+          <dc:Bounds x="288" y="-126" width="87" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="DataOutputAssociation_0hw95ub_di" bpmnElement="DataOutputAssociation_0hw95ub">
-        <di:waypoint x="314" y="48" />
-        <di:waypoint x="314" y="-42" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="DataObjectReference_0eapkud_di" bpmnElement="DataObjectReference_0eapkud">
         <dc:Bounds x="737" y="685" width="36" height="50" />
         <bpmndi:BPMNLabel>
@@ -1298,10 +1287,6 @@ Notenbekanntgabe</bpmn:text>
       <bpmndi:BPMNShape id="TextAnnotation_0c61srj_di" bpmnElement="TextAnnotation_0c61srj">
         <dc:Bounds x="248" y="165" width="226" height="68" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_0c3r3y7_di" bpmnElement="Association_0c3r3y7">
-        <di:waypoint x="331" y="128" />
-        <di:waypoint x="347" y="165" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1v66lbg_di" bpmnElement="SequenceFlow_1v66lbg">
         <di:waypoint x="1198" y="2846" />
         <di:waypoint x="1419" y="2846" />
@@ -1488,10 +1473,6 @@ Notenbekanntgabe</bpmn:text>
         <di:waypoint x="2570" y="3152" />
         <di:waypoint x="2645" y="3152" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1a7h86i_di" bpmnElement="SequenceFlow_1a7h86i">
-        <di:waypoint x="364" y="88" />
-        <di:waypoint x="436" y="88" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0z4601r_di" bpmnElement="Task_09fr7dy">
         <dc:Bounds x="436" y="48" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -1500,8 +1481,27 @@ Notenbekanntgabe</bpmn:text>
         <di:waypoint x="604" y="88" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1xly8jj_di" bpmnElement="DataInputAssociation_1xly8jj">
-        <di:waypoint x="332" y="-51" />
-        <di:waypoint x="443" y="49" />
+        <di:waypoint x="350" y="-46" />
+        <di:waypoint x="446" y="48" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1tmt1o4_di" bpmnElement="UserTask_1tmt1o4">
+        <dc:Bounds x="282" y="48" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ixv056_di" bpmnElement="SequenceFlow_1ixv056">
+        <di:waypoint x="231" y="88" />
+        <di:waypoint x="282" y="88" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_14w7jp9_di" bpmnElement="SequenceFlow_14w7jp9">
+        <di:waypoint x="382" y="88" />
+        <di:waypoint x="436" y="88" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0b1kdq6_di" bpmnElement="DataOutputAssociation_0b1kdq6">
+        <di:waypoint x="332" y="48" />
+        <di:waypoint x="332" y="-39" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1ehevq0_di" bpmnElement="Association_1ehevq0">
+        <di:waypoint x="342" y="128" />
+        <di:waypoint x="352" y="165" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

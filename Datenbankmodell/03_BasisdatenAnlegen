@@ -1,0 +1,31 @@
+INSERT INTO professor VALUES(
+    0, "Franz", "Regensburger", "franz.regensburger@thi.de"
+);
+
+INSERT INTO professor VALUES(
+    1, "Volker", "Stiehl", "volker.stiehl@thi.de"
+);
+
+INSERT INTO professor VALUES(
+    2, "Ulrich", "Schmidt", "ulrich.schmidt@thi.de"
+);
+
+INSERT INTO professor VALUES(
+    3, "Bernd", "Hafenrichter", "bernd.hafenrichter@thi.de"
+);
+
+INSERT INTO exam VALUES(
+    "inf_m_kao_ws18", null, "KAO", 2
+);
+
+INSERT INTO exam VALUES(
+    "inf_m_sesa_ws18", null, "SESA", 0
+);
+
+INSERT INTO exam VALUES(
+    "inf_m_iis_ws18", null, "IIS", 1
+);
+
+INSERT INTO exam VALUES(
+    "inf_m_itim_ws18", null, "ITIM", 3
+);

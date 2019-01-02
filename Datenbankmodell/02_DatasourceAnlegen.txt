@@ -1,0 +1,15 @@
+Datasource anlegen 
+------------------
+
+siehe dazu unser Tutorial ab Seite 27.
+
+Anzupassen ist:
+
+Schritt 15:
+Name = MySqlGradeManagementDB
+JNDI Name = java:jboss/datasources/GradeManagement
+
+Schritt 17:
+Connection URL = jdbc:mysql://localhost:3306/grade_management
+username = root
+passwort = master42
