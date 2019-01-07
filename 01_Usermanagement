@@ -1,0 +1,28 @@
+Rollen und Usergruppen
+----------------------
+
+Usergruppen:
+    - Pruefungsamt
+    - Studenten
+    - Professoren
+
+Rechte der Gruppen hinzufügen:
+    - Camunda Admin
+    - Authorizations
+    - Add
+        Type        | Group         | Permissions       | Resource Id
+        ------------+---------------+-------------------+---------------
+        ALLOW       | Student       | ACCESS            | tasklist
+        ALLOW       | Professor     | ACCESS            | tasklist
+        ALLOW       | Pruefungsamt  | ALL               | *
+
+User:
+    User Id         | Passwort      | Firstname         | Lastname      | UserGroup
+    ----------------+---------------+-------------------+---------------+--------------
+    pruefungsamt    | pruefungsamt  | Prüfungsamt       | THI           | Pruefungsamt, camunda-admin
+    michael         | michael       | Michael           | Höpp          | Student
+    matthias        | matthias      | Matthias          | Strauß        | Student
+    katrin          | katrin        | Katrin            | Krüger        | Student
+
+
+
