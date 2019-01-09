@@ -2,10 +2,8 @@ package thi.iis.project.pruefungen.messaging;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.jdbc.SelectBuilder;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -16,6 +14,7 @@ import thi.iis.project.pruefungen.webservices.DeadlineWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.ExamWebService;
 import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
+import thi.iis.project.pruefungen.webservices.Student;
 
 /**
  * Sending notification that exam registration starts soon
@@ -27,6 +26,12 @@ public class SendRegistrationNotification implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
+        // get current index and select user from studentList
+        int index = (int) execution.getVariable("loopCounter");
+        Student[] studentList = (Student[]) execution.getVariable("studentList");
+        Student curStudent = studentList[index];
+        String username = curStudent.getRegistrationName();
+        
         // get start end enddate of registration
         DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
 
@@ -47,10 +52,11 @@ public class SendRegistrationNotification implements JavaDelegate {
 
         Exam[] examList = examWS.selectAll();
         
-        // put all necessarx data into map
+        // put all necessary data into map
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("startRegistrationTimer", startRegistration.getTime());
         data.put("endRegistrationTimer", endRegistration.getTime());
+        data.put("username", username);
         data.put("examList", examList);
         data.put("kao", kao);
         data.put("iis", iis);

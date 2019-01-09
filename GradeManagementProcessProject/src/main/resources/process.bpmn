@@ -169,7 +169,7 @@ Notenbekanntgabe</bpmn:text>
       <bpmn:startEvent id="StartEvent_0bh91td">
         <bpmn:outgoing>SequenceFlow_0rcovjo</bpmn:outgoing>
       </bpmn:startEvent>
-      <bpmn:userTask id="UserTask_0ucazst" name="Anmelden" camunda:assignee="katrin">
+      <bpmn:userTask id="UserTask_0ucazst" name="Anmelden" camunda:assignee="${username}">
         <bpmn:extensionElements>
           <camunda:formData>
             <camunda:formField id="participition_sesa" label="Teilnahme SESA am ${sesa.getDate().getTime().toString()}" type="boolean" />
@@ -213,7 +213,7 @@ Notenbekanntgabe</bpmn:text>
       <bpmn:incoming>SequenceFlow_1fi9w5u</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1fi9w5u" sourceRef="BoundaryEvent_1mtklbh" targetRef="EndEvent_0xr0tz2" />
-    <bpmn:userTask id="UserTask_1c97bd6" name="Information bestätigen" camunda:assignee="katrin" camunda:candidateGroups="Studenten">
+    <bpmn:userTask id="UserTask_1c97bd6" name="Information bestätigen" camunda:assignee="${username}">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="accepted" type="string" defaultValue="Die Termine für die Prüfungen wurden festgelegt. Bald kann eine Anmeldung erfolgen. Bitte den Erhalt dieser Nachricht bestätigen">

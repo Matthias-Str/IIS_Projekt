@@ -103,6 +103,7 @@ public class CallCreateDeadlineWS implements JavaDelegate {
     private void setStudentList(DelegateExecution execution) throws RemoteException{
         StudentWebService studentService = new StudentWebServiceProxy().getStudentWebService();
         Student[] studentList = studentService.selectAllStudents();
+        execution.setVariable("studentList", studentList);
         execution.setVariable("numberOfStudents", studentList.length);
     }
 }
