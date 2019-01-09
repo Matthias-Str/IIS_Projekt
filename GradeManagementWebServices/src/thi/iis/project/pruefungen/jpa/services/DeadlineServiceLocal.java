@@ -12,5 +12,6 @@ import thi.iis.project.pruefungen.jpa.entities.Deadline;
 @Local
 public interface DeadlineServiceLocal {
     public void create(Deadline d);
+    public Deadline selectByName(String name);
 
 }

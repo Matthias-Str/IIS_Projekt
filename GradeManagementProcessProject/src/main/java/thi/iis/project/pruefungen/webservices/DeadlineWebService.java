@@ -9,4 +9,5 @@ package thi.iis.project.pruefungen.webservices;
 
 public interface DeadlineWebService extends java.rmi.Remote {
     public thi.iis.project.pruefungen.webservices.Deadline createDeadline(java.util.Calendar arg0, java.lang.String arg1) throws java.rmi.RemoteException;
+    public thi.iis.project.pruefungen.webservices.Deadline selectDeadlineByName(java.lang.String arg0) throws java.rmi.RemoteException;
 }

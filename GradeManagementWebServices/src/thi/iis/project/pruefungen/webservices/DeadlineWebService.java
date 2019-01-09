@@ -24,4 +24,8 @@ public class DeadlineWebService {
         deadlineService.create(deadline);
         return deadline;
     }
+    
+    public Deadline selectDeadlineByName(String name){
+        return deadlineService.selectByName(name);
+    }
 }

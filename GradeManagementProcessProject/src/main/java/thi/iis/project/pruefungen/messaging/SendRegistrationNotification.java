@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.servicetasks;
+package thi.iis.project.pruefungen.messaging;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -13,10 +13,11 @@ public class SendRegistrationNotification implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-                
         RuntimeService rs = execution.getProcessEngineServices().getRuntimeService();
+        
         // startRegistration = Name, auf den empfangender Task reagiert
         rs.startProcessInstanceByMessage("startRegistration");
+
      }    
 
 }
