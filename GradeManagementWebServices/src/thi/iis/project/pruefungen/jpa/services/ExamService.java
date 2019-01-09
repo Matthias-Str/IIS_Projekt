@@ -1,5 +1,7 @@
 package thi.iis.project.pruefungen.jpa.services;
 
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,5 +33,11 @@ public class ExamService implements ExamServiceLocal {
         TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e WHERE exam_id = :id", Exam.class);
         query.setParameter("id", name);
         return query.getSingleResult();
+    }
+
+    @Override
+    public List<Exam> selectAll() {
+        TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e", Exam.class);
+        return query.getResultList();
     }
 }

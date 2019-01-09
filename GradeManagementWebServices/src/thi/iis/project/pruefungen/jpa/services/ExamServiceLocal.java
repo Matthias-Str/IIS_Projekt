@@ -1,5 +1,7 @@
 package thi.iis.project.pruefungen.jpa.services;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import thi.iis.project.pruefungen.jpa.entities.Exam;
@@ -13,4 +15,5 @@ import thi.iis.project.pruefungen.jpa.entities.Exam;
 public interface ExamServiceLocal {
     public Exam update(Exam e);
     public Exam selectByName(String name);
+    public List<Exam> selectAll();
 }

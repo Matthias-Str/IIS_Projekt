@@ -1,5 +1,6 @@
 package thi.iis.project.pruefungen.servicetasks;
 
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -11,6 +12,9 @@ import thi.iis.project.pruefungen.webservices.DeadlineWebService;
 import thi.iis.project.pruefungen.webservices.DeadlineWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.ExamWebService;
 import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
+import thi.iis.project.pruefungen.webservices.Student;
+import thi.iis.project.pruefungen.webservices.StudentWebService;
+import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
 
 /**
  * Servicetask to persist deadlines and examdates
@@ -19,19 +23,24 @@ import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
  *
  */
 public class CallCreateDeadlineWS implements JavaDelegate {
-
+    Calendar end_registration_date = Calendar.getInstance();
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        Calendar end_registration_date = persistDeadlines(execution);
+        // persist entered deadlines
+        persistDeadlines(execution);
 
+        // persist exams
         persistExams(execution);
         
-        execution.setVariable("endRegistration", end_registration_date.getTime());
-
+        // set variable of endRegistrationTimer
+        execution.setVariable("endRegistrationTimer", end_registration_date.getTime());
+        
+        // get students from database
+        setStudentList(execution);
     }
 
-    private Calendar persistDeadlines(DelegateExecution execution) throws Exception {
+    private void persistDeadlines(DelegateExecution execution) throws Exception {
         // init new webservices
         DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
 
@@ -51,7 +60,7 @@ public class CallCreateDeadlineWS implements JavaDelegate {
         deadlineWS.createDeadline(cal, "start_registration");
         // end_registration
         cal.setTime(sdf.parse(end_registration));
-        Calendar end_registration_date = cal;
+        end_registration_date.setTime(sdf.parse(end_registration));
         deadlineWS.createDeadline(end_registration_date, "end_registration");
         // grade_registration
         cal.setTime(sdf.parse(grade_registration));
@@ -60,7 +69,6 @@ public class CallCreateDeadlineWS implements JavaDelegate {
         cal.setTime(sdf.parse(announcement_date));
         deadlineWS.createDeadline(cal, "announcement_date");
         
-        return end_registration_date;
     }
 
     private void persistExams(DelegateExecution execution) throws Exception {
@@ -90,5 +98,11 @@ public class CallCreateDeadlineWS implements JavaDelegate {
         // kao
         cal.setTime(sdf.parse(examdate_kao));
         examWS.updateExamdate("inf_m_kao_ws18", cal);
+    }
+    
+    private void setStudentList(DelegateExecution execution) throws RemoteException{
+        StudentWebService studentService = new StudentWebServiceProxy().getStudentWebService();
+        Student[] studentList = studentService.selectAllStudents();
+        execution.setVariable("numberOfStudents", studentList.length);
     }
 }

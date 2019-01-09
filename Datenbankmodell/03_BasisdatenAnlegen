@@ -29,3 +29,15 @@ INSERT INTO exam VALUES(
 INSERT INTO exam VALUES(
     "inf_m_itim_ws18", null, "ITIM", 3
 );
+
+INSERT INTO student VALUES(
+    0, "katrin", "Krüger", "Katrin", "kak6529@thi.de", "INF M"
+);
+
+INSERT INTO student VALUES(
+    1, "matthias", "Strauß", "Matthias", "mas0453@thi.de", "INF M"
+);
+
+INSERT INTO student VALUES(
+    2, "michael", "Höpp", "Michael", "michael@hoepp-in.de", "INF M"
+);

@@ -12,8 +12,8 @@ Rechte der Gruppen hinzufügen:
     - Add
         Type        | Group         | Permissions       | Resource Id
         ------------+---------------+-------------------+---------------
-        ALLOW       | Student       | ACCESS            | tasklist
-        ALLOW       | Professor     | ACCESS            | tasklist
+        ALLOW       | Studenten     | ACCESS            | tasklist
+        ALLOW       | Professoren   | ACCESS            | tasklist
         ALLOW       | Pruefungsamt  | ALL               | *
 
 User:
