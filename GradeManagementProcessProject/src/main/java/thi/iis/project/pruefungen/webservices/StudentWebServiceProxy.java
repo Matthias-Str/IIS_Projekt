@@ -44,6 +44,12 @@ public class StudentWebServiceProxy implements thi.iis.project.pruefungen.webser
     return studentWebService;
   }
   
+  public thi.iis.project.pruefungen.webservices.Student selectByRegistrationName(java.lang.String arg0) throws java.rmi.RemoteException{
+    if (studentWebService == null)
+      _initStudentWebServiceProxy();
+    return studentWebService.selectByRegistrationName(arg0);
+  }
+  
   public thi.iis.project.pruefungen.webservices.Student[] selectAllStudents() throws java.rmi.RemoteException{
     if (studentWebService == null)
       _initStudentWebServiceProxy();

@@ -31,13 +31,13 @@ INSERT INTO exam VALUES(
 );
 
 INSERT INTO student VALUES(
-    0, "katrin", "Krüger", "Katrin", "kak6529@thi.de", "INF M"
+    "katrin", "INF M", "Katrin", "Krüger", "kak6529@thi.de", 0
 );
 
 INSERT INTO student VALUES(
-    1, "matthias", "Strauß", "Matthias", "mas0453@thi.de", "INF M"
+    "matthias", "INF M", "Matthias", "Strauß", "mas0453@thi.de", 1
 );
 
 INSERT INTO student VALUES(
-    2, "michael", "Höpp", "Michael", "michael@hoepp-in.de", "INF M"
+    "michael", "INF M", "Michael", "Höpp", "michael@hoepp-in.de", 2
 );

@@ -32,6 +32,13 @@ public class StudentService implements StudentServiceLocal {
         TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s", Student.class);
         return query.getResultList();
     }
+
+    @Override
+    public Student selectByRegistrationName(String registrationName) {
+        TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE registration_name = :name", Student.class);
+        query.setParameter("name", registrationName);
+        return query.getSingleResult();
+    }
     
     
 

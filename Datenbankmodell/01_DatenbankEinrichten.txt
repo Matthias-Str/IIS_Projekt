@@ -20,10 +20,12 @@ use grade_management;
 
 Tabellen erstellen
 ------------------
-Dafür das Projekt Grade Management Webservices bauen und anschließend auf dem Server full publish machen.
+Dafür das Projekt Grade Management Webservices bearbeiten:
+In persistence.xml (im Ordner Web_INF) das Attribut hibernate.hbm2ddl.auto auf create setzen 
+bauen und anschließend auf dem Server full publish machen
 -> Erstellen der Tabellen erfolgt automatisch
+-> attribut anschließend komplett löschen
 -> direkt weiter zu 03_Basisdaten einfügen
-
 
 CREATE TABLE IF NOT EXISTS professor(
     professor_id int,
@@ -56,14 +58,14 @@ CREATE TABLE IF NOT EXISTS exam(
 CREATE TABLE IF NOT EXISTS student_exam(
     student_exam_id int,
     registration_number int,
-    exam_id int,
+    exam_id varchar(255),
     participated boolean default FALSE,
     grade decimal null,
     document_uploaded boolean default FALSE,
     grade_checked boolean default FALSE,
     PRIMARY KEY (student_exam_id),
-    FOREIGN KEY (registration_number) REFERENCES student(registration_number),
-    FOREIGN KEY (exam_id) REFERENCES exam(exam_id)
+    FOREIGN KEY (registration_number) REFERENCES student (registration_number),
+    FOREIGN KEY (exam_id) REFERENCES exam (exam_id)
 );
 
 CREATE TABLE IF NOT EXISTS deadline(

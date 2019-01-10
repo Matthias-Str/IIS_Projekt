@@ -17,4 +17,8 @@ public class StudentWebService {
     public List<Student> selectAllStudents(){
         return studentService.selectAll();
     }
+    
+    public Student selectByRegistrationName(String registrationName){
+        return studentService.selectByRegistrationName(registrationName);
+    }
 }

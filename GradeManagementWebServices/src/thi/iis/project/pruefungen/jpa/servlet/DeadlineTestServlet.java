@@ -2,11 +2,6 @@ package thi.iis.project.pruefungen.jpa.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -16,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import thi.iis.project.pruefungen.jpa.entities.Deadline;
-import thi.iis.project.pruefungen.jpa.entities.Exam;
 import thi.iis.project.pruefungen.jpa.services.DeadlineServiceLocal;
 
 /**

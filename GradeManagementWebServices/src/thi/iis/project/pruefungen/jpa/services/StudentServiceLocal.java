@@ -9,4 +9,5 @@ import thi.iis.project.pruefungen.jpa.entities.Student;
 @Local
 public interface StudentServiceLocal {
     public List<Student> selectAll();
+    public Student selectByRegistrationName(String registrationName);
 }

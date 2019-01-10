@@ -12,6 +12,11 @@ encoding//src/main/java/thi/iis/project/pruefungen/webservices/ExamWebServiceSer
 encoding//src/main/java/thi/iis/project/pruefungen/webservices/ExamWebServiceServiceSoapBindingStub.java=UTF-8
 encoding//src/main/java/thi/iis/project/pruefungen/webservices/Professor.java=UTF-8
 encoding//src/main/java/thi/iis/project/pruefungen/webservices/Student.java=UTF-8
+encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentExam.java=UTF-8
+encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentExamWebService.java=UTF-8
+encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentExamWebServiceService.java=UTF-8
+encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentExamWebServiceServiceLocator.java=UTF-8
+encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentExamWebServiceServiceSoapBindingStub.java=UTF-8
 encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentWebService.java=UTF-8
 encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentWebServiceService.java=UTF-8
 encoding//src/main/java/thi/iis/project/pruefungen/webservices/StudentWebServiceServiceLocator.java=UTF-8

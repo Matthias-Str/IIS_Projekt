@@ -17,19 +17,17 @@ public class Student implements Serializable {
 	@Column(name="course_of_study")
 	private String courseOfStudy;
 	
-
 	private String firstname;
 
 	private String lastname;
 
 	private String mail;
 
+	@Id
 	@Column(name="registration_name")
 	private String registrationName;
 	
-	@Id
 	@Column(name="registration_number")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int registrationNumber;
 
 	public Student() {

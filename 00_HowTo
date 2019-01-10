@@ -18,6 +18,8 @@ Vorbereitungen:
 Vor jeder Prozessausführung:
     - Tabelle deadlines muss geleert werden (weil sonst keine neuen Deadlines gespeichert werden können weil gleiche ID mehrfach)
         delete from deadline;
+    - Tabelle student_exam muss geleert werden (zu beginn gibt es keine Prüfungsanmeldungen)
+        delete from student_exam;
 
 Zu startender Prozess in Camunda Tasklist:
     Verwaltung Pruefungsanmeldungen Process 
