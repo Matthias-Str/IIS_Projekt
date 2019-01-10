@@ -57,6 +57,7 @@ public class SendRegistrationNotification implements JavaDelegate {
         data.put("startRegistrationTimer", startRegistration.getTime());
         data.put("endRegistrationTimer", endRegistration.getTime());
         data.put("username", username);
+        data.put("index", index);
         data.put("examList", examList);
         data.put("kao", kao);
         data.put("iis", iis);

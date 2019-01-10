@@ -4,6 +4,7 @@
     <bpmn:participant id="Participant_1989kl5" name="Verwaltung Prüfungsanmeldungen" processRef="VerwaltungPruefungsanmeldungen_id" />
     <bpmn:participant id="Participant_1g3ahah" name="Prüfungsanmeldung" processRef="Pruefungsanmeldung_id" />
     <bpmn:messageFlow id="MessageFlow_1xskbl6" sourceRef="SendTask_1rr6h3f" targetRef="StartEvent_19tpigd" />
+    <bpmn:messageFlow id="MessageFlow_0b8knat" sourceRef="SendTask_0puofga" targetRef="ReceiveTask_0ud71uv" />
   </bpmn:collaboration>
   <bpmn:process id="VerwaltungPruefungsanmeldungen_id" name="Verwaltung Pruefungsanmeldungen Process" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0mwta3z" />
@@ -77,13 +78,9 @@
       </bpmn:extensionElements>
     </bpmn:dataObjectReference>
     <bpmn:dataObject id="DataObject_0qaix0h" />
-    <bpmn:sequenceFlow id="SequenceFlow_12xas3r" sourceRef="SendTask_1rr6h3f" targetRef="EndEvent_077ud5u" />
-    <bpmn:endEvent id="EndEvent_077ud5u">
-      <bpmn:incoming>SequenceFlow_12xas3r</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sendTask id="SendTask_1rr6h3f" name="Notifications&#10;schicken" camunda:class="thi.iis.project.pruefungen.messaging.SendRegistrationNotification">
       <bpmn:incoming>SequenceFlow_0gg052u</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_12xas3r</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1x6n5pc</bpmn:outgoing>
       <bpmn:property id="Property_1152swd" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_1n7ra1y">
         <bpmn:sourceRef>DataObjectReference_1vbbbxj</bpmn:sourceRef>
@@ -105,6 +102,61 @@
         <bpmn:targetRef>DataObjectReference_1vbbbxj</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
+    <bpmn:subProcess id="SubProcess_1yzxstv" name="Anmeldungen speichern">
+      <bpmn:incoming>SequenceFlow_1x6n5pc</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hph93m</bpmn:outgoing>
+      <bpmn:property id="Property_0ne682s" name="__targetRef_placeholder" />
+      <bpmn:multiInstanceLoopCharacteristics>
+        <bpmn:loopCardinality xsi:type="bpmn:tFormalExpression">${numberOfStudents}</bpmn:loopCardinality>
+      </bpmn:multiInstanceLoopCharacteristics>
+      <bpmn:startEvent id="StartEvent_0d9vz7o">
+        <bpmn:outgoing>SequenceFlow_1f0650f</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:receiveTask id="ReceiveTask_0ud71uv" name="Empfange Anmeldung" messageRef="Message_0iyv9us">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="counter">${loopCounter.toString()}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>SequenceFlow_1f0650f</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_173etqz</bpmn:outgoing>
+        <bpmn:dataOutputAssociation id="DataOutputAssociation_0mznqyt">
+          <bpmn:targetRef>DataObjectReference_0lgbacg</bpmn:targetRef>
+        </bpmn:dataOutputAssociation>
+      </bpmn:receiveTask>
+      <bpmn:endEvent id="EndEvent_1dg74e0">
+        <bpmn:incoming>SequenceFlow_0bicpkc</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:dataObjectReference id="DataObjectReference_0lgbacg" name="Anmeldung" dataObjectRef="DataObject_1p9g8be" />
+      <bpmn:dataObject id="DataObject_1p9g8be" />
+      <bpmn:sequenceFlow id="SequenceFlow_0bicpkc" sourceRef="ServiceTask_0elsgxb" targetRef="EndEvent_1dg74e0" />
+      <bpmn:sequenceFlow id="SequenceFlow_173etqz" sourceRef="ReceiveTask_0ud71uv" targetRef="ServiceTask_0elsgxb" />
+      <bpmn:sequenceFlow id="SequenceFlow_1f0650f" sourceRef="StartEvent_0d9vz7o" targetRef="ReceiveTask_0ud71uv" />
+      <bpmn:serviceTask id="ServiceTask_0elsgxb" name="Persistiere Anmeldung" camunda:class="thi.iis.project.pruefungen.servicetasks.PersistRegistration">
+        <bpmn:incoming>SequenceFlow_173etqz</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0bicpkc</bpmn:outgoing>
+        <bpmn:property id="Property_1qda5dm" name="__targetRef_placeholder" />
+        <bpmn:dataInputAssociation id="DataInputAssociation_0zkxsxk">
+          <bpmn:sourceRef>DataObjectReference_0lgbacg</bpmn:sourceRef>
+          <bpmn:targetRef>Property_1qda5dm</bpmn:targetRef>
+        </bpmn:dataInputAssociation>
+      </bpmn:serviceTask>
+    </bpmn:subProcess>
+    <bpmn:boundaryEvent id="BoundaryEvent_17dz2rt" name="Ende Prüfungsanmeldung" attachedToRef="SubProcess_1yzxstv">
+      <bpmn:outgoing>SequenceFlow_1fxh3fd</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_02aegfz">
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${endRegistrationTimer}</bpmn:timeDate>
+      </bpmn:timerEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1x6n5pc" sourceRef="SendTask_1rr6h3f" targetRef="SubProcess_1yzxstv" />
+    <bpmn:endEvent id="EndEvent_1knq8n5" name="Ende wegen Prüfungsanmeldungszeitraum vorbei">
+      <bpmn:incoming>SequenceFlow_1fxh3fd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fxh3fd" sourceRef="BoundaryEvent_17dz2rt" targetRef="EndEvent_1knq8n5" />
+    <bpmn:endEvent id="EndEvent_0sf8egy" name="Ende weil alle Anmeldungen eingetroffen sind">
+      <bpmn:incoming>SequenceFlow_0hph93m</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0hph93m" sourceRef="SubProcess_1yzxstv" targetRef="EndEvent_0sf8egy" />
     <bpmn:textAnnotation id="TextAnnotation_029golv">
       <bpmn:text>Prüfungstermine,
 Prüfungsanmeldungzeitraum,
@@ -145,7 +197,7 @@ Notenbekanntgabe</bpmn:text>
           </camunda:formData>
         </bpmn:extensionElements>
         <bpmn:incoming>SequenceFlow_0rcovjo</bpmn:incoming>
-        <bpmn:outgoing>SequenceFlow_0kfn1ih</bpmn:outgoing>
+        <bpmn:outgoing>SequenceFlow_197j97x</bpmn:outgoing>
         <bpmn:property id="Property_1lid98y" name="__targetRef_placeholder" />
         <bpmn:dataInputAssociation id="DataInputAssociation_07gzqko">
           <bpmn:sourceRef>DataObjectReference_1tefgm3</bpmn:sourceRef>
@@ -156,24 +208,24 @@ Notenbekanntgabe</bpmn:text>
         </bpmn:dataOutputAssociation>
       </bpmn:userTask>
       <bpmn:endEvent id="EndEvent_1xgb3kf">
-        <bpmn:incoming>SequenceFlow_0oxpq1a</bpmn:incoming>
+        <bpmn:incoming>SequenceFlow_0ln3vru</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:dataObjectReference id="DataObjectReference_1tefgm3" name="Liste mit Prüfungsterminen" dataObjectRef="DataObject_1vkmims" />
       <bpmn:dataObject id="DataObject_1vkmims" />
       <bpmn:sequenceFlow id="SequenceFlow_0rcovjo" sourceRef="StartEvent_0bh91td" targetRef="UserTask_0ucazst" />
       <bpmn:dataObjectReference id="DataObjectReference_065r447" name="Anmeldung" dataObjectRef="DataObject_1wn50e1" />
       <bpmn:dataObject id="DataObject_1wn50e1" />
-      <bpmn:sequenceFlow id="SequenceFlow_0kfn1ih" sourceRef="UserTask_0ucazst" targetRef="SendTask_0mpohdm" />
-      <bpmn:sequenceFlow id="SequenceFlow_0oxpq1a" sourceRef="SendTask_0mpohdm" targetRef="EndEvent_1xgb3kf" />
-      <bpmn:serviceTask id="SendTask_0mpohdm" name="Anmeldung persistieren" camunda:class="thi.iis.project.pruefungen.messaging.PersistRegistration">
-        <bpmn:incoming>SequenceFlow_0kfn1ih</bpmn:incoming>
-        <bpmn:outgoing>SequenceFlow_0oxpq1a</bpmn:outgoing>
-        <bpmn:property id="Property_0u03lx2" name="__targetRef_placeholder" />
-        <bpmn:dataInputAssociation id="DataInputAssociation_0fsl1j0">
+      <bpmn:sendTask id="SendTask_0puofga" name="Abschicken der Anmeldung" camunda:class="thi.iis.project.pruefungen.messaging.SendRegistration">
+        <bpmn:incoming>SequenceFlow_197j97x</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0ln3vru</bpmn:outgoing>
+        <bpmn:property id="Property_0ix8gri" name="__targetRef_placeholder" />
+        <bpmn:dataInputAssociation id="DataInputAssociation_1nnxa8j">
           <bpmn:sourceRef>DataObjectReference_065r447</bpmn:sourceRef>
-          <bpmn:targetRef>Property_0u03lx2</bpmn:targetRef>
+          <bpmn:targetRef>Property_0ix8gri</bpmn:targetRef>
         </bpmn:dataInputAssociation>
-      </bpmn:serviceTask>
+      </bpmn:sendTask>
+      <bpmn:sequenceFlow id="SequenceFlow_197j97x" sourceRef="UserTask_0ucazst" targetRef="SendTask_0puofga" />
+      <bpmn:sequenceFlow id="SequenceFlow_0ln3vru" sourceRef="SendTask_0puofga" targetRef="EndEvent_1xgb3kf" />
       <bpmn:textAnnotation id="TextAnnotation_0jm2iuz">
         <bpmn:text>Für alle Prüfungen auf einmal anmelden</bpmn:text>
       </bpmn:textAnnotation>
@@ -219,16 +271,11 @@ Notenbekanntgabe</bpmn:text>
   </bpmn:process>
   <bpmn:message id="Message_1xoo7uw" name="startRegistration" />
   <bpmn:message id="Message_0h4y97c" name="NewOrderMessage" />
+  <bpmn:message id="Message_0iyv9us" name="sendRegistration" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j281o0">
       <bpmndi:BPMNShape id="Participant_1989kl5_di" bpmnElement="Participant_1989kl5">
-        <dc:Bounds x="108" y="37" width="895" height="531" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_077ud5u_di" bpmnElement="EndEvent_077ud5u">
-        <dc:Bounds x="873" y="287" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1046" y="426" width="82" height="40" />
-        </bpmndi:BPMNLabel>
+        <dc:Bounds x="108" y="37" width="1914" height="539" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0dgj20v_di" bpmnElement="StartEvent_0dgj20v">
         <dc:Bounds x="181" y="287" width="36" height="36" />
@@ -374,14 +421,6 @@ Notenbekanntgabe</bpmn:text>
         <di:waypoint x="881" y="942" />
         <di:waypoint x="1002" y="1008" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_12xas3r_di" bpmnElement="SequenceFlow_12xas3r">
-        <di:waypoint x="762" y="305" />
-        <di:waypoint x="873" y="305" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0kfn1ih_di" bpmnElement="SequenceFlow_0kfn1ih">
-        <di:waypoint x="881" y="915" />
-        <di:waypoint x="970" y="915" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_05ehth1_di" bpmnElement="DataOutputAssociation_05ehth1">
         <di:waypoint x="544" y="265" />
         <di:waypoint x="606" y="178" />
@@ -403,16 +442,98 @@ Notenbekanntgabe</bpmn:text>
         <di:waypoint x="1141" y="681" />
         <di:waypoint x="1330" y="681" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0oxpq1a_di" bpmnElement="SequenceFlow_0oxpq1a">
+      <bpmndi:BPMNShape id="SubProcess_1yzxstv_di" bpmnElement="SubProcess_1yzxstv" isExpanded="true">
+        <dc:Bounds x="1006" y="179" width="556" height="251" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BoundaryEvent_17dz2rt_di" bpmnElement="BoundaryEvent_17dz2rt">
+        <dc:Bounds x="1477" y="161" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1451" y="187" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0d9vz7o_di" bpmnElement="StartEvent_0d9vz7o">
+        <dc:Bounds x="1034" y="261" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ReceiveTask_0ud71uv_di" bpmnElement="ReceiveTask_0ud71uv">
+        <dc:Bounds x="1120" y="239" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1dg74e0_di" bpmnElement="EndEvent_1dg74e0">
+        <dc:Bounds x="1420" y="261" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0lgbacg_di" bpmnElement="DataObjectReference_0lgbacg">
+        <dc:Bounds x="1183" y="353" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1174" y="410" width="55" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0bicpkc_di" bpmnElement="SequenceFlow_0bicpkc">
+        <di:waypoint x="1370" y="279" />
+        <di:waypoint x="1420" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_173etqz_di" bpmnElement="SequenceFlow_173etqz">
+        <di:waypoint x="1220" y="279" />
+        <di:waypoint x="1270" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1f0650f_di" bpmnElement="SequenceFlow_1f0650f">
+        <di:waypoint x="1070" y="279" />
+        <di:waypoint x="1120" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0mznqyt_di" bpmnElement="DataOutputAssociation_0mznqyt">
+        <di:waypoint x="1183" y="319" />
+        <di:waypoint x="1193" y="353" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0zkxsxk_di" bpmnElement="DataInputAssociation_0zkxsxk">
+        <di:waypoint x="1219" y="363" />
+        <di:waypoint x="1274" y="317" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1x6n5pc_di" bpmnElement="SequenceFlow_1x6n5pc">
+        <di:waypoint x="762" y="305" />
+        <di:waypoint x="1006" y="305" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1knq8n5_di" bpmnElement="EndEvent_1knq8n5">
+        <dc:Bounds x="1708" y="117" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1683" y="160" width="87" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fxh3fd_di" bpmnElement="SequenceFlow_1fxh3fd">
+        <di:waypoint x="1495" y="161" />
+        <di:waypoint x="1495" y="135" />
+        <di:waypoint x="1708" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0sf8egy_di" bpmnElement="EndEvent_0sf8egy">
+        <dc:Bounds x="1693" y="287" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1670" y="330" width="82" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hph93m_di" bpmnElement="SequenceFlow_0hph93m">
+        <di:waypoint x="1562" y="305" />
+        <di:waypoint x="1693" y="305" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_0puofga_di" bpmnElement="SendTask_0puofga">
+        <dc:Bounds x="970" y="875" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_197j97x_di" bpmnElement="SequenceFlow_197j97x">
+        <di:waypoint x="881" y="915" />
+        <di:waypoint x="970" y="915" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ln3vru_di" bpmnElement="SequenceFlow_0ln3vru">
         <di:waypoint x="1070" y="915" />
         <di:waypoint x="1134" y="915" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="DataInputAssociation_0fsl1j0_di" bpmnElement="DataInputAssociation_0fsl1j0">
+      <bpmndi:BPMNEdge id="MessageFlow_0b8knat_di" bpmnElement="MessageFlow_0b8knat">
+        <di:waypoint x="1020" y="875" />
+        <di:waypoint x="1020" y="597" />
+        <di:waypoint x="1142" y="597" />
+        <di:waypoint x="1142" y="319" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1nnxa8j_di" bpmnElement="DataInputAssociation_1nnxa8j">
         <di:waypoint x="1020" y="993" />
         <di:waypoint x="1020" y="955" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0jfeaut_di" bpmnElement="SendTask_0mpohdm">
-        <dc:Bounds x="970" y="875" width="100" height="80" />
+      <bpmndi:BPMNShape id="ServiceTask_09i5hit_di" bpmnElement="ServiceTask_0elsgxb">
+        <dc:Bounds x="1270" y="239" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

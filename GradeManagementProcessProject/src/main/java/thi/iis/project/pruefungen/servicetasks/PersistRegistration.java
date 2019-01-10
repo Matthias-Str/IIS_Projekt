@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.messaging;
+package thi.iis.project.pruefungen.servicetasks;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,15 +24,7 @@ public class PersistRegistration implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         // get exam registrations
         String username = (String) execution.getVariable("username");
-        Map<String, Boolean> examRegistrations = new HashMap<String, Boolean>();
-        Boolean sesa = (Boolean) execution.getVariable("inf_m_sesa_ws18");
-        examRegistrations.put("inf_m_sesa_ws18", sesa);
-        Boolean kao = (Boolean) execution.getVariable("inf_m_kao_ws18");
-        examRegistrations.put("inf_m_kao_ws18", kao);
-        Boolean iis = (Boolean) execution.getVariable("inf_m_iis_ws18");
-        examRegistrations.put("inf_m_iis_ws18", iis);
-        Boolean itim = (Boolean) execution.getVariable("inf_m_itim_ws18");
-        examRegistrations.put("inf_m_itim_ws18", itim);
+        Map<String, Boolean> examRegistrations = (HashMap<String, Boolean>) execution.getVariable("registrationList");
 
         // init webservices
         StudentWebService studentWS = new StudentWebServiceProxy().getStudentWebService();
