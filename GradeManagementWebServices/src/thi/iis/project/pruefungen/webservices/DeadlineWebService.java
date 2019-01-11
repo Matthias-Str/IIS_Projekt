@@ -1,6 +1,7 @@
 package thi.iis.project.pruefungen.webservices;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.jws.WebService;
@@ -27,5 +28,9 @@ public class DeadlineWebService {
     
     public Deadline selectDeadlineByName(String name){
         return deadlineService.selectByName(name);
+    }
+    
+    public List<Deadline> selectAll(){
+        return deadlineService.selectAll();
     }
 }

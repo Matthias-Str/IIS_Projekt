@@ -1,0 +1,98 @@
+package thi.iis.project.pruefungen.servicetasks.anmeldung;
+
+import java.io.File;
+import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.xml.bind.JAXB;
+
+import org.apache.activemq.ActiveMQConnection;
+import org.apache.activemq.ActiveMQConnectionFactory;
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
+
+import thi.iis.project.pruefungen.beans.DateList;
+
+/**
+ * Message Sending Task
+ * input: Values that pruefungsamt inserted in user form
+ * output: text message (xml: DateList) sended to rawRegistrationDates_queue
+ * @author Katrin Krüger
+ *
+ */
+public class SendDeadlines implements JavaDelegate {
+    // URL of the JMS server. DEFAULT_BROKER_URL will just mean that JMS server
+    // is on localhost
+    private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
+
+    // default broker URL is : tcp://localhost:61616"
+    private static String subject = "rawRegistrationDates_queue"; // Queue Name
+    
+    @Override
+    public void execute(DelegateExecution execution) throws Exception {
+        // Get JMS connection from the server and start it
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+        Connection connection = connectionFactory.createConnection();
+        connection.start();
+
+        // Create session
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+        // Create Queue (if it doesn't already exist)
+        Destination destination = session.createQueue(subject);
+
+        // Create message producer
+        MessageProducer producer = session.createProducer(destination);
+
+        // get Variables
+        // extract deadlines
+        String start_registration = (String) execution.getVariable("start_registration");
+        String end_registration = (String) execution.getVariable("end_registration");
+        String grade_registration = (String) execution.getVariable("grade_registration");
+        String announcement_date = (String) execution.getVariable("announcement_date");
+        // extract examdates
+        String examdate_kao = (String) execution.getVariable("examdate_kao");
+        String examdate_iis = (String) execution.getVariable("examdate_iis");
+        String examdate_sesa = (String) execution.getVariable("examdate_sesa");
+        String examdate_itim = (String) execution.getVariable("examdate_itim");
+        
+        
+        // add new Dates to List
+        DateList dateList = new DateList();
+        Map<String, String> list = new HashMap<String, String>();
+        list.put("start_registration", start_registration);
+        list.put("end_registration", end_registration);
+        list.put("grade_registration", grade_registration);
+        list.put("announcement_date", announcement_date);
+        list.put("inf_m_kao_ws18",examdate_kao);
+        list.put("inf_m_iis_ws18", examdate_iis);
+        list.put("inf_m_sesa_ws18", examdate_sesa);
+        list.put("inf_m_itim_ws18", examdate_itim);
+        dateList.setDateList(list);
+        
+        
+        // Create messages
+        StringWriter sw = new StringWriter();
+        JAXB.marshal(dateList, sw);
+        String objectToText = sw.toString();
+        TextMessage message = session.createTextMessage(objectToText);
+
+        // Send message to queue
+        producer.send(message);
+
+        connection.close();
+
+    }
+
+}

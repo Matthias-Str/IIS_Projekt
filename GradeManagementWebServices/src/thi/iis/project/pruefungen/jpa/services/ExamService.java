@@ -1,5 +1,6 @@
 package thi.iis.project.pruefungen.jpa.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -39,5 +40,13 @@ public class ExamService implements ExamServiceLocal {
     public List<Exam> selectAll() {
         TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e", Exam.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Date getFirstExamDate() {
+        TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e ORDER BY e.date asc", Exam.class);
+        query.setMaxResults(1);
+        Exam e = query.getSingleResult();
+        return e.getDate();
     }
 }

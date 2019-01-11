@@ -52,7 +52,7 @@ public class ExamTestServlet extends HttpServlet {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMANY);
         try {
             cal.setTime(sdf.parse("01.12.2018 10:00:00"));
-            date = sdf.parse("01.12.2018 10:00:00");
+            date = sdf.parse("01.01.2018 10:00:00");
         } catch (ParseException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -61,6 +61,9 @@ public class ExamTestServlet extends HttpServlet {
         e.setDate(date);
         e = examService.update(e);
         writer.println("Current Exam:" + e.toString());
+        
+        Date d = examService.getFirstExamDate();
+        writer.println(d.toString());
 	}
 
 	/**

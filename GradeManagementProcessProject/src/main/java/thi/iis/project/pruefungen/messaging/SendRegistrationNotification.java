@@ -1,6 +1,7 @@
 package thi.iis.project.pruefungen.messaging;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class SendRegistrationNotification implements JavaDelegate {
         Exam itim = examWS.selectByName("inf_m_itim_ws18");
 
         Exam[] examList = examWS.selectAll();
-        
+                
         // put all necessary data into map
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("startRegistrationTimer", startRegistration.getTime());
@@ -67,6 +68,16 @@ public class SendRegistrationNotification implements JavaDelegate {
         // correlate message "startRegistration"
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         runtimeService.createMessageCorrelation("startRegistration").setVariables(data).correlateWithResult();
+
+        // date for seconde message
+        Calendar firstExamDate = examWS.getFirstExamDate();
+        Deadline gradeRegistration = deadlineWS.selectDeadlineByName("grade_registration");
+        Map<String, Object> data2 = new HashMap<String, Object>();
+        data2.put("firstExamDate", firstExamDate.getTime());
+        data2.put("gradeRegistrationTimer", gradeRegistration.getDate().getTime());
+
+        // correlate message "startDocumentListener"
+        runtimeService.createMessageCorrelation("startDocumentListener").setVariables(data2).correlateWithResult();
 
     }
 

@@ -34,4 +34,8 @@ public class ExamWebService {
     public Exam selectByName(String name){
         return examService.selectByName(name);
     }
+    
+    public Date getFirstExamDate(){
+        return examService.getFirstExamDate();
+    }
 }
