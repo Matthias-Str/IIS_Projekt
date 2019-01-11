@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/thi/iis/project/pruefungen/webservices/Deadline.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/DeadlineWebService.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/DeadlineWebServiceService.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/DeadlineWebServiceServiceLocator.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/DeadlineWebServiceServiceSoapBindingStub.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/Exam.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/ExamWebService.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/ExamWebServiceService.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/ExamWebServiceServiceLocator.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/ExamWebServiceServiceSoapBindingStub.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/Professor.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/Student.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/StudentWebService.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/StudentWebServiceService.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/StudentWebServiceServiceLocator.java=UTF-8
+encoding//src/thi/iis/project/pruefungen/webservices/StudentWebServiceServiceSoapBindingStub.java=UTF-8
