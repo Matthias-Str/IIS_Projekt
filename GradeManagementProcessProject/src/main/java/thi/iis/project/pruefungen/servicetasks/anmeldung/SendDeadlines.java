@@ -1,17 +1,13 @@
 package thi.iis.project.pruefungen.servicetasks.anmeldung;
 
-import java.io.File;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
+import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -19,6 +15,7 @@ import javax.xml.bind.JAXB;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
@@ -41,6 +38,14 @@ public class SendDeadlines implements JavaDelegate {
     
     @Override
     public void execute(DelegateExecution execution) throws Exception {
+        // send data from usertask to anmeldungsmanagement
+        sendToQueue(execution);
+        
+        // start process that waits for response
+//        startProcess(execution);
+    }
+
+    private void sendToQueue(DelegateExecution execution) throws JMSException{
         // Get JMS connection from the server and start it
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
         Connection connection = connectionFactory.createConnection();
@@ -57,15 +62,15 @@ public class SendDeadlines implements JavaDelegate {
 
         // get Variables
         // extract deadlines
-        String start_registration = (String) execution.getVariable("start_registration");
-        String end_registration = (String) execution.getVariable("end_registration");
-        String grade_registration = (String) execution.getVariable("grade_registration");
-        String announcement_date = (String) execution.getVariable("announcement_date");
+        String start_registration = (String) execution.getVariable("input_start_registration");
+        String end_registration = (String) execution.getVariable("input_end_registration");
+        String grade_registration = (String) execution.getVariable("input_grade_registration");
+        String announcement_date = (String) execution.getVariable("input_announcement_date");
         // extract examdates
-        String examdate_kao = (String) execution.getVariable("examdate_kao");
-        String examdate_iis = (String) execution.getVariable("examdate_iis");
-        String examdate_sesa = (String) execution.getVariable("examdate_sesa");
-        String examdate_itim = (String) execution.getVariable("examdate_itim");
+        String examdate_kao = (String) execution.getVariable("input_examdate_kao");
+        String examdate_iis = (String) execution.getVariable("input_examdate_iis");
+        String examdate_sesa = (String) execution.getVariable("input_examdate_sesa");
+        String examdate_itim = (String) execution.getVariable("input_examdate_itim");
         
         
         // add new Dates to List
@@ -92,7 +97,11 @@ public class SendDeadlines implements JavaDelegate {
         producer.send(message);
 
         connection.close();
-
     }
-
+    
+    private void startProcess(DelegateExecution execution){
+        // correlate message "startRegistration"
+        RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
+        runtimeService.createMessageCorrelation("startInitDataWaitProcess").correlateWithResult();
+    }
 }

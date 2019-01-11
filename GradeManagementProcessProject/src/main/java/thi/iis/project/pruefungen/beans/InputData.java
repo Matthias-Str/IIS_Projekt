@@ -1,7 +1,7 @@
 package thi.iis.project.pruefungen.beans;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,6 +15,8 @@ public class InputData implements Serializable{
     Deadline[] deadlineList;
     Student[] studentList;
     Exam[] examList;
+    int numberOfStudents;
+    Date firstExamDate;
     
     public InputData(){
         
@@ -47,12 +49,22 @@ public class InputData implements Serializable{
         this.examList = examList;
     }
 
-    @Override
-    public String toString() {
-        return "InputData [deadlineList=" + Arrays.toString(deadlineList) + ", studentList="
-                + Arrays.toString(studentList) + ", examList=" + Arrays.toString(examList) + "]";
+    public int getNumberOfStudents() {
+        return numberOfStudents;
     }
-    
+
+    public void setNumberOfStudents(int numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
+    }
+
+    public Date getFirstExamDate() {
+        return firstExamDate;
+    }
+
+    public void setFirstExamDate(Date firstExamDate) {
+        this.firstExamDate = firstExamDate;
+    }
+
     
     
 }
