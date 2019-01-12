@@ -24,35 +24,27 @@ public class SendRegistrationNotification implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         // get current index and select user from studentList
         int index = (int) execution.getVariable("loopCounter");
-        InputData inputData = (InputData) execution.getVariable("inputData");
-        Student[] studentList = inputData.getStudentList();
-        
+        Student[] studentList = (Student[]) execution.getVariable("studentList");
         Student curStudent = studentList[index];
+        String username = curStudent.getRegistrationName();
         
-        Exam[] examList = inputData.getExamList();
+        
         
         // put all necessary data into map
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("start_registration", (Date) execution.getVariable("start_registration"));
         data.put("end_registration", (Date) execution.getVariable("end_registration"));
-        data.put("index", index);
+        data.put("student", curStudent);
+        data.put("username", username);
+        Exam[] examList = (Exam[]) execution.getVariable("examList");
         for(Exam e : examList){
-            data.put(e.getExamId(), e.getDate().getTime());
+            data.put(e.getExamId(), e);
 
         }
 
         // correlate message "startRegistration"
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         runtimeService.createMessageCorrelation("startRegistration").setVariables(data).correlateWithResult();
-
-        // date for seconde message
-        Map<String, Object> data2 = new HashMap<String, Object>();
-        data2.put("firstExamDate", (Date) execution.getVariable("firstExamDate"));
-        data2.put("grade_registration", (Date) execution.getVariable("grade_registration"));
-
-        // correlate message "startDocumentListener"
-        runtimeService.createMessageCorrelation("startDocumentListener").setVariables(data2).correlateWithResult();
-
     }
 
 }

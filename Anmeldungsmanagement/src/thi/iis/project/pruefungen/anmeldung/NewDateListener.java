@@ -42,11 +42,11 @@ public class NewDateListener {
         MessageConsumer consumer = session.createConsumer(queue);
         
         // init new webservices
-        DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
-        ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
+        final DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
+        final ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
 
         // init sendSendDatePersistedAck
-        SendTextMessageToQueue sdpAck = new SendTextMessageToQueue();
+        final SendTextMessageToQueue sdpAck = new SendTextMessageToQueue();
 
         // Create new MessageListener
         MessageListener listener = new MessageListener() {
@@ -92,7 +92,13 @@ public class NewDateListener {
             }
             // send message int datePersistedAck_queue that data was persisted
             sdpAck.sendMessage(session, "datePersistedAck_queue", Calendar.getInstance().getTime().toString());
-        } catch (ParseException | RemoteException | JMSException e) {
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JMSException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

@@ -9,6 +9,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import thi.iis.project.pruefungen.anmeldung.DatePersistedAckListener;
 import thi.iis.project.pruefungen.anmeldung.NewDateListener;
+import thi.iis.project.pruefungen.anmeldung.RegistrationListener;
 
 public class StartClass {
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
@@ -29,5 +30,9 @@ public class StartClass {
         // start DatePersistedAckListener
         DatePersistedAckListener dpAckListener = new DatePersistedAckListener(session);
         dpAckListener.startListener();
+        
+        // start RegistrationListener
+        RegistrationListener regListener = new RegistrationListener(session);
+        regListener.startListener();
     }
 }

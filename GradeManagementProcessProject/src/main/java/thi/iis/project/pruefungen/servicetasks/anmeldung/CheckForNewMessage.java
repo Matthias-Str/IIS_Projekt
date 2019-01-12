@@ -31,7 +31,7 @@ public class CheckForNewMessage implements JavaDelegate {
             Connection connection = factory.createConnection();
             connection.start();
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Destination destination = session.createQueue("rawInitData_queue");
+            Destination destination = session.createQueue("preparedInitData_queue");
             MessageConsumer consumer = session.createConsumer(destination);
             Message message = consumer.receive(1000);
             if (message != null) {
@@ -43,7 +43,7 @@ public class CheckForNewMessage implements JavaDelegate {
                         InputData inputData = JAXB.unmarshal(reader, InputData.class);
                         // store input data in process variable
                         execution.setVariable("receivedMessage", true);
-                        execution.setVariable("inputData", inputData.toString());
+                        execution.setVariable("inputData", inputData);
                     }
             }
             connection.close();

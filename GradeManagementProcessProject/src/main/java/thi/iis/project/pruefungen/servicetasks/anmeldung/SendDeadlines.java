@@ -42,7 +42,7 @@ public class SendDeadlines implements JavaDelegate {
         sendToQueue(execution);
         
         // start process that waits for response
-//        startProcess(execution);
+        startProcess(execution);
     }
 
     private void sendToQueue(DelegateExecution execution) throws JMSException{
@@ -90,8 +90,8 @@ public class SendDeadlines implements JavaDelegate {
         // Create messages
         StringWriter sw = new StringWriter();
         JAXB.marshal(dateList, sw);
-        String objectToText = sw.toString();
-        TextMessage message = session.createTextMessage(objectToText);
+        String objectToXml= sw.toString();
+        TextMessage message = session.createTextMessage(objectToXml);
 
         // Send message to queue
         producer.send(message);
