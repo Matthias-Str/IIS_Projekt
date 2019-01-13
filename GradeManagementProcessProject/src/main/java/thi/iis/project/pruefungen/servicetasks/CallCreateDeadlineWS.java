@@ -70,6 +70,8 @@ public class CallCreateDeadlineWS implements JavaDelegate {
         deadlineWS.createDeadline(cal, "announcement_date");
         
     }
+    
+
 
     private void persistExams(DelegateExecution execution) throws Exception {
         // init new webservices
