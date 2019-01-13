@@ -8,6 +8,11 @@
 package thi.iis.project.pruefungen.webservices;
 
 public class Exam  implements java.io.Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private java.util.Calendar date;
 
     private java.lang.String examId;

@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.beans;
+package thi.iis.project.pruefungen.pojos;
 
 import java.io.Serializable;
 import java.util.Date;

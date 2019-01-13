@@ -17,7 +17,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import thi.iis.project.pruefungen.beans.InputData;
+import thi.iis.project.pruefungen.pojos.InputData;
 
 public class CheckForNewMessage implements JavaDelegate {
 

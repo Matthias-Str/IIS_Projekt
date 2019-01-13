@@ -7,7 +7,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import thi.iis.project.pruefungen.beans.InputData;
+import thi.iis.project.pruefungen.pojos.InputData;
 import thi.iis.project.pruefungen.webservices.Deadline;
 
 public class SendInitData implements JavaDelegate{

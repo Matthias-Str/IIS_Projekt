@@ -20,11 +20,13 @@ public class MainApp {
      */
     public static void main(String... args) throws Exception {
         Main main = new Main();
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://0.0.0.0:61616");
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://0.0.0.0:61616");
+        connectionFactory.setTrustAllPackages(true);
         main.bind("jms", JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
         main.addRouteBuilder(new DateListSplitter());
         main.addRouteBuilder(new InitDataRouter());
         main.addRouteBuilder(new RegistrationListTransformer());
+        main.addRouteBuilder(new PostToCamunda());
         main.run(args);
     }
 

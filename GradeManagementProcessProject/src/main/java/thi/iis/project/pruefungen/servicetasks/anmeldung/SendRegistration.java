@@ -18,7 +18,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import thi.iis.project.pruefungen.beans.Anmeldung;
+import thi.iis.project.pruefungen.pojos.Anmeldung;
 
 public class SendRegistration implements JavaDelegate {
     // URL of the JMS server. DEFAULT_BROKER_URL will just mean that JMS server

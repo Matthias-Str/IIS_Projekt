@@ -7,8 +7,10 @@ import java.util.Map;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
-import thi.iis.project.pruefungen.beans.InputData;
+import thi.iis.project.pruefungen.pojos.ExamList;
+import thi.iis.project.pruefungen.pojos.StudentList;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.Student;
 
@@ -24,11 +26,13 @@ public class SendRegistrationNotification implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         // get current index and select user from studentList
         int index = (int) execution.getVariable("loopCounter");
-        Student[] studentList = (Student[]) execution.getVariable("studentList");
+        String studentString = (String) execution.getVariable("studentList");
+        JSONObject studentJSON = new JSONObject(studentString);
+        StudentList studentL = new StudentList();
+        studentL.setStudentFromJson(studentJSON);
+        Student[] studentList = studentL.getStudents();
         Student curStudent = studentList[index];
         String username = curStudent.getRegistrationName();
-        
-        
         
         // put all necessary data into map
         Map<String, Object> data = new HashMap<String, Object>();
@@ -36,7 +40,12 @@ public class SendRegistrationNotification implements JavaDelegate {
         data.put("end_registration", (Date) execution.getVariable("end_registration"));
         data.put("student", curStudent);
         data.put("username", username);
-        Exam[] examList = (Exam[]) execution.getVariable("examList");
+        
+        String examString = (String) execution.getVariable("examList");
+        JSONObject examJSON = new JSONObject(examString);
+        ExamList examL = new ExamList();
+        examL.setExamsFromJson(examJSON);
+        Exam[] examList = examL.getExams();
         for(Exam e : examList){
             data.put(e.getExamId(), e);
 
@@ -45,6 +54,7 @@ public class SendRegistrationNotification implements JavaDelegate {
         // correlate message "startRegistration"
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         runtimeService.createMessageCorrelation("startRegistration").setVariables(data).correlateWithResult();
+    
     }
 
 }

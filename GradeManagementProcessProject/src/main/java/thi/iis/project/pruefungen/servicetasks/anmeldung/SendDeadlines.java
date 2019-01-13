@@ -19,7 +19,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import thi.iis.project.pruefungen.beans.DateList;
+import thi.iis.project.pruefungen.pojos.DateList;
 
 /**
  * Message Sending Task
@@ -40,9 +40,7 @@ public class SendDeadlines implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         // send data from usertask to anmeldungsmanagement
         sendToQueue(execution);
-        
-        // start process that waits for response
-        startProcess(execution);
+
     }
 
     private void sendToQueue(DelegateExecution execution) throws JMSException{
@@ -99,9 +97,4 @@ public class SendDeadlines implements JavaDelegate {
         connection.close();
     }
     
-    private void startProcess(DelegateExecution execution){
-        // correlate message "startRegistration"
-        RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
-        runtimeService.createMessageCorrelation("startInitDataWaitProcess").correlateWithResult();
-    }
 }
