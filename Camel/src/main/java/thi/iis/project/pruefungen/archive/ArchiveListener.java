@@ -12,7 +12,6 @@ public class ArchiveListener extends RouteBuilder{
         
         from(source)
             .process(new ArchiveProcessor())
-            .log("datei in queue")
             .to(destination);
     }
 
