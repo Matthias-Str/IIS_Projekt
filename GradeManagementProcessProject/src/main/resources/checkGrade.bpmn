@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0m9surk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.3">
+  <bpmn:collaboration id="Collaboration_1thsu3m">
+    <bpmn:participant id="Participant_19a8x70" name="Kontrolle Prüfungsergebniss" processRef="Process_1letsws" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1letsws" name="Kontrolle Prüfungsergebnisse" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_0farz2l">
+      <bpmn:outgoing>SequenceFlow_0fzcbug</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ServiceTask_0b842bl" name="Drittversuch überprüfen" camunda:class="thi.iis.project.pruefungen.servicetasks.examcheck.CheckForThirdTryTask">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="test_registration_name">matthias</camunda:inputParameter>
+          <camunda:inputParameter name="test_exam_id">inf_m_kao_ws18</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0fzcbug</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14moc3j</bpmn:outgoing>
+      <bpmn:property id="Property_0z73yue" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0wjplao">
+        <bpmn:sourceRef>DataStoreReference_1djpnhp</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0z73yue</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1rz4ala">
+        <bpmn:targetRef>DataStoreReference_1djpnhp</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_09pn9z2" name="Ergbniss einsehen" camunda:assignee="pruefungsamt">
+      <bpmn:incoming>SequenceFlow_14moc3j</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0b9fjue</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1y3zrnl">
+      <bpmn:incoming>SequenceFlow_0b9fjue</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0fzcbug" sourceRef="StartEvent_0farz2l" targetRef="ServiceTask_0b842bl" />
+    <bpmn:sequenceFlow id="SequenceFlow_14moc3j" sourceRef="ServiceTask_0b842bl" targetRef="UserTask_09pn9z2" />
+    <bpmn:sequenceFlow id="SequenceFlow_0b9fjue" sourceRef="UserTask_09pn9z2" targetRef="EndEvent_1y3zrnl" />
+    <bpmn:dataStoreReference id="DataStoreReference_1djpnhp" name="Prüfungen" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1thsu3m">
+      <bpmndi:BPMNShape id="Participant_19a8x70_di" bpmnElement="Participant_19a8x70">
+        <dc:Bounds x="59" y="256" width="600" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0farz2l_di" bpmnElement="StartEvent_0farz2l">
+        <dc:Bounds x="111" y="360" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0b842bl_di" bpmnElement="ServiceTask_0b842bl">
+        <dc:Bounds x="192" y="338" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_09pn9z2_di" bpmnElement="UserTask_09pn9z2">
+        <dc:Bounds x="382" y="338" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1y3zrnl_di" bpmnElement="EndEvent_1y3zrnl">
+        <dc:Bounds x="572" y="360" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fzcbug_di" bpmnElement="SequenceFlow_0fzcbug">
+        <di:waypoint x="147" y="378" />
+        <di:waypoint x="192" y="378" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_14moc3j_di" bpmnElement="SequenceFlow_14moc3j">
+        <di:waypoint x="292" y="378" />
+        <di:waypoint x="382" y="378" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0b9fjue_di" bpmnElement="SequenceFlow_0b9fjue">
+        <di:waypoint x="482" y="378" />
+        <di:waypoint x="572" y="378" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStoreReference_1djpnhp_di" bpmnElement="DataStoreReference_1djpnhp">
+        <dc:Bounds x="217" y="549" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="217" y="606" width="51" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1rz4ala_di" bpmnElement="DataOutputAssociation_1rz4ala">
+        <di:waypoint x="242" y="418" />
+        <di:waypoint x="242" y="549" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0wjplao_di" bpmnElement="DataInputAssociation_0wjplao">
+        <di:waypoint x="242" y="549" />
+        <di:waypoint x="242" y="418" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

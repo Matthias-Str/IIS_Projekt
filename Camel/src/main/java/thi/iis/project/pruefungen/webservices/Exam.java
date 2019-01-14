@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.sf.json.JSONObject;
 
 public class Exam  implements java.io.Serializable {
