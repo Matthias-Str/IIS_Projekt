@@ -7,6 +7,8 @@
 
 package thi.iis.project.pruefungen.webservices;
 
+import org.camunda.bpm.engine.impl.util.json.JSONObject;
+
 public class Student  implements java.io.Serializable {
     private java.lang.String courseOfStudy;
 
@@ -297,4 +299,17 @@ public class Student  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    public Student fromJson(JSONObject studentJson){
+        Student s = new Student();
+        
+        s.setCourseOfStudy(studentJson.getString("courseOfStudy"));
+        s.setFirstname(studentJson.getString("firstname"));
+        s.setLastname(studentJson.getString("lastname"));
+        s.setMail(studentJson.getString("mail"));
+        s.setRegistrationName(studentJson.getString("registrationName"));
+        s.setRegistrationNumber(studentJson.getInt("registrationNumber"));
+        
+        return s;
+        
+    }
 }
