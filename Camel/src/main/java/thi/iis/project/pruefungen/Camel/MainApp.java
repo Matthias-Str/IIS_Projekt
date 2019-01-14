@@ -10,6 +10,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import thi.iis.project.pruefungen.camel.anmeldung.DateListSplitter;
 import thi.iis.project.pruefungen.camel.anmeldung.InitDataRouter;
 import thi.iis.project.pruefungen.camel.anmeldung.RegistrationListTransformer;
+import thi.iis.project.pruefungen.camel.pruefung.DeregistrationRouteBuilder;
 import thi.iis.project.pruefungen.camel.pruefung.ThirdTryRouter;
 
 /**
@@ -34,8 +35,9 @@ public class MainApp {
         main.addRouteBuilder(new PostToCamunda());
         
         //Prüfungskontrolle
-        
         main.addRouteBuilder(new ThirdTryRouter());
+        main.addRouteBuilder(new DeregistrationRouteBuilder());
+        
         main.run(args);
     }
     
