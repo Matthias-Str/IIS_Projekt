@@ -426,7 +426,7 @@ Notenbekanntgabe</bpmn:text>
       </bpmn:startEvent>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="SequenceFlow_0m61xah" sourceRef="Task_1mqdn38" targetRef="SubProcess_0tkizpx" />
-    <bpmn:serviceTask id="Task_1mqdn38" name="Liste der Prüfungstermine auslesen">
+    <bpmn:serviceTask id="Task_1mqdn38" name="Liste der Prüfungstermine auslesen" camunda:class="">
       <bpmn:incoming>SequenceFlow_1nhjjko</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0m61xah</bpmn:outgoing>
     </bpmn:serviceTask>
