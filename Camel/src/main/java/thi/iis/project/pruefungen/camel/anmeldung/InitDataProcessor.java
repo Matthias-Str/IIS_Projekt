@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.Camel;
+package thi.iis.project.pruefungen.camel.anmeldung;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -11,7 +11,7 @@ import thi.iis.project.pruefungen.pojos.StudentList;
 import thi.iis.project.pruefungen.pojos.ValueType;
 import thi.iis.project.pruefungen.webservices.Deadline;
 
-public class TestProcessor implements Processor {
+public class InitDataProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
