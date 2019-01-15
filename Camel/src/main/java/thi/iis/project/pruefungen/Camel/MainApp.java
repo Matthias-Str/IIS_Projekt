@@ -14,13 +14,13 @@ import thi.iis.project.pruefungen.camel.anmeldung.PostInitDataToCamunda;
 import thi.iis.project.pruefungen.camel.anmeldung.RegistrationListTransformer;
 
 /**
- * A Camel Application
+ * Main Class to run Camel Application
+ * 
+ * @author Katrin Krüger
  */
 public class MainApp {
 
-    /**
-     * A main() so we can easily run these routing rules in our IDE
-     */
+
     public static void main(String... args) throws Exception {
         Main main = new Main();
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://0.0.0.0:61616");

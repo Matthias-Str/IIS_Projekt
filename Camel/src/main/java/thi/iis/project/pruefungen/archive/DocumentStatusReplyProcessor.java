@@ -9,32 +9,44 @@ import thi.iis.project.pruefungen.pojos.CorrelationKey;
 import thi.iis.project.pruefungen.pojos.ProcessVariable;
 import thi.iis.project.pruefungen.pojos.ValueType;
 
-public class DocumentStatusReplyProcessor implements Processor{
+/**
+ * Processor that gets json as input and extracts registrationName, examId and
+ * status and defines message format that is send to camunda
+ * 
+ * @author Katrin Krüger
+ *
+ */
+public class DocumentStatusReplyProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        // get string from message body and convert to json object
         String in = exchange.getIn().getBody(String.class);
         JSONObject input = new JSONObject(in);
-        
-        CamundaRESTJSON newData = new CamundaRESTJSON();
-        
+
+        // init new object that gets message body and is send to camunda rest
+        // api
+        CamundaRESTJSON camundaData = new CamundaRESTJSON();
+
         // set message name
-        newData.setMessageName("receiveDocumentState");
-        newData.setResultEnabled(true);
-        
+        camundaData.setMessageName("receiveDocumentState");
+        camundaData.setResultEnabled(true);
+
         // add correlationKeys
         String registrationName = input.getString("registrationName");
-        newData.getCorrelationKeys().add(new CorrelationKey("registrationName", new ValueType(registrationName, "String")));
+        camundaData.getCorrelationKeys()
+                .add(new CorrelationKey("registrationName", new ValueType(registrationName, "String")));
         String examId = input.getString("examId");
-        newData.getCorrelationKeys().add(new CorrelationKey("examId", new ValueType(examId, "String")));
+        camundaData.getCorrelationKeys().add(new CorrelationKey("examId", new ValueType(examId, "String")));
 
         // add process variable
         Boolean status = input.getBoolean("status");
-        newData.getProcessVariables().add(new ProcessVariable("documentUploadStatus", new ValueType(status, "Boolean")));
-        
+        camundaData.getProcessVariables()
+                .add(new ProcessVariable("documentUploadStatus", new ValueType(status, "Boolean")));
+
         // write data back to message body
-        exchange.getIn().setBody(newData.toJson());
-        
+        exchange.getIn().setBody(camundaData.toJson());
+
     }
 
 }

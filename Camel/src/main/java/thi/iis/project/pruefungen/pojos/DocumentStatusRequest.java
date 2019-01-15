@@ -4,18 +4,24 @@ import java.io.Serializable;
 
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
-public class DocumentStatusRequest implements Serializable{
+/**
+ * Class that is send in request for document status in table student_exam
+ * 
+ * @author Katrin Krüger
+ *
+ */
+public class DocumentStatusRequest implements Serializable {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
     String registrationName;
     String examId;
-    
+
     public DocumentStatusRequest() {
         super();
     }
-    
+
     public DocumentStatusRequest(String registrationName, String examId) {
         super();
         this.registrationName = registrationName;

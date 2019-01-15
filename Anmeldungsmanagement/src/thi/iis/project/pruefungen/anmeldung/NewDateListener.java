@@ -39,6 +39,10 @@ public class NewDateListener {
         this.session = session;
     }
 
+    /**
+     * start listener
+     * @throws JMSException
+     */
     public void startListener() throws JMSException {
         // Get or create queue
         Queue queue = session.createQueue("preparedRegistrationDates_queue");
@@ -74,6 +78,13 @@ public class NewDateListener {
         consumer.setMessageListener(listener);
     }
 
+    /**
+     * persist the date that was in message body
+     * @param deadlineWS
+     * @param examWS
+     * @param sdpAck
+     * @param text
+     */
     private void persistDate(DeadlineWebService deadlineWS, ExamWebService examWS, SendTextMessageToQueue sdpAck,
             String text) {
 

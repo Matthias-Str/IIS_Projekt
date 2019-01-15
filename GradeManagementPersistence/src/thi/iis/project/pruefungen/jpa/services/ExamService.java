@@ -22,6 +22,12 @@ public class ExamService implements ExamServiceLocal {
     @PersistenceContext
     EntityManager em;
 
+    /**
+     * update existing exam
+     * 
+     * @param Exam
+     * @return Exam
+     */
     @Override
     public Exam update(Exam e) {
         em.flush();
@@ -29,6 +35,12 @@ public class ExamService implements ExamServiceLocal {
         return e;
     }
 
+    /**
+     * selct exam by name
+     * 
+     * @param name
+     * @return Exam
+     */
     @Override
     public Exam selectByName(String name) {
         TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e WHERE exam_id = :id", Exam.class);
@@ -36,12 +48,21 @@ public class ExamService implements ExamServiceLocal {
         return query.getSingleResult();
     }
 
+    /**
+     * select all exams
+     * @return List<Exam>
+     */
     @Override
     public List<Exam> selectAll() {
         TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e", Exam.class);
         return query.getResultList();
     }
 
+    /**
+     * get frist exam date
+     * 
+     * @return java.util.Date
+     */
     @Override
     public Date getFirstExamDate() {
         TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e ORDER BY e.date asc", Exam.class);

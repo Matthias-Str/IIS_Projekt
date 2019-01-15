@@ -2,6 +2,13 @@ package thi.iis.project.pruefungen.pojos;
 
 import net.sf.json.JSONObject;
 
+/**
+ * Class that defines format of Process Variable that is send to camunda using
+ * rest api
+ * 
+ * @author Katrin Krüger
+ *
+ */
 public class ProcessVariable {
     String name;
     ValueType valueType;

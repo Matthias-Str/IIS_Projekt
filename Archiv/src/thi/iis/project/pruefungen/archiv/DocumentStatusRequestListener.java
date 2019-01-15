@@ -20,6 +20,12 @@ import thi.iis.project.pruefungen.webservices.Student;
 import thi.iis.project.pruefungen.webservices.StudentExam;
 
 
+/**
+ * Listens to queue documentStatusRequestArchive where request of status are put to
+ * answers to the request and sends answer to documentStatusReply queue
+ * @author Katrin Krüger
+ *
+ */
 public class DocumentStatusRequestListener {
     private Session session;
 
@@ -32,6 +38,10 @@ public class DocumentStatusRequestListener {
         this.session = session;
     }
 
+    /**
+     * start the listener
+     * @throws JMSException
+     */
     public void startListener() throws JMSException {
         // Get or create queue
         Queue queue = session.createQueue("documentStatusRequestArchiv_queue");

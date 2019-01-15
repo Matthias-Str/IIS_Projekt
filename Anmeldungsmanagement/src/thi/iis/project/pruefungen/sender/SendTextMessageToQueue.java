@@ -17,6 +17,13 @@ public class SendTextMessageToQueue {
         
     }
     
+    /**
+     * send a message
+     * @param session
+     * @param subject = queue name
+     * @param text
+     * @throws JMSException
+     */
     public void sendMessage(Session session, String subject, String text) throws JMSException{
         // Create Queue (if it doesn't already exist)
         Destination destination = session.createQueue(subject);

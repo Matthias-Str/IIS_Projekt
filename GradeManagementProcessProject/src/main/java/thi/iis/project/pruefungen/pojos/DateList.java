@@ -1,13 +1,18 @@
 package thi.iis.project.pruefungen.pojos;
 
-import java.util.Date;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(namespace="http://tutego.com/")
+/**
+ * Class represent list of dates that user inserts in task "Termine festlegen"
+ * 
+ * @author Katrin Krüger
+ *
+ */
+@XmlRootElement()
 public class DateList {
-    
+
     private Map<String, String> dateList;
 
     public DateList() {
@@ -26,6 +31,5 @@ public class DateList {
     public void setDateList(Map<String, String> dateList) {
         this.dateList = dateList;
     }
-    
-    
+
 }

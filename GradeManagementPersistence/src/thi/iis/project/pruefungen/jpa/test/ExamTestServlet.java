@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.jpa.servlet;
+package thi.iis.project.pruefungen.jpa.test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,10 +19,10 @@ import thi.iis.project.pruefungen.jpa.entities.Exam;
 import thi.iis.project.pruefungen.jpa.services.ExamServiceLocal;
 
 /**
- * Servlet implementation class ExamTEstServlet
+ * Servlet to test Exam Web Service
  * @author Katrin Krüger
  */
-@WebServlet("/ExamTEstServlet")
+@WebServlet("/ExamTestServlet")
 public class ExamTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

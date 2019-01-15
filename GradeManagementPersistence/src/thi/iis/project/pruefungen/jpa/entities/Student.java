@@ -3,38 +3,36 @@ package thi.iis.project.pruefungen.jpa.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the student database table.
  * 
+ * @author Katrin Krüger
  */
 @Entity
-@Table(name="student")
-@NamedQuery(name="Student.findAll", query="SELECT s FROM Student s")
+@Table(name = "student")
 public class Student implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name="course_of_study")
-	private String courseOfStudy;
-	
-	private String firstname;
+    @Column(name = "course_of_study")
+    private String courseOfStudy;
 
-	private String lastname;
+    private String firstname;
 
-	private String mail;
+    private String lastname;
 
-	@Id
-	@Column(name="registration_name")
-	private String registrationName;
-	
-	@Column(name="registration_number")
-	private int registrationNumber;
+    private String mail;
 
-	public Student() {
-	}
-	
-	
-	public Student(String courseOfStudy, String firstname, String lastname, String mail, String registrationName) {
+    @Id
+    @Column(name = "registration_name")
+    private String registrationName;
+
+    @Column(name = "registration_number")
+    private int registrationNumber;
+
+    public Student() {
+    }
+
+    public Student(String courseOfStudy, String firstname, String lastname, String mail, String registrationName) {
         super();
         this.courseOfStudy = courseOfStudy;
         this.firstname = firstname;
@@ -43,59 +41,53 @@ public class Student implements Serializable {
         this.registrationName = registrationName;
     }
 
-
-
     public String getCourseOfStudy() {
-		return this.courseOfStudy;
-	}
-
-	public void setCourseOfStudy(String courseOfStudy) {
-		this.courseOfStudy = courseOfStudy;
-	}
-
-	public String getFirstname() {
-		return this.firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return this.lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getMail() {
-		return this.mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	
-	public String getRegistrationName() {
-        return registrationName;
+        return this.courseOfStudy;
     }
 
+    public void setCourseOfStudy(String courseOfStudy) {
+        this.courseOfStudy = courseOfStudy;
+    }
+
+    public String getFirstname() {
+        return this.firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return this.lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getMail() {
+        return this.mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getRegistrationName() {
+        return registrationName;
+    }
 
     public void setRegistrationName(String registrationName) {
         this.registrationName = registrationName;
     }
 
-
     public int getRegistrationNumber() {
-		return this.registrationNumber;
-	}
+        return this.registrationNumber;
+    }
 
-	public void setRegistrationNumber(int registrationNumber) {
-		this.registrationNumber = registrationNumber;
-	}
-
+    public void setRegistrationNumber(int registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
 
     @Override
     public String toString() {
@@ -103,10 +95,5 @@ public class Student implements Serializable {
                 + ", mail=" + mail + ", registrationName=" + registrationName + ", registrationNumber="
                 + registrationNumber + "]";
     }
-
-
-
-	
-	
 
 }

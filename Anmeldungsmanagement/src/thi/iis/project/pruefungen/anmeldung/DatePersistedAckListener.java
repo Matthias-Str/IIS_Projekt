@@ -31,6 +31,10 @@ public class DatePersistedAckListener {
         this.session = session;
     }
 
+    /**
+     * start the listener
+     * @throws JMSException
+     */
     public void startListener() throws JMSException {
         // Get or create queue
         Queue queue = session.createQueue("datePersistedAck_queue");

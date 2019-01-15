@@ -14,6 +14,14 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import thi.iis.project.pruefungen.pojos.DocumentStatusRequest;
 
+/**
+ * implementation of task "Anfrage senden, ob Dokument hochgeladen ist" sends
+ * request message with registrationName and examId to get status of
+ * student_exam entry
+ * 
+ * @author Katrin Krüger
+ *
+ */
 public class SendDocumentStatusRequest implements JavaDelegate {
     // URL of the JMS server. DEFAULT_BROKER_URL will just mean that JMS server
     // is on localhost
@@ -36,11 +44,11 @@ public class SendDocumentStatusRequest implements JavaDelegate {
         // create new DocumentStatusRequest
         execution.setVariable("registrationName", "pruefungsamt");
         execution.setVariable("examId", "inf_m_sesa_ws18");
-//        Student student = (Student) execution.getVariable("student");
-//        String registrationName = student.getRegistrationName();
+        // Student student = (Student) execution.getVariable("student");
+        // String registrationName = student.getRegistrationName();
         String registrationName = "pruefungsamt";
-//        Exam exam = (Exam) execution.getVariable("exam");
-//        String examId = exam.getExamId();
+        // Exam exam = (Exam) execution.getVariable("exam");
+        // String examId = exam.getExamId();
         String examId = "inf_m_sesa_ws18";
         DocumentStatusRequest request = new DocumentStatusRequest(registrationName, examId);
 

@@ -13,21 +13,23 @@ import org.camunda.bpm.engine.rest.impl.CamundaRestResources;
 
 /**
  * Application that sets up the rest api
+ * 
  * @author Katrin Krüger
  *
  */
 @ApplicationPath("/")
 public class RestApplication extends Application {
-    
+
     @Override
     public Set<Class<?>> getClasses() {
-      Set<Class<?>> classes = new HashSet<Class<?>>();
-      // add all camunda engine rest resources (or just add those that you actually need).
-      classes.addAll(CamundaRestResources.getResourceClasses());
+        Set<Class<?>> classes = new HashSet<Class<?>>();
+        // add all camunda engine rest resources (or just add those that you
+        // actually need).
+        classes.addAll(CamundaRestResources.getResourceClasses());
 
-      // mandatory
-      classes.addAll(CamundaRestResources.getConfigurationClasses());
+        // mandatory
+        classes.addAll(CamundaRestResources.getConfigurationClasses());
 
-      return classes;
+        return classes;
     }
 }

@@ -15,7 +15,8 @@ import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.Student;
 
 /**
- * Sending notification that exam registration starts soon
+ * implementation of task "AnmeldungsNotification schicken", Sending
+ * notification that exam registration starts soon
  * 
  * @author Katrin Krüger
  *
@@ -33,20 +34,20 @@ public class SendRegistrationNotification implements JavaDelegate {
         Student[] studentList = studentL.getStudents();
         Student curStudent = studentList[index];
         String username = curStudent.getRegistrationName();
-        
+
         // put all necessary data into map
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("start_registration", (Date) execution.getVariable("start_registration"));
         data.put("end_registration", (Date) execution.getVariable("end_registration"));
         data.put("student", curStudent);
         data.put("username", username);
-        
+        // get exams
         String examString = (String) execution.getVariable("examList");
         JSONObject examJSON = new JSONObject(examString);
         ExamList examL = new ExamList();
         examL.setExamsFromJson(examJSON);
         Exam[] examList = examL.getExams();
-        for(Exam e : examList){
+        for (Exam e : examList) {
             data.put(e.getExamId(), e);
 
         }
@@ -54,7 +55,7 @@ public class SendRegistrationNotification implements JavaDelegate {
         // correlate message "startRegistration"
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         runtimeService.createMessageCorrelation("startRegistration").setVariables(data).correlateWithResult();
-    
+
     }
 
 }

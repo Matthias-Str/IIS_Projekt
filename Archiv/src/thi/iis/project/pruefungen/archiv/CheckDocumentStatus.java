@@ -7,8 +7,8 @@ import thi.iis.project.pruefungen.webservices.StudentExamWebService;
 import thi.iis.project.pruefungen.webservices.StudentExamWebServiceProxy;
 
 /**
- * 
- * @author lars
+ * Helper Class that checks the status if document of student_exam is uploaded or not
+ * @author Katrin Krüger
  *
  */
 public class CheckDocumentStatus {
@@ -25,6 +25,11 @@ public class CheckDocumentStatus {
         this.examId = examId;
     }
     
+    /**
+     * request StudentExam Object from database by registrationName and examId
+     * @return StudentExam
+     * @throws RemoteException
+     */
     public StudentExam checkStatus() throws RemoteException{
         StudentExamWebService studentExamWs = new StudentExamWebServiceProxy().getStudentExamWebService();
         StudentExam studentExam = studentExamWs.selectByRegistrationNameAndExamId(registrationName, examId);

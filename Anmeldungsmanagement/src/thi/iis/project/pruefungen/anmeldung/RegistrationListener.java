@@ -44,6 +44,10 @@ public class RegistrationListener {
         this.session = session;
     }
 
+    /** 
+     * start the listener
+     * @throws JMSException
+     */
     public void startListener() throws JMSException {
         // Get or create queue
         Queue queue = session.createQueue("preparedRegistration_queue");
@@ -80,6 +84,10 @@ public class RegistrationListener {
         consumer.setMessageListener(listener);
     }
 
+    /**
+     * persist the student registration that is in message body
+     * @param text
+     */
     private void persistData(String text) {
         // init webservices
         StudentWebService studentWS = new StudentWebServiceProxy().getStudentWebService();

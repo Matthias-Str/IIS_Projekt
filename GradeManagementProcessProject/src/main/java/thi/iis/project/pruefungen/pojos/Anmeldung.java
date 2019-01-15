@@ -4,15 +4,19 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import thi.iis.project.pruefungen.webservices.Exam;
-
+/**
+ * Class represents a registration that a user made for a list of exams
+ * 
+ * @author Katrin Krüger
+ *
+ */
 @XmlRootElement
 public class Anmeldung {
     String username;
     Map<String, Boolean> registrations;
-    
-    public Anmeldung(){
-        
+
+    public Anmeldung() {
+
     }
 
     public Anmeldung(String username, Map<String, Boolean> registrations) {
@@ -37,7 +41,4 @@ public class Anmeldung {
         this.registrations = registrations;
     }
 
-
-    
-    
 }

@@ -4,18 +4,23 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 
 /**
- * A Camel Java DSL Router
+ * Router that splits message wit registration dates in multiple messages with
+ * each one date
+ * 
+ * @author Katrin Krüger
+ *
  */
 public class DateListSplitter extends RouteBuilder {
 
-    /**
-     * Let's configure the Camel routing rules using Java code...
-     */
     public void configure() {
 
         Endpoint source = endpoint("jms:queue:rawRegistrationDates_queue");
         Endpoint destination = endpoint("jms:queue:preparedRegistrationDates_queue");
 
-        from(source).split().tokenizeXML("entry").log("${body}").to(destination);
+        from(source)
+                .split()
+                .tokenizeXML("entry")
+                .log("${body}")
+                .to(destination);
     }
 }

@@ -4,7 +4,14 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.xmljson.XmlJsonDataFormat;
 
-public class RegistrationListTransformer extends RouteBuilder{
+/**
+ * Processor that forwards message from rawRegistration_queue to
+ * preparedRegistration_queue
+ * 
+ * @author Katrin Krüger
+ *
+ */
+public class RegistrationListTransformer extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
@@ -12,24 +19,10 @@ public class RegistrationListTransformer extends RouteBuilder{
         Endpoint source = endpoint("jms:queue:rawRegistration_queue");
         Endpoint destination = endpoint("jms:queue:preparedRegistration_queue");
 
-        // XML Data Format
-        XmlJsonDataFormat xmlJsonFormat = new XmlJsonDataFormat();
-        xmlJsonFormat.setForceTopLevelObject(false);
-        xmlJsonFormat.setSkipWhitespace(true);
-        xmlJsonFormat.setTrimSpaces(true);
-        xmlJsonFormat.setSkipNamespaces(true);
-        xmlJsonFormat.setRemoveNamespacePrefixes(true);
-        xmlJsonFormat.setEncoding("UTF-8");
-        xmlJsonFormat.setRootName("anmeldung");
-             
-        
-        from(source)       
-//            .log("before  ${body}")
-//            .marshal(xmlJsonFormat)
-//            .log("after  ${body}")
-            .to(destination); 
 
-        
+        from(source)
+                .to(destination);
+
     }
 
 }

@@ -21,6 +21,10 @@ public class FetchInitialDataFromDb {
 
     }
 
+    /**
+     * request InputData from Database
+     * @return InputData
+     */
     public InputData getData() {
         InputData inputData = new InputData();
 

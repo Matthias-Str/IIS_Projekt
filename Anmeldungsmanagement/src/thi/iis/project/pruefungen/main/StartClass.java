@@ -25,9 +25,7 @@ public class StartClass {
         connectionFactory.setTrustAllPackages(true);
         Connection connection = connectionFactory.createConnection();
         connection.start();
-
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        
         
         // start NewDateListener
         NewDateListener ndListener = new NewDateListener(session);
