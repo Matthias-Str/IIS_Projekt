@@ -14,7 +14,8 @@ public class ArchiveProcessor implements Processor{
         // extract filename
         String filename = file.getName();
         String result = filename.substring(0, filename.lastIndexOf('.'));
-        System.out.println(result + "send to queue");
+        System.out.println(result + " send to queue");
+        
         exchange.getIn().setBody(result);
         
     }

@@ -10,6 +10,11 @@ import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.StudentWebService;
 import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
 
+/**
+ * Helper to fetch all needed data for initialization from db
+ * @author Katrin Krüger
+ *
+ */
 public class FetchInitialDataFromDb {
 
     public FetchInitialDataFromDb() {

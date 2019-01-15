@@ -3,6 +3,11 @@ package thi.iis.project.pruefungen.pojos;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * DataType for Message transfer of date with name that needs to be persisted
+ * @author Katrin Krüger
+ *
+ */
 @XmlRootElement(name="entry")
 public class CurrentDate{
     String name;

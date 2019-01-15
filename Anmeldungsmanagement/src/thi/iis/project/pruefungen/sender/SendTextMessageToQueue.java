@@ -6,6 +6,11 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
+/**
+ * Helper class for sending textmessage to queue
+ * @author Katrin Krüger
+ *
+ */
 public class SendTextMessageToQueue {
     
     public SendTextMessageToQueue(){

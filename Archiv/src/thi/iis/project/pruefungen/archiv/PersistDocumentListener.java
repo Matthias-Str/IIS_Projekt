@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.management;
+package thi.iis.project.pruefungen.archiv;
 
 import java.rmi.RemoteException;
 

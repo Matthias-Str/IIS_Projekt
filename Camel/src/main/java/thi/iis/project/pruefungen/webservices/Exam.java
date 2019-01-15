@@ -8,8 +8,6 @@
 package thi.iis.project.pruefungen.webservices;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import net.sf.json.JSONObject;
 

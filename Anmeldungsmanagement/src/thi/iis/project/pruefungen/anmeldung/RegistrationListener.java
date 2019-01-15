@@ -28,6 +28,11 @@ import thi.iis.project.pruefungen.webservices.StudentExamWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.StudentWebService;
 import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
 
+/**
+ * Listens to queue if a new registration of a students arrives
+ * @author Katrin Krüger
+ *
+ */
 public class RegistrationListener {
     Session session;
 

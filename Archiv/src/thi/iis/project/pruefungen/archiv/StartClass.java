@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.management;
+package thi.iis.project.pruefungen.archiv;
 
 
 import java.io.StringWriter;
@@ -27,6 +27,9 @@ public class StartClass {
         
         PersistDocumentListener persistD = new PersistDocumentListener(session);
         persistD.startListener();
+        
+        DocumentStatusRequestListener documentL = new DocumentStatusRequestListener(session);
+        documentL.startListener();
         
     }
 }

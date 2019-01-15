@@ -14,6 +14,11 @@ import javax.xml.bind.JAXB;
 import thi.iis.project.pruefungen.pojos.InputData;
 import thi.iis.project.pruefungen.sender.SendTextMessageToQueue;
 
+/**
+ * Sends ACK if date was persisted
+ * @author Katrin Krüger
+ *
+ */
 public class DatePersistedAckListener {
     private Session session;
     int counter = 0;

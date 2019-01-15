@@ -7,6 +7,7 @@ import net.sf.json.JSONObject;
 public class CamundaRESTJSON {
     String messageName;
     Boolean resultEnabled;
+    ArrayList<CorrelationKey> correlationKeys = new ArrayList<>();
     ArrayList<ProcessVariable> processVariables = new ArrayList<>();
 
     public CamundaRESTJSON() {
@@ -29,6 +30,14 @@ public class CamundaRESTJSON {
         this.resultEnabled = resultEnabled;
     }
 
+    public ArrayList<CorrelationKey> getCorrelationKeys() {
+        return correlationKeys;
+    }
+
+    public void setCorrelationKeys(ArrayList<CorrelationKey> correlationKeys) {
+        this.correlationKeys = correlationKeys;
+    }
+
     public ArrayList<ProcessVariable> getProcessVariables() {
         return processVariables;
     }
@@ -42,6 +51,15 @@ public class CamundaRESTJSON {
 
         result.put("messageName", messageName);
         result.put("resultEnabled", resultEnabled);
+        
+        if(correlationKeys.size() != 0){
+            JSONObject kKeys = new JSONObject();
+            for (CorrelationKey kk : correlationKeys) {
+                kKeys.put(kk.getName(), kk.toJson());
+            }
+            result.put("correlationKeys", kKeys);
+        }
+        
         JSONObject pVar = new JSONObject();
         for (ProcessVariable pv : processVariables) {
             pVar.put(pv.getName(), pv.toJson());

@@ -6,6 +6,8 @@ import org.apache.camel.main.Main;
 
 import thi.iis.project.pruefungen.archive.ArchiveListener;
 import thi.iis.project.pruefungen.archive.ArchiveRouteBuilder;
+import thi.iis.project.pruefungen.archive.DocumentStatusReplyListener;
+import thi.iis.project.pruefungen.archive.DocumentStatusRequestListener;
 import thi.iis.project.pruefungen.camel.anmeldung.DateListSplitter;
 import thi.iis.project.pruefungen.camel.anmeldung.InitDataRouter;
 import thi.iis.project.pruefungen.camel.anmeldung.PostInitDataToCamunda;
@@ -30,6 +32,8 @@ public class MainApp {
         main.addRouteBuilder(new PostInitDataToCamunda());
         main.addRouteBuilder(new ArchiveListener());
         main.addRouteBuilder(new ArchiveRouteBuilder());
+        main.addRouteBuilder(new DocumentStatusRequestListener());
+        main.addRouteBuilder(new DocumentStatusReplyListener());
         main.run(args);
     }
 

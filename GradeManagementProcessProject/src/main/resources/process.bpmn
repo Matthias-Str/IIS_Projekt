@@ -4,10 +4,14 @@
     <bpmn:participant id="Participant_0hz96rl" name="Verwaltung Prüfungsanmeldungen" processRef="VerwaltungPruefungsanmeldung_iden" />
     <bpmn:participant id="Participant_1p2e31r" name="Anmeldungsmanagement" />
     <bpmn:participant id="Participant_1u9ljwu" name="Anmeldung Student" processRef="AnmeldungStudent_id" />
+    <bpmn:participant id="Participant_0xsb61p" name="Document Upload prüfen" processRef="DocumentUploadPruefen_id" />
+    <bpmn:participant id="Participant_1obnyqz" name="Archiv" />
     <bpmn:messageFlow id="MessageFlow_0ixqi7p" sourceRef="Task_0ahhx2n" targetRef="Participant_1p2e31r" />
     <bpmn:messageFlow id="MessageFlow_1uutsj1" sourceRef="Task_0ada1m5" targetRef="StartEvent_0ch7cei" />
     <bpmn:messageFlow id="MessageFlow_0zfytoh" sourceRef="SendTask_1716x2s" targetRef="Participant_1p2e31r" />
     <bpmn:messageFlow id="MessageFlow_1mdv74s" sourceRef="Participant_1p2e31r" targetRef="Task_02yigjh" />
+    <bpmn:messageFlow id="MessageFlow_1g6ite3" sourceRef="Task_0pxcua6" targetRef="Participant_1obnyqz" />
+    <bpmn:messageFlow id="MessageFlow_1orlejv" sourceRef="Participant_1obnyqz" targetRef="Task_1h5u2es" />
   </bpmn:collaboration>
   <bpmn:message id="Message_1xoo7uw" name="startRegistration" />
   <bpmn:message id="Message_0h4y97c" name="NewOrderMessage" />
@@ -230,6 +234,43 @@
     <bpmn:sequenceFlow id="SequenceFlow_08209in" sourceRef="StartEvent_0ch7cei" targetRef="SubProcess_07txnex" />
   </bpmn:process>
   <bpmn:message id="Message_1fqmqi4" name="testNachricht" />
+  <bpmn:process id="DocumentUploadPruefen_id" name="Document Upload prüfen" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1t78yzo">
+      <bpmn:outgoing>SequenceFlow_06aose2</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0v5i2z8">
+      <bpmn:incoming>SequenceFlow_06aose2</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1xex0ce</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0163xhp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_06aose2" sourceRef="StartEvent_1t78yzo" targetRef="ExclusiveGateway_0v5i2z8" />
+    <bpmn:sequenceFlow id="SequenceFlow_0163xhp" sourceRef="ExclusiveGateway_0v5i2z8" targetRef="Task_0pxcua6" />
+    <bpmn:sendTask id="Task_0pxcua6" name="Anfrage senden, ob Dokument hochgeladen ist" camunda:class="thi.iis.project.pruefungen.archive.SendDocumentStatusRequest">
+      <bpmn:incoming>SequenceFlow_0163xhp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_03bkijx</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="EndEvent_0qj9bco">
+      <bpmn:incoming>SequenceFlow_15pulee</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1k2xmwr">
+      <bpmn:incoming>SequenceFlow_1idvrgs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1xex0ce</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_15pulee</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1xex0ce" name="Dokument noch nicht hochgeladen" sourceRef="ExclusiveGateway_1k2xmwr" targetRef="ExclusiveGateway_0v5i2z8">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${documentUploadStatus == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_15pulee" name="Dokument hochgeladen" sourceRef="ExclusiveGateway_1k2xmwr" targetRef="EndEvent_0qj9bco">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${documentUploadStatus == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:receiveTask id="Task_1h5u2es" name="Auf Antwort warten" messageRef="Message_0dzplyx">
+      <bpmn:incoming>SequenceFlow_03bkijx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1idvrgs</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1idvrgs" sourceRef="Task_1h5u2es" targetRef="ExclusiveGateway_1k2xmwr" />
+    <bpmn:sequenceFlow id="SequenceFlow_03bkijx" sourceRef="Task_0pxcua6" targetRef="Task_1h5u2es" />
+  </bpmn:process>
+  <bpmn:message id="Message_0dzplyx" name="receiveDocumentState" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0j281o0">
       <bpmndi:BPMNShape id="Participant_0hz96rl_di" bpmnElement="Participant_0hz96rl">
@@ -242,7 +283,7 @@
         <dc:Bounds x="471" y="2044" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_1p2e31r_di" bpmnElement="Participant_1p2e31r">
-        <dc:Bounds x="108" y="1742" width="1197" height="113" />
+        <dc:Bounds x="106" y="1788" width="1199" height="67" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0ixqi7p_di" bpmnElement="MessageFlow_0ixqi7p">
         <di:waypoint x="521" y="2044" />
@@ -445,6 +486,70 @@
       <bpmndi:BPMNEdge id="MessageFlow_1mdv74s_di" bpmnElement="MessageFlow_1mdv74s">
         <di:waypoint x="712" y="1855" />
         <di:waypoint x="712" y="2044" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0xsb61p_di" bpmnElement="Participant_0xsb61p">
+        <dc:Bounds x="116" y="2843" width="883" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1t78yzo_di" bpmnElement="StartEvent_1t78yzo">
+        <dc:Bounds x="181" y="2966" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0v5i2z8_di" bpmnElement="ExclusiveGateway_0v5i2z8" isMarkerVisible="true">
+        <dc:Bounds x="267" y="2959" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_06aose2_di" bpmnElement="SequenceFlow_06aose2">
+        <di:waypoint x="217" y="2984" />
+        <di:waypoint x="267" y="2984" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0163xhp_di" bpmnElement="SequenceFlow_0163xhp">
+        <di:waypoint x="317" y="2984" />
+        <di:waypoint x="367" y="2984" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0qj9bco_di" bpmnElement="EndEvent_0qj9bco">
+        <dc:Bounds x="863" y="2966" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_0gbj4ru_di" bpmnElement="Task_0pxcua6">
+        <dc:Bounds x="367" y="2944" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1obnyqz_di" bpmnElement="Participant_1obnyqz">
+        <dc:Bounds x="116" y="3156" width="888" height="62" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_1g6ite3_di" bpmnElement="MessageFlow_1g6ite3">
+        <di:waypoint x="417" y="3024" />
+        <di:waypoint x="417" y="3156" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1k2xmwr_di" bpmnElement="ExclusiveGateway_1k2xmwr" isMarkerVisible="true">
+        <dc:Bounds x="667" y="2959" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1xex0ce_di" bpmnElement="SequenceFlow_1xex0ce">
+        <di:waypoint x="692" y="2959" />
+        <di:waypoint x="692" y="2880" />
+        <di:waypoint x="292" y="2880" />
+        <di:waypoint x="292" y="2959" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="448" y="2866" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_15pulee_di" bpmnElement="SequenceFlow_15pulee">
+        <di:waypoint x="717" y="2984" />
+        <di:waypoint x="863" y="2984" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="759" y="2970" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ReceiveTask_0feewdg_di" bpmnElement="Task_1h5u2es">
+        <dc:Bounds x="521" y="2944" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1idvrgs_di" bpmnElement="SequenceFlow_1idvrgs">
+        <di:waypoint x="621" y="2984" />
+        <di:waypoint x="667" y="2984" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_1orlejv_di" bpmnElement="MessageFlow_1orlejv">
+        <di:waypoint x="559" y="3156" />
+        <di:waypoint x="559" y="3024" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_03bkijx_di" bpmnElement="SequenceFlow_03bkijx">
+        <di:waypoint x="467" y="2984" />
+        <di:waypoint x="521" y="2984" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

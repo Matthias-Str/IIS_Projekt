@@ -23,6 +23,11 @@ import thi.iis.project.pruefungen.webservices.DeadlineWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.ExamWebService;
 import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
 
+/**
+ * Listens to a queue if a new dates is to persist
+ * @author Katrin Krüger
+ *
+ */
 public class NewDateListener {
     Session session;
 

@@ -3,7 +3,6 @@ package thi.iis.project.pruefungen.camel.anmeldung;
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.xmljson.XmlJsonDataFormat;
-import org.apache.camel.model.dataformat.JsonLibrary;
 
 public class RegistrationListTransformer extends RouteBuilder{
 

@@ -8,10 +8,12 @@ public class ArchiveRouteBuilder extends RouteBuilder{
     @Override
     public void configure() throws Exception {
         Endpoint source = endpoint("file:/home/lars/pruefungen_upload");
-        Endpoint destination = endpoint("file:/home/lars/pruefungen_archive");
-        
+        Endpoint destination_archive = endpoint("file:/home/lars/pruefungen_archive");
+        Endpoint destination_database = endpoint("file:/home/lars/pruefungen_database");
+
         from(source)
-            .to(destination);
+            .multicast()
+            .to(destination_archive, destination_database);
         
     }
 

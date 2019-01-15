@@ -1,6 +1,5 @@
 package thi.iis.project.pruefungen.pojos;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import net.sf.json.JSONArray;

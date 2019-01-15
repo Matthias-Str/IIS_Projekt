@@ -12,6 +12,7 @@ import javax.ws.rs.core.Application;
 import org.camunda.bpm.engine.rest.impl.CamundaRestResources;
 
 /**
+ * Application that sets up the rest api
  * @author Katrin Krüger
  *
  */

@@ -7,7 +7,7 @@ public class ArchiveListener extends RouteBuilder{
 
     @Override
     public void configure() throws Exception {
-        Endpoint source = endpoint("file:/home/lars/pruefungen_archive?noop=true");
+        Endpoint source = endpoint("file:/home/lars/pruefungen_database");
         Endpoint destination = endpoint("jms:queue:archive_queue");
         
         from(source)

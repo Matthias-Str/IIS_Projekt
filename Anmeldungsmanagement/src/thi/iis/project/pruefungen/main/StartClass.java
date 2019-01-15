@@ -1,12 +1,8 @@
-package thi.iis.project.pruefungen.management;
-
-import java.io.StringWriter;
-import java.util.Calendar;
+package thi.iis.project.pruefungen.main;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.Session;
-import javax.xml.bind.JAXB;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -14,13 +10,12 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import thi.iis.project.pruefungen.anmeldung.DatePersistedAckListener;
 import thi.iis.project.pruefungen.anmeldung.NewDateListener;
 import thi.iis.project.pruefungen.anmeldung.RegistrationListener;
-import thi.iis.project.pruefungen.pojos.InputData;
-import thi.iis.project.pruefungen.sender.SendObjectMessageToQueue;
-import thi.iis.project.pruefungen.webservices.Deadline;
-import thi.iis.project.pruefungen.webservices.Exam;
-import thi.iis.project.pruefungen.webservices.Professor;
-import thi.iis.project.pruefungen.webservices.Student;
 
+/**
+ * Main Class of Anmeldungsmanagement
+ * @author Katrin Krüger
+ *
+ */
 public class StartClass {
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 

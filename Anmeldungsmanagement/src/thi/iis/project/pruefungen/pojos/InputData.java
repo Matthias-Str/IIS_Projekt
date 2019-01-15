@@ -10,12 +10,14 @@ import thi.iis.project.pruefungen.webservices.Deadline;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.Student;
 
-
+/**
+ * DataType that represents all necessary data for initialization
+ * @author Katrin Krüger
+ *
+ */
 @XmlRootElement(name="inputData")
 public class InputData implements Serializable{
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1L;
     
     Deadline[] deadlineList;
