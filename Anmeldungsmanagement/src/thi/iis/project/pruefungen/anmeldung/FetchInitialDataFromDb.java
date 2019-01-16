@@ -12,6 +12,7 @@ import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
 
 /**
  * Helper to fetch all needed data for initialization from db
+ * 
  * @author Katrin Krüger
  *
  */
@@ -23,6 +24,7 @@ public class FetchInitialDataFromDb {
 
     /**
      * request InputData from Database
+     * 
      * @return InputData
      */
     public InputData getData() {
@@ -32,7 +34,7 @@ public class FetchInitialDataFromDb {
         DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
         StudentWebService studentWS = new StudentWebServiceProxy().getStudentWebService();
         ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
-        
+
         try {
             // get and set deadline list
             inputData.setDeadlineList(deadlineWS.selectAll());
@@ -47,7 +49,6 @@ public class FetchInitialDataFromDb {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
 
         return inputData;
     }

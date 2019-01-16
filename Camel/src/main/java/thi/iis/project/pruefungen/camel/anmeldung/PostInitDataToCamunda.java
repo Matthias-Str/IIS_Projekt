@@ -15,7 +15,7 @@ public class PostInitDataToCamunda extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        Endpoint source = endpoint("jms:queue:preparedInitData_queue");
+        Endpoint source = endpoint("jms:queue:initData_queue");
 
         from(source).process(new InitDataProcessor()).setHeader("CamelHttpMethod", constant("POST"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))

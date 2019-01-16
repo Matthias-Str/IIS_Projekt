@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.archive;
+package thi.iis.project.pruefungen.camel.archive;
 
 import java.io.File;
 

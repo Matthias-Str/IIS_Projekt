@@ -4,14 +4,14 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.main.Main;
 
-import thi.iis.project.pruefungen.archive.ArchiveListener;
-import thi.iis.project.pruefungen.archive.ArchiveRouteBuilder;
-import thi.iis.project.pruefungen.archive.DocumentStatusReplyListener;
-import thi.iis.project.pruefungen.archive.DocumentStatusRequestListener;
 import thi.iis.project.pruefungen.camel.anmeldung.DateListSplitter;
-import thi.iis.project.pruefungen.camel.anmeldung.InitDataRouter;
+import thi.iis.project.pruefungen.camel.anmeldung.DatePersistedAckAggregator;
 import thi.iis.project.pruefungen.camel.anmeldung.PostInitDataToCamunda;
 import thi.iis.project.pruefungen.camel.anmeldung.RegistrationListTransformer;
+import thi.iis.project.pruefungen.camel.archive.ArchiveListener;
+import thi.iis.project.pruefungen.camel.archive.ArchiveRouteBuilder;
+import thi.iis.project.pruefungen.camel.archive.DocumentStatusReplyListener;
+import thi.iis.project.pruefungen.camel.archive.DocumentStatusRequestListener;
 
 /**
  * Main Class to run Camel Application
@@ -27,13 +27,13 @@ public class MainApp {
         connectionFactory.setTrustAllPackages(true);
         main.bind("jms", JmsComponent.jmsComponentAutoAcknowledge(connectionFactory));
         main.addRouteBuilder(new DateListSplitter());
-        main.addRouteBuilder(new InitDataRouter());
         main.addRouteBuilder(new RegistrationListTransformer());
         main.addRouteBuilder(new PostInitDataToCamunda());
         main.addRouteBuilder(new ArchiveListener());
         main.addRouteBuilder(new ArchiveRouteBuilder());
         main.addRouteBuilder(new DocumentStatusRequestListener());
         main.addRouteBuilder(new DocumentStatusReplyListener());
+        main.addRouteBuilder(new DatePersistedAckAggregator());
         main.run(args);
     }
 

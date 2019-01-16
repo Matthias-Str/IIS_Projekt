@@ -18,6 +18,7 @@ public class DateListSplitter extends RouteBuilder {
         Endpoint destination = endpoint("jms:queue:preparedRegistrationDates_queue");
 
         from(source)
+                .process(new RegistrationDateProcessor())
                 .split()
                 .tokenizeXML("entry")
                 .log("${body}")

@@ -25,6 +25,7 @@ import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
 
 /**
  * Listens to a queue if a new dates is to persist
+ * 
  * @author Katrin Krüger
  *
  */
@@ -41,6 +42,7 @@ public class NewDateListener {
 
     /**
      * start listener
+     * 
      * @throws JMSException
      */
     public void startListener() throws JMSException {
@@ -49,7 +51,7 @@ public class NewDateListener {
 
         // create new consumer in session
         MessageConsumer consumer = session.createConsumer(queue);
-        
+
         // init new webservices
         final DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
         final ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
@@ -80,6 +82,7 @@ public class NewDateListener {
 
     /**
      * persist the date that was in message body
+     * 
      * @param deadlineWS
      * @param examWS
      * @param sdpAck
@@ -107,15 +110,12 @@ public class NewDateListener {
                 deadlineWS.createDeadline(cal, curDate.getName());
             }
             // send message int datePersistedAck_queue that data was persisted
-            sdpAck.sendMessage(session, "datePersistedAck_queue", Calendar.getInstance().getTime().toString());
+            sdpAck.sendMessage(session, "datePersistedAck_queue", "date persisted");
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (JMSException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

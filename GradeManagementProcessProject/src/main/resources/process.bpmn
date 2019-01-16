@@ -96,7 +96,7 @@
         <bpmn:targetRef>Property_152qpem</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:sendTask>
-    <bpmn:endEvent id="EndEvent_1ls7rf5">
+    <bpmn:endEvent id="EndEvent_1ls7rf5" name="Ende der initialen Prüfungsverwaltung">
       <bpmn:incoming>SequenceFlow_0b43kh7</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:dataObjectReference id="DataObjectReference_0xo0sxd" name="Lite mit Terminen" dataObjectRef="DataObject_05kymn0" />
@@ -245,7 +245,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_06aose2" sourceRef="StartEvent_1t78yzo" targetRef="ExclusiveGateway_0v5i2z8" />
     <bpmn:sequenceFlow id="SequenceFlow_0163xhp" sourceRef="ExclusiveGateway_0v5i2z8" targetRef="Task_0pxcua6" />
-    <bpmn:sendTask id="Task_0pxcua6" name="Anfrage senden, ob Dokument hochgeladen ist" camunda:class="thi.iis.project.pruefungen.archive.SendDocumentStatusRequest">
+    <bpmn:sendTask id="Task_0pxcua6" name="Anfrage senden, ob Dokument hochgeladen ist" camunda:class="thi.iis.project.pruefungen.servicetasks.archive.SendDocumentStatusRequest">
       <bpmn:incoming>SequenceFlow_0163xhp</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_03bkijx</bpmn:outgoing>
     </bpmn:sendTask>
@@ -297,6 +297,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1ls7rf5_di" bpmnElement="EndEvent_1ls7rf5">
         <dc:Bounds x="1201" y="2066" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1177" y="2109" width="85" height="53" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_104qnwk_di" bpmnElement="UserTask_104qnwk">
         <dc:Bounds x="300" y="2044" width="100" height="80" />

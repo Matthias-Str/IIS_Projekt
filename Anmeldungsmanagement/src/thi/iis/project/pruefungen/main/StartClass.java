@@ -7,12 +7,13 @@ import javax.jms.Session;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import thi.iis.project.pruefungen.anmeldung.DatePersistedAckListener;
+import thi.iis.project.pruefungen.anmeldung.GetInitDataListener;
 import thi.iis.project.pruefungen.anmeldung.NewDateListener;
 import thi.iis.project.pruefungen.anmeldung.RegistrationListener;
 
 /**
  * Main Class of Anmeldungsmanagement
+ * 
  * @author Katrin Krüger
  *
  */
@@ -26,15 +27,15 @@ public class StartClass {
         Connection connection = connectionFactory.createConnection();
         connection.start();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        
+
         // start NewDateListener
         NewDateListener ndListener = new NewDateListener(session);
         ndListener.startListener();
-        
+
         // start DatePersistedAckListener
-        DatePersistedAckListener dpAckListener = new DatePersistedAckListener(session);
+        GetInitDataListener dpAckListener = new GetInitDataListener(session);
         dpAckListener.startListener();
-        
+
         // start RegistrationListener
         RegistrationListener regListener = new RegistrationListener(session);
         regListener.startListener();

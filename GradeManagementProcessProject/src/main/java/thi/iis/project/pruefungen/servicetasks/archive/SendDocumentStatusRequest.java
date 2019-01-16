@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.archive;
+package thi.iis.project.pruefungen.servicetasks.archive;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;

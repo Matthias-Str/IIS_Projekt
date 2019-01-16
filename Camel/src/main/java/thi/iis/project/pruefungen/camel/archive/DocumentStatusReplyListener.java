@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.archive;
+package thi.iis.project.pruefungen.camel.archive;
 
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;

@@ -1,6 +1,5 @@
 package thi.iis.project.pruefungen.servicetasks.anmeldung;
 
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,9 +8,8 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.xml.bind.JAXB;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -81,10 +79,7 @@ public class SendRegistration implements JavaDelegate {
         MessageProducer producer = session.createProducer(destination);
 
         // Create messages
-        StringWriter sw = new StringWriter();
-        JAXB.marshal(registration, sw);
-        String objectToXml = sw.toString();
-        TextMessage message = session.createTextMessage(objectToXml);
+        ObjectMessage message = session.createObjectMessage(registration);
 
         // Send message to queue
         producer.send(message);
