@@ -24,6 +24,7 @@ import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
  */
 public class CallCreateDeadlineWS implements JavaDelegate {
     Calendar end_registration_date = Calendar.getInstance();
+    Calendar firstExamDate;
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
@@ -35,6 +36,8 @@ public class CallCreateDeadlineWS implements JavaDelegate {
         
         // set variable of endRegistrationTimer
         execution.setVariable("endRegistrationTimer", end_registration_date.getTime());
+        //First exam timer:
+        execution.setVariable(ValueIdentifiers.TIMER_IDENTIFIER_FIRST_EXAM, firstExamDate);
         
         // get students from database
         setStudentList(execution);
@@ -86,6 +89,8 @@ public class CallCreateDeadlineWS implements JavaDelegate {
         // init calendar and formatter
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMANY);
+        
+        firstExamDate = examWS.getFirstExamDate();
         
         // store examdates
         // itim

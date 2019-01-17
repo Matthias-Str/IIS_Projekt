@@ -16,12 +16,11 @@ public class LoadStudentExam implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution ) throws Exception
     {
-        int index = (int) execution.getVariable("index");
         
         //Map<String,Student> registeredStudents = (Map<String,Student>) execution.getVariable("registeredStudents");
-        List<StudentExam> studentexamlist = (List<StudentExam>) execution.getVariableLocal(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM_LIST);
+        List<StudentExam> studentexamlist = (List<StudentExam>) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM_LIST);
         
-        StudentExam studentexam = studentexamlist.get(index);
+        StudentExam studentexam = (StudentExam) execution.getVariable("element");
         
         Student relevantStudent = studentexam.getRegistrationNumber();
         
@@ -31,7 +30,7 @@ public class LoadStudentExam implements JavaDelegate {
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_NAME, relevantStudent.getRegistrationName());
 
 
-        execution.setVariablesLocal(camundaVars);
+        execution.setVariables(camundaVars);
     }
 
 }

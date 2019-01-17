@@ -31,8 +31,8 @@ public class PersistGrade implements JavaDelegate{
     @Override
     public void execute(DelegateExecution execution) throws Exception
     {
-        StudentExam se = (StudentExam) execution.getVariableLocal(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM);
-        String grade = (String) execution.getVariableLocal(ValueIdentifiers.VALUE_IDENTIFIER_INPUT_GRADE);
+        StudentExam se = (StudentExam) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM);
+        String grade = (String) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_INPUT_GRADE);
         
         StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
         

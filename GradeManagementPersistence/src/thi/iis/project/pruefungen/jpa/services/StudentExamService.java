@@ -32,7 +32,7 @@ public class StudentExamService implements StudentExamServiceLocal {
     //MHoepp
     @Override
     public List<StudentExam> selectAll() {        
-        TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM student_exam s", StudentExam.class);
+        TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM StudentExam s", StudentExam.class);
         return query.getResultList();
     }
 
@@ -45,7 +45,7 @@ public class StudentExamService implements StudentExamServiceLocal {
     @Override
     public List<StudentExam> selectFromExam(Exam ex)
     {
-        TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM student_exam s WHERE exam_id = :id", StudentExam.class);
+        TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM StudentExam s WHERE exam_id = :id", StudentExam.class);
         query.setParameter("id", ex.getExamId());
         return query.getResultList();
     }

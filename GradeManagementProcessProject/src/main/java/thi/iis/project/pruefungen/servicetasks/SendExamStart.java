@@ -25,12 +25,17 @@ public class SendExamStart implements JavaDelegate
     
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        //get subject name, needs to be saved in DelegateExecution
-        int index = (int) execution.getVariable("index");
-        
-        
+        System.out.println("Executing message: Send Exam Start. All variables: " );
+        for(String varname : execution.getVariableNames())
+        {
+            Object obj = execution.getVariable(varname);
+            if(obj!=null)
+            {
+                System.out.println(varname + "  ->  "+obj.toString());
+            }else System.out.println(varname + "  -> NULL");
+        }
         ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
-        Exam relevantExam = examWS.selectAll()[index];
+        Exam relevantExam = (Exam) execution.getVariable("element");
         String examName = relevantExam.getExamId();
         //ProfessorWebService professorWS = new ProfessorWebServiceProxy().getProfessorWebService();
         
@@ -58,13 +63,13 @@ public class SendExamStart implements JavaDelegate
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_NAME, examName);
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_REGISTRATION_MAP, registeredStudents);
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_USERNAME, username);
-        camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_START_DATE, relevantExam.getDate());
+        camundaVars.put(ValueIdentifiers.TIMER_IDENTIFIER_EXAM_START, relevantExam.getDate().getTime());
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM_LIST, studentexamlist);
 
 
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         runtimeService.createMessageCorrelation(ValueIdentifiers.MESSAGE_IDENTIFIER_SEND_EXAM_START)
-                            .setVariablesLocal(camundaVars)
+                            .setVariables(camundaVars)
                             .correlateWithResult();
 
     }

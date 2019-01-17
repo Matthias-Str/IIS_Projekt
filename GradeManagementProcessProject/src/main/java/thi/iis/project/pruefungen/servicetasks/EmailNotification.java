@@ -40,7 +40,7 @@ public class EmailNotification implements JavaDelegate {
                     "\n\nIhre Prüfungsergebnisse sind nun verfügbar \n Besuchen Sie das Studentenportal oder sehen Sie das Notenblatt an folgender Adresse ein:\n"+
                     "\n"+pdfpath+"\n"+
                     "\nGrüße,\n"+
-                    "Ihr Prüfungsamt";
+                    "Ihr Prüfungsamt (BPMN Simulation)";
             
             
             if(!mailDestination.contains("demo"))
