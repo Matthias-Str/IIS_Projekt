@@ -8,5 +8,7 @@
 package thi.iis.project.pruefungen.webservices;
 
 public interface StudentExamWebService extends java.rmi.Remote {
+    public thi.iis.project.pruefungen.webservices.StudentExam[] selectAll() throws java.rmi.RemoteException;
     public void create(thi.iis.project.pruefungen.webservices.StudentExam arg0) throws java.rmi.RemoteException;
+    public thi.iis.project.pruefungen.webservices.StudentExam[] selectFromExam(thi.iis.project.pruefungen.webservices.Exam arg0) throws java.rmi.RemoteException;
 }

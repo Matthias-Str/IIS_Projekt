@@ -28,6 +28,8 @@ public class StudentExamService implements StudentExamServiceLocal {
         // TODO Auto-generated constructor stub
     }
     
+    
+    //MHoepp
     @Override
     public List<StudentExam> selectAll() {        
         TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM student_exam s", StudentExam.class);
@@ -39,6 +41,7 @@ public class StudentExamService implements StudentExamServiceLocal {
         em.merge(se);
     }
 
+    //MHoepp
     @Override
     public List<StudentExam> selectFromExam(Exam ex)
     {

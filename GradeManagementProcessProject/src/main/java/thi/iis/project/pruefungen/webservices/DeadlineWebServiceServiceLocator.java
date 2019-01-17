@@ -22,7 +22,7 @@ public class DeadlineWebServiceServiceLocator extends org.apache.axis.client.Ser
     }
 
     // Use to get a proxy class for DeadlineWebServicePort
-    private java.lang.String DeadlineWebServicePort_address = "http://localhost:8080/GradeManagementWebServices/DeadlineWebService";
+    private java.lang.String DeadlineWebServicePort_address = "http://localhost:8080/GradeManagementPersistence/DeadlineWebService";
 
     public java.lang.String getDeadlineWebServicePortAddress() {
         return DeadlineWebServicePort_address;

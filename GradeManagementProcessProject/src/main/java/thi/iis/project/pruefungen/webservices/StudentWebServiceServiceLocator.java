@@ -22,7 +22,7 @@ public class StudentWebServiceServiceLocator extends org.apache.axis.client.Serv
     }
 
     // Use to get a proxy class for StudentWebServicePort
-    private java.lang.String StudentWebServicePort_address = "http://localhost:8080/GradeManagementWebServices/StudentWebService";
+    private java.lang.String StudentWebServicePort_address = "http://localhost:8080/GradeManagementPersistence/StudentWebService";
 
     public java.lang.String getStudentWebServicePortAddress() {
         return StudentWebServicePort_address;

@@ -22,7 +22,7 @@ public class StudentExamWebServiceServiceLocator extends org.apache.axis.client.
     }
 
     // Use to get a proxy class for StudentExamWebServicePort
-    private java.lang.String StudentExamWebServicePort_address = "http://localhost:8080/GradeManagementWebServices/StudentExamWebService";
+    private java.lang.String StudentExamWebServicePort_address = "http://localhost:8080/GradeManagementPersistence/StudentExamWebService";
 
     public java.lang.String getStudentExamWebServicePortAddress() {
         return StudentExamWebServicePort_address;

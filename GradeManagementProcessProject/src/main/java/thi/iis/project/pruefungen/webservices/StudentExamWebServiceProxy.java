@@ -44,10 +44,22 @@ public class StudentExamWebServiceProxy implements thi.iis.project.pruefungen.we
     return studentExamWebService;
   }
   
+  public thi.iis.project.pruefungen.webservices.StudentExam[] selectAll() throws java.rmi.RemoteException{
+    if (studentExamWebService == null)
+      _initStudentExamWebServiceProxy();
+    return studentExamWebService.selectAll();
+  }
+  
   public void create(thi.iis.project.pruefungen.webservices.StudentExam arg0) throws java.rmi.RemoteException{
     if (studentExamWebService == null)
       _initStudentExamWebServiceProxy();
     studentExamWebService.create(arg0);
+  }
+  
+  public thi.iis.project.pruefungen.webservices.StudentExam[] selectFromExam(thi.iis.project.pruefungen.webservices.Exam arg0) throws java.rmi.RemoteException{
+    if (studentExamWebService == null)
+      _initStudentExamWebServiceProxy();
+    return studentExamWebService.selectFromExam(arg0);
   }
   
   

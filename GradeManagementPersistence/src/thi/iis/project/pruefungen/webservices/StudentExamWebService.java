@@ -26,12 +26,13 @@ public class StudentExamWebService {
     
 
 
-    
+    //MHoepp
     public List<StudentExam> selectFromExam(Exam ex)
     {
         return studentExamService.selectFromExam(ex);
     }
-    
+
+    //MHoepp
     public List<StudentExam> selectAll()
     {
         return studentExamService.selectAll();

@@ -16,7 +16,7 @@ public class DeadlineWebServiceServiceSoapBindingStub extends org.apache.axis.cl
     static org.apache.axis.description.OperationDesc [] _operations;
 
     static {
-        _operations = new org.apache.axis.description.OperationDesc[2];
+        _operations = new org.apache.axis.description.OperationDesc[3];
         _initOperationDesc1();
     }
 
@@ -49,6 +49,15 @@ public class DeadlineWebServiceServiceSoapBindingStub extends org.apache.axis.cl
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
         oper.setUse(org.apache.axis.constants.Use.LITERAL);
         _operations[1] = oper;
+
+        oper = new org.apache.axis.description.OperationDesc();
+        oper.setName("selectAll");
+        oper.setReturnType(new javax.xml.namespace.QName("http://webservices.pruefungen.project.iis.thi/", "deadline"));
+        oper.setReturnClass(thi.iis.project.pruefungen.webservices.Deadline[].class);
+        oper.setReturnQName(new javax.xml.namespace.QName("", "return"));
+        oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
+        oper.setUse(org.apache.axis.constants.Use.LITERAL);
+        _operations[2] = oper;
 
     }
 
@@ -215,6 +224,40 @@ public class DeadlineWebServiceServiceSoapBindingStub extends org.apache.axis.cl
                 return (thi.iis.project.pruefungen.webservices.Deadline) _resp;
             } catch (java.lang.Exception _exception) {
                 return (thi.iis.project.pruefungen.webservices.Deadline) org.apache.axis.utils.JavaUtils.convert(_resp, thi.iis.project.pruefungen.webservices.Deadline.class);
+            }
+        }
+  } catch (org.apache.axis.AxisFault axisFaultException) {
+  throw axisFaultException;
+}
+    }
+
+    public thi.iis.project.pruefungen.webservices.Deadline[] selectAll() throws java.rmi.RemoteException {
+        if (super.cachedEndpoint == null) {
+            throw new org.apache.axis.NoEndPointException();
+        }
+        org.apache.axis.client.Call _call = createCall();
+        _call.setOperation(_operations[2]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setEncodingStyle(null);
+        _call.setProperty(org.apache.axis.client.Call.SEND_TYPE_ATTR, Boolean.FALSE);
+        _call.setProperty(org.apache.axis.AxisEngine.PROP_DOMULTIREFS, Boolean.FALSE);
+        _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new javax.xml.namespace.QName("http://webservices.pruefungen.project.iis.thi/", "selectAll"));
+
+        setRequestHeaders(_call);
+        setAttachments(_call);
+ try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {});
+
+        if (_resp instanceof java.rmi.RemoteException) {
+            throw (java.rmi.RemoteException)_resp;
+        }
+        else {
+            extractAttachments(_call);
+            try {
+                return (thi.iis.project.pruefungen.webservices.Deadline[]) _resp;
+            } catch (java.lang.Exception _exception) {
+                return (thi.iis.project.pruefungen.webservices.Deadline[]) org.apache.axis.utils.JavaUtils.convert(_resp, thi.iis.project.pruefungen.webservices.Deadline[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

@@ -56,5 +56,11 @@ public class DeadlineWebServiceProxy implements thi.iis.project.pruefungen.webse
     return deadlineWebService.selectDeadlineByName(arg0);
   }
   
+  public thi.iis.project.pruefungen.webservices.Deadline[] selectAll() throws java.rmi.RemoteException{
+    if (deadlineWebService == null)
+      _initDeadlineWebServiceProxy();
+    return deadlineWebService.selectAll();
+  }
+  
   
 }
