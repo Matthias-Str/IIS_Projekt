@@ -3,6 +3,12 @@ package thi.iis.project.pruefungen.camel.pruefung;
 import org.apache.camel.Endpoint;
 import org.apache.camel.builder.RouteBuilder;
 
+/**
+ * 
+ * @author Matthias Strauss
+ *
+ */
+
 public class DeregistrationRouteBuilder extends RouteBuilder {
 
     private static final String DEREGISTRATION_QUEUE = "deregistrationQueue";

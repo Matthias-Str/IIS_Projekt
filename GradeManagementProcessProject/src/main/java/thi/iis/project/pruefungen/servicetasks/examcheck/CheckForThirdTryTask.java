@@ -25,6 +25,11 @@ import thi.iis.project.pruefungen.webservices.Professor;
 import thi.iis.project.pruefungen.webservices.Student;
 import thi.iis.project.pruefungen.webservices.StudentExam;
 
+/**
+ * 
+ * @author matthias strauss
+ *
+ */
 public class CheckForThirdTryTask implements JavaDelegate{
     
     private static final String THIRD_TRY_QUEUE = "thirdTryQueue";
@@ -54,6 +59,9 @@ public class CheckForThirdTryTask implements JavaDelegate{
             JAXB.marshal(student_exam, writer);
             
         } else {
+            System.out.println("----------");
+            System.out.println("USING TEST STUDENT EXAM!!!!");
+            System.out.println("----------");
             Professor testprof = new Professor();
             
             testprof.setFirstname("ulrich");

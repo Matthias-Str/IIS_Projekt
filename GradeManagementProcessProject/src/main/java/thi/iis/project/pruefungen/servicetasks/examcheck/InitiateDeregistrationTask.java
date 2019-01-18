@@ -14,6 +14,11 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import thi.iis.project.pruefungen.webservices.StudentExam;
 
+/**
+ * 
+ * @author matthias strauss
+ *
+ */
 public class InitiateDeregistrationTask implements JavaDelegate {
     
     private static final String DEREGISTRATION_QUEUE = "deregistrationQueue";

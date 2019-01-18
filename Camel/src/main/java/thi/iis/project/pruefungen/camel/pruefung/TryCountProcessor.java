@@ -3,6 +3,11 @@ package thi.iis.project.pruefungen.camel.pruefung;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
+/**
+ * 
+ * @author matthias strauss
+ *
+ */
 public class TryCountProcessor implements Processor {
     
     final static int MAX_TRIES = 3;
