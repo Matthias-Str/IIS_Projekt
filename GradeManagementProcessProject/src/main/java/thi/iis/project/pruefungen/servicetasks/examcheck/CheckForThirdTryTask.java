@@ -53,47 +53,27 @@ public class CheckForThirdTryTask implements JavaDelegate{
 
         StringWriter writer = new StringWriter();
         
-        Object student_exam = execution.getVariable("studentExam");
+        StudentExam student_exam = (StudentExam) execution.getVariable("studentExam");
         
         if(student_exam != null){
             JAXB.marshal(student_exam, writer);
-            
         } else {
-            System.out.println("----------");
-            System.out.println("USING TEST STUDENT EXAM!!!!");
-            System.out.println("----------");
-            Professor testprof = new Professor();
-            
-            testprof.setFirstname("ulrich");
-            testprof.setLastname("schmidt");
-            
-            Exam testExam = new Exam();
-            testExam.setExamId("inf_m_kao_ws18");
-
-            Student testStudent = new Student();
-            testStudent.setRegistrationName("matthias");
-            
-            StudentExam testStudentExam = new StudentExam();
-            testStudentExam.setExamId(testExam);
-            testStudentExam.setRegistrationNumber(testStudent);
-            testStudentExam.setGrade(BigDecimal.valueOf(5));
-            
-            execution.setVariable("studentExam", testStudentExam);
-       
-            JAXB.marshal(testStudentExam, writer);       
+            throw new RuntimeException("Using test data");
         }
         
         TextMessage studenExamMessage = session.createTextMessage(writer.toString());
         
         studenExamMessage.setJMSReplyTo(tempQueue);
-        
         producer.send(studenExamMessage);
         
         Message response = consumer.receive();
         
         if(response!=null){
-            execution.setVariable("thirdTry", ((ObjectMessage) response).getObject().toString());
+            execution.setVariable("thirdTry", ((TextMessage) response).getText());
         }
+        
+        String username = student_exam.getExamId().getProfessorId().getFirstname() + student_exam.getExamId().getProfessorId().getLastname();
+        execution.setVariable("profUserName", username);
         
         connection.close();
     }

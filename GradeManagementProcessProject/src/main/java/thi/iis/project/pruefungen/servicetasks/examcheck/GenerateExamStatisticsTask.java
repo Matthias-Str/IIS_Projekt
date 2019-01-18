@@ -21,7 +21,7 @@ public class GenerateExamStatisticsTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        Collection<StudentExam> studentexams = (Collection<StudentExam>) execution.getVariable("studentExamList");
+        Collection<StudentExam> studentexams = (Collection<StudentExam>) execution.getVariable("studentexamlist");
     
         List<Double> grades = studentexams.stream().map(exam -> exam.getGrade().doubleValue()).collect(Collectors.toList());
         
