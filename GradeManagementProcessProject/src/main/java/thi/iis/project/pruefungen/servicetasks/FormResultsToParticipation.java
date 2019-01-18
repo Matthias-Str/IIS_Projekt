@@ -29,29 +29,31 @@ public class FormResultsToParticipation implements JavaDelegate {
         
         for(StudentExam se : studentExams)
         {
-            if(se.getExamId().getExamId() == examname)
+            if(se.getExamId().getExamId().equals(examname) )
             {
-                if(se.getRegistrationNumber().getRegistrationName()=="katrin" && kak_participated)
+                if(se.getRegistrationNumber().getRegistrationName().equals("katrin") && kak_participated)
                 {
-                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ "participated in "+examname);
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ " participated in "+examname);
                     se.setParticipated(true);
                     participatedExamList.add(se);
-                }else if(se.getRegistrationNumber().getRegistrationName()=="michael" && mih_participated)
+                }else if(se.getRegistrationNumber().getRegistrationName().equals("michael") && mih_participated)
                 {
-                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ "participated in "+examname);
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ " participated in "+examname);
                     se.setParticipated(true);
                     participatedExamList.add(se);
-                }else if(se.getRegistrationNumber().getRegistrationName()=="matthias" && mas_participated)
+                }else if(se.getRegistrationNumber().getRegistrationName().equals("matthias") && mas_participated)
                 {
-                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ "participated in "+examname);
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ " participated in "+examname);
                     se.setParticipated(true);
                     participatedExamList.add(se);
                 }else
                 {
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ " did not participate in "+examname);
                     se.setParticipated(false);
                 }
-                se.notify();
+                
             }
+            System.out.println(se.getRegistrationNumber().getRegistrationName()+ " is not relevant for "+examname+" just for "+se.getExamId().getExamId());
         }
         execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_EXAM_LIST,participatedExamList);
         execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_STUDENT_COUNT,participatedExamList.size());

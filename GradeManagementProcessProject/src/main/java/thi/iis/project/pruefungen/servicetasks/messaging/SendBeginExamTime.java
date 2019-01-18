@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.servicetasks;
+package thi.iis.project.pruefungen.servicetasks.messaging;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,8 @@ import java.util.Map;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+
+import thi.iis.project.pruefungen.servicetasks.ValueIdentifiers;
 
 public class SendBeginExamTime implements JavaDelegate
 {

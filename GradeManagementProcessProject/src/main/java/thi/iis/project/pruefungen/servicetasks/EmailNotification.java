@@ -8,6 +8,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import thi.iis.project.pruefungen.webservices.Student;
+import thi.iis.project.pruefungen.webservices.StudentWebService;
+import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -25,7 +27,10 @@ public class EmailNotification implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception
     {
         
-        List<Student> studentlist = (List<Student>) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENTLIST);
+        StudentWebService studentWS = new StudentWebServiceProxy().getStudentWebService();
+        Student[] studentlist = studentWS.selectAllStudents();
+        
+        //List<Student> studentlist = (List<Student>) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENTLIST);
         Map<Student,String> pdfmap = (Map<Student,String>) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_PDF_MAP);
         
         for(Student student : studentlist)

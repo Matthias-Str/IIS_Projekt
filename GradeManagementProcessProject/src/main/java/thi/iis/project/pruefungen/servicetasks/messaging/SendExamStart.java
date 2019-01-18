@@ -1,4 +1,4 @@
-package thi.iis.project.pruefungen.servicetasks;
+package thi.iis.project.pruefungen.servicetasks.messaging;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +16,7 @@ import thi.iis.project.pruefungen.webservices.Student;
 import thi.iis.project.pruefungen.webservices.StudentExam;
 import thi.iis.project.pruefungen.webservices.StudentExamWebService;
 import thi.iis.project.pruefungen.webservices.StudentExamWebServiceProxy;
+import thi.iis.project.pruefungen.servicetasks.ValueIdentifiers;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.ExamWebService;
 import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
@@ -65,7 +66,6 @@ public class SendExamStart implements JavaDelegate
         
         Map<String, Object> camundaVars = new HashMap<String, Object>();
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_NAME, examName);
-        camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_REGISTRATION_MAP, registeredStudents);
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_USERNAME, username);
         if(relevantExam.getDate()!=null)
         {

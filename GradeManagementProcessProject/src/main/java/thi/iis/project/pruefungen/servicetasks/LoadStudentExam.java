@@ -18,7 +18,8 @@ public class LoadStudentExam implements JavaDelegate {
     {
         
         //Map<String,Student> registeredStudents = (Map<String,Student>) execution.getVariable("registeredStudents");
-        List<StudentExam> studentexamlist = (List<StudentExam>) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM_LIST);
+        @SuppressWarnings("unchecked")
+        List<StudentExam> studentexamlist = (List<StudentExam>) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_EXAM_LIST);
         
         StudentExam studentexam = (StudentExam) execution.getVariable("element");
         
@@ -27,10 +28,10 @@ public class LoadStudentExam implements JavaDelegate {
         Map<String, Object> camundaVars = new HashMap<String, Object>();
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT, relevantStudent);
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM, studentexam);
-        camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_NAME, relevantStudent.getRegistrationName());
+        camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_NAME, relevantStudent.getRegistrationNumber());
 
 
-        execution.setVariables(camundaVars);
+        execution.setVariablesLocal(camundaVars);
     }
 
 }

@@ -34,7 +34,6 @@ public class PersistGrade implements JavaDelegate{
         StudentExam se = (StudentExam) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM);
         String grade = (String) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_INPUT_GRADE);
         
-        StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
         
         System.out.println("Recieved Grade: "+grade);
         
@@ -73,6 +72,9 @@ public class PersistGrade implements JavaDelegate{
 
             case GRADE_5_0_IDENTIFIER:
                 se.setGrade(new BigDecimal(5.0));
+                break;
+            default:
+                System.out.println("Unknown grade");
                 break;
         }
         
