@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0m9surk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.3">
   <bpmn:collaboration id="Collaboration_1thsu3m">
-    <bpmn:participant id="Participant_19a8x70" name="Kontrolle Prüfungsergebniss" processRef="Process_1letsws" />
+    <bpmn:participant id="Participant_19a8x70" name="Kontrolle Prüfungsergebniss ALTASDLFALSDMFASDMLFALSDFMLASDMFLASDMFALSDMFALSDFMASDFKLASDNFKLASDNF" processRef="Process_1letsws" />
     <bpmn:participant id="Participant_05b6nge" name="Studentenamt" />
     <bpmn:messageFlow id="MessageFlow_13r5zx9" name="Studenteninformationen" sourceRef="ServiceTask_1svz3bb" targetRef="Participant_05b6nge" />
   </bpmn:collaboration>

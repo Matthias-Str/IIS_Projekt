@@ -1,0 +1,12 @@
+thi.iis.project.pruefungen:examcheck:jar:0.0.1-SNAPSHOT
++- org.apache.activemq:activemq-all:jar:5.15.7:compile
++- org.apache.axis:axis:jar:1.4:compile
++- commons-discovery:commons-discovery:jar:0.2:compile
++- org.apache.axis:axis-jaxrpc:jar:1.4:compile
++- org.apache.axis:axis-saaj:jar:1.4:compile
++- org.eclipse.ecf:org.apache.commons.logging:jar:1.1.1.v201101211721:compile
++- org.json:json:jar:20090211:compile
++- com.googlecode.json-simple:json-simple:jar:1.1.1:compile
+|  \- junit:junit:jar:4.10:compile
+|     \- org.hamcrest:hamcrest-core:jar:1.1:compile
+\- commons-logging:commons-logging:jar:1.0.3:compile
