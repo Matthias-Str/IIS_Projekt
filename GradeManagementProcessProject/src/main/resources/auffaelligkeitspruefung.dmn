@@ -30,8 +30,13 @@
         </inputExpression>
       </input>
       <input id="InputClause_0cit60p" label="Beste Häufigste Note">
-        <inputExpression id="LiteralExpression_0vwlj6c" typeRef="string">
+        <inputExpression id="LiteralExpression_0vwlj6c" typeRef="double">
           <text>mode_min</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1j09cio">
+        <inputExpression id="LiteralExpression_1pqinsu" typeRef="string">
+          <text></text>
         </inputExpression>
       </input>
       <output id="output_1" label="auffällig" name="auffaellig" typeRef="boolean" />
@@ -44,6 +49,9 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_15tini8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_059hueb">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0a426wa">
@@ -61,6 +69,9 @@
         <inputEntry id="UnaryTests_1dum4zr">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_0x4i5zw">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_1560lhm">
           <text>true</text>
         </outputEntry>
@@ -76,7 +87,28 @@
         <inputEntry id="UnaryTests_1qsem1z">
           <text></text>
         </inputEntry>
+        <inputEntry id="UnaryTests_1h4trmh">
+          <text></text>
+        </inputEntry>
         <outputEntry id="LiteralExpression_0wqyda4">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k7jokv">
+        <description>Häufigste Note &lt; 1.3</description>
+        <inputEntry id="UnaryTests_0ildsgm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00q8d40">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lzl62x">
+          <text>&lt;= 1.3</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kvinpp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vw6q8u">
           <text>true</text>
         </outputEntry>
       </rule>
@@ -89,6 +121,9 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1qgt4f5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ekhh4f">
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_1qcr2o5">
