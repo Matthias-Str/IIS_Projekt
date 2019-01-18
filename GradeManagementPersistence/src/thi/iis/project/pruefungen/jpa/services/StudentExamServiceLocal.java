@@ -1,5 +1,7 @@
 package thi.iis.project.pruefungen.jpa.services;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import thi.iis.project.pruefungen.jpa.entities.StudentExam;
@@ -18,4 +20,11 @@ public interface StudentExamServiceLocal {
      * @param studentExam
      */
     public void create(StudentExam se);
+
+    /**
+     * select student exam by exam is
+     * @param examId
+     * @return List<StudentExam>
+     */
+    List<StudentExam> selectByExamId(String examId);
 }
