@@ -14,7 +14,6 @@ import java.util.Calendar;
 import org.camunda.bpm.engine.impl.util.json.JSONException;
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
-
 public class Exam  implements java.io.Serializable {
     private java.util.Calendar date;
 
@@ -259,6 +258,6 @@ public class Exam  implements java.io.Serializable {
         
         return e;
 
-    }
+}
 
 }

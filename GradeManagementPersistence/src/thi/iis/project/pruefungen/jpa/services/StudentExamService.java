@@ -71,4 +71,11 @@ public class StudentExamService implements StudentExamServiceLocal {
         em.flush();
         em.merge(se);
     }
+
+
+    @Override
+    public List<StudentExam> selectFromExam(Exam ex) 
+    {
+        return selectByExamId(ex.getExamId());
+    }
 }

@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
+import thi.iis.project.pruefungen.servicetasks.ValueIdentifiers;
 import thi.iis.project.pruefungen.webservices.Exam;
 
 /**
@@ -26,13 +27,13 @@ public class StartExamCorrection implements JavaDelegate {
         Exam[] examList = (Exam[]) execution.getVariable("examListArray");
         Exam curExam = examList[index];
 
-        Date announcement_date = (Date) execution.getVariable("announcement_date");
+        Date announcement_date = (Date) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_ANNOUCEMENT_DATE);
 
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("exam", curExam);
-        data.put("examId", curExam.getExamId());
-        data.put("username", curExam.getProfessorId().getFirstname() + curExam.getProfessorId().getLastname());
-        data.put("announcement_date", announcement_date);
+        data.put(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_NAME, curExam.getExamId());
+        data.put(ValueIdentifiers.VALUE_IDENTIFIER_USERNAME, curExam.getProfessorId().getFirstname() + curExam.getProfessorId().getLastname());
+        data.put(ValueIdentifiers.VALUE_IDENTIFIER_ANNOUCEMENT_DATE, announcement_date);
 
         // correlate message "startRegistration"
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();

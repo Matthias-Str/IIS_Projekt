@@ -17,7 +17,7 @@ public class ValueIdentifiers
     public static final String VALUE_IDENTIFIER_PARTICIPATED_STUDENT_COUNT = "participatedStudentCount";
     public static final String VALUE_IDENTIFIER_ALL_EXAMS = "allExams";
     public static final String VALUE_IDENTIFIER_PARTICIPATED_EXAM_LIST = "participatedExamList";
-    public static final String VALUE_IDENTIFIER_ANNOUCEMENT_DATE = "anouncement_date";
+    public static final String VALUE_IDENTIFIER_ANNOUCEMENT_DATE = "announcement_date";
     
     public static final String VALUE_IDENTIFIER_INPUT_GRADE = "input_grade";
     

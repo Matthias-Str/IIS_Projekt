@@ -668,7 +668,7 @@
       <bpmn:incoming>SequenceFlow_0coztth</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_05w2561</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0xep8xo">
-        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${anouncement_date}</bpmn:timeDate>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${announcement_date}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0ldxljs" sourceRef="BoundaryEvent_1buh7vz" targetRef="ServiceTask_1l0rgnv" />
@@ -719,7 +719,7 @@
     <bpmn:boundaryEvent id="BoundaryEvent_1buh7vz" name="Bei Notenbekanntgabe abbrechen" attachedToRef="SubProcess_0fme0co">
       <bpmn:outgoing>SequenceFlow_0ldxljs</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0suy1en">
-        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${anouncement_date}</bpmn:timeDate>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${announcement_date}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
     <bpmn:startEvent id="StartEvent_15tqv7m" name="Beginn mit erstem Prüfungstermin">

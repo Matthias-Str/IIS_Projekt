@@ -6,10 +6,7 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 			<property name="hibernate.default_schema" value="grade_management"/>
-<<<<<<< HEAD
 			<!--  <property name="hibernate.hbm2ddl.auto" value="create"/>    -->
-=======
->>>>>>> master
 		</properties>
 	</persistence-unit>
 </persistence>

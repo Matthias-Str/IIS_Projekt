@@ -224,7 +224,7 @@ public class Professor  implements java.io.Serializable {
           new  org.apache.axis.encoding.ser.BeanDeserializer(
             _javaType, _xmlType, typeDesc);
     }
-    
+
     public Professor fromJson(JSONObject professorJson){
         Professor p = new Professor();
         p.setFirstname(professorJson.getString("firstname"));
@@ -232,6 +232,6 @@ public class Professor  implements java.io.Serializable {
         p.setMail(professorJson.getString("mail"));
         p.setProfessorId(professorJson.getInt("professorId"));
         return p;
-    }
-
+}
+    
 }
