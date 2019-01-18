@@ -29,7 +29,7 @@ public class TestValueCreator implements JavaDelegate {
         now.add(Calendar.MINUTE, 1);
         
         // set variable of endRegistrationTimer
-        execution.setVariable("endRegistrationTimer", now.getTime());
+        execution.setVariable(ValueIdentifiers.TIMER_IDENTIFIER_END_REGISTRATION, now.getTime());
         
         
         now.add(Calendar.MINUTE, 1);
@@ -44,8 +44,7 @@ public class TestValueCreator implements JavaDelegate {
         
         Exam iisExam = examWS.selectByName("inf_m_iis_ws18");
         
-        
-        
+        /*
         StudentExam mihSe = new StudentExam();
         mihSe.setRegistrationNumber(mih);
         mihSe.setExamId(iisExam);
@@ -55,9 +54,11 @@ public class TestValueCreator implements JavaDelegate {
         kakSe.setRegistrationNumber(kak);
         kakSe.setExamId(iisExam);
         seWS.create(kakSe);
+        */
+        now.add(Calendar.MINUTE, 10);
+        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_ANNOUCEMENT_DATE, now.getTime());
         
-        
-        
+        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_COUNT, 1);
         
     }
 

@@ -225,8 +225,7 @@ public class Professor  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
     
-    public Professor fromJson(JSONObject professorJson)
-    {
+    public Professor fromJson(JSONObject professorJson){
         Professor p = new Professor();
         p.setFirstname(professorJson.getString("firstname"));
         p.setLastname(professorJson.getString("lastname"));
@@ -234,6 +233,5 @@ public class Professor  implements java.io.Serializable {
         p.setProfessorId(professorJson.getInt("professorId"));
         return p;
     }
-
 
 }

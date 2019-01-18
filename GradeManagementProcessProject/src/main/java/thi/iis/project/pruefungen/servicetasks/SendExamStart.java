@@ -1,6 +1,7 @@
 package thi.iis.project.pruefungen.servicetasks;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,15 +47,18 @@ public class SendExamStart implements JavaDelegate
         String username = prof.getFirstname()+prof.getLastname();
 
         StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
-        StudentExam[] allStudentExams = seWS.selectFromExam(relevantExam);
+        StudentExam[] allStudentExams = seWS.selectAll();
         
         List<StudentExam> studentexamlist = new ArrayList<StudentExam>();
         
         Map<String,Student> registeredStudents = new HashMap<String,Student>();
         for(StudentExam se : allStudentExams)
         {
-            registeredStudents.put(se.getRegistrationNumber().getRegistrationName(),se.getRegistrationNumber());
-            studentexamlist.add(se);
+            if(se.getExamId().equals(relevantExam))
+            {
+                registeredStudents.put(se.getRegistrationNumber().getRegistrationName(),se.getRegistrationNumber());
+                studentexamlist.add(se);
+            }
         }
         
         
@@ -63,7 +67,16 @@ public class SendExamStart implements JavaDelegate
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_NAME, examName);
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_REGISTRATION_MAP, registeredStudents);
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_USERNAME, username);
-        camundaVars.put(ValueIdentifiers.TIMER_IDENTIFIER_EXAM_START, relevantExam.getDate().getTime());
+        if(relevantExam.getDate()!=null)
+        {
+            camundaVars.put(ValueIdentifiers.TIMER_IDENTIFIER_EXAM_START, relevantExam.getDate().getTime());
+        }else
+        {
+            Calendar now = Calendar.getInstance();
+            now.add(Calendar.SECOND, 30);
+            camundaVars.put(ValueIdentifiers.TIMER_IDENTIFIER_EXAM_START, now.getTime());    //If date isn't set in the DB, just set the time to 30 secs from now
+            
+        }
         camundaVars.put(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM_LIST, studentexamlist);
 
 

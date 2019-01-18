@@ -28,7 +28,7 @@ public class ExamParticipation implements JavaDelegate
         
         for(StudentExam se : studentexamlist)
         {
-            if(se.getParticipated())
+            if(se.getParticipated()!=null && se.getParticipated())
             {
                 participatedStudentCount++;
                 

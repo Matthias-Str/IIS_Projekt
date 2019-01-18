@@ -2,6 +2,7 @@ package thi.iis.project.pruefungen.jpa.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -54,6 +55,12 @@ public class StudentExamTestServlet extends HttpServlet {
 	    writer.println(s.toString());
         StudentExam se = new StudentExam(null, e, null, false, false, s);
         writer.println(se.toString());
+        List<StudentExam> allExams = seWS.selectAll();
+        for(StudentExam stEx : allExams)
+        {
+            writer.println(stEx.toString());
+            
+        }
         seSL.create(se);
 	}
 

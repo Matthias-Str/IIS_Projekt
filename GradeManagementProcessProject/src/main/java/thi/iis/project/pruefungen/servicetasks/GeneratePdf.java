@@ -32,7 +32,7 @@ public class GeneratePdf implements JavaDelegate
     @Override
     public void execute(DelegateExecution execution) throws Exception
     {
-        
+        System.out.print("Generating PDFs");
         
         StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
         StudentWebService studentWS = new StudentWebServiceProxy().getStudentWebService();

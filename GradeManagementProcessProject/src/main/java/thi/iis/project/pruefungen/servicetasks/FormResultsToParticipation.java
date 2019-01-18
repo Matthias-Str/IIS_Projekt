@@ -33,21 +33,28 @@ public class FormResultsToParticipation implements JavaDelegate {
             {
                 if(se.getRegistrationNumber().getRegistrationName()=="katrin" && kak_participated)
                 {
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ "participated in "+examname);
                     se.setParticipated(true);
                     participatedExamList.add(se);
                 }else if(se.getRegistrationNumber().getRegistrationName()=="michael" && mih_participated)
                 {
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ "participated in "+examname);
                     se.setParticipated(true);
                     participatedExamList.add(se);
                 }else if(se.getRegistrationNumber().getRegistrationName()=="matthias" && mas_participated)
                 {
+                    System.out.println(se.getRegistrationNumber().getRegistrationName()+ "participated in "+examname);
                     se.setParticipated(true);
                     participatedExamList.add(se);
+                }else
+                {
+                    se.setParticipated(false);
                 }
+                se.notify();
             }
         }
-        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM_LIST,participatedExamList);
-        execution.setVariable("participatedStudentExamCount",participatedExamList.size());
+        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_EXAM_LIST,participatedExamList);
+        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_STUDENT_COUNT,participatedExamList.size());
     }
 
 }
