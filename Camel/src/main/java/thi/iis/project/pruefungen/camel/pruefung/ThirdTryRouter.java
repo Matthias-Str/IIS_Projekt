@@ -8,6 +8,12 @@ import org.apache.camel.converter.jaxb.JaxbDataFormat;
 
 import thi.iis.project.pruefungen.webservices.StudentExam;
 
+/**
+ * 
+ * @author matthias strauss
+ *
+ */
+
 public class ThirdTryRouter extends RouteBuilder {
     
     private static final String THIRD_TRY_QUEUE = "thirdTryQueue";

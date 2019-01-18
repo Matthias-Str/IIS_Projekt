@@ -2,8 +2,13 @@ package thi.iis.project.pruefungen.camel.pruefung;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-
 import thi.iis.project.pruefungen.webservices.StudentExam;
+
+/**
+ * 
+ * @author matthias strauss
+ *
+ */
 
 public class ThirdTryJDBCProcessor implements Processor {
 
