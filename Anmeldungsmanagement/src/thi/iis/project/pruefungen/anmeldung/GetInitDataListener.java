@@ -1,7 +1,5 @@
 package thi.iis.project.pruefungen.anmeldung;
 
-import java.io.StringWriter;
-
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -9,7 +7,6 @@ import javax.jms.MessageListener;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import javax.xml.bind.JAXB;
 
 import thi.iis.project.pruefungen.pojos.InputData;
 import thi.iis.project.pruefungen.sender.SendObjectMessageToQueue;

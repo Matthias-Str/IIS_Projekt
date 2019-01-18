@@ -62,4 +62,9 @@ public class ExamWebService {
     public Date getFirstExamDate() {
         return examService.getFirstExamDate();
     }
+    
+    
+    public List<Exam> selectWhereIdContains(String suffix){
+        return examService.selectWhereIdContains(suffix);
+    }
 }

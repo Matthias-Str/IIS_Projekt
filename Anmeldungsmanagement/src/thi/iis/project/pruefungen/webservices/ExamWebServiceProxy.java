@@ -56,6 +56,12 @@ public class ExamWebServiceProxy implements thi.iis.project.pruefungen.webservic
     return examWebService.selectAll();
   }
   
+  public thi.iis.project.pruefungen.webservices.Exam[] selectWhereIdContains(java.lang.String arg0) throws java.rmi.RemoteException{
+    if (examWebService == null)
+      _initExamWebServiceProxy();
+    return examWebService.selectWhereIdContains(arg0);
+  }
+  
   public java.util.Calendar getFirstExamDate() throws java.rmi.RemoteException{
     if (examWebService == null)
       _initExamWebServiceProxy();

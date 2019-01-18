@@ -7,10 +7,14 @@
 
 package thi.iis.project.pruefungen.webservices;
 
+import java.text.SimpleDateFormat;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
+import net.sf.json.JSONObject;
+
 @XmlRootElement
-public class StudentExam  implements java.io.Serializable {
+public class StudentExam implements java.io.Serializable {
     /**
      * 
      */
@@ -33,23 +37,17 @@ public class StudentExam  implements java.io.Serializable {
     public StudentExam() {
     }
 
-    public StudentExam(
-           java.lang.Boolean documentUploaded,
-           thi.iis.project.pruefungen.webservices.Exam examId,
-           java.math.BigDecimal grade,
-           java.lang.Boolean gradeChecked,
-           java.lang.Boolean participated,
-           thi.iis.project.pruefungen.webservices.Student registrationNumber,
-           int studentExamId) {
-           this.documentUploaded = documentUploaded;
-           this.examId = examId;
-           this.grade = grade;
-           this.gradeChecked = gradeChecked;
-           this.participated = participated;
-           this.registrationNumber = registrationNumber;
-           this.studentExamId = studentExamId;
+    public StudentExam(java.lang.Boolean documentUploaded, thi.iis.project.pruefungen.webservices.Exam examId,
+            java.math.BigDecimal grade, java.lang.Boolean gradeChecked, java.lang.Boolean participated,
+            thi.iis.project.pruefungen.webservices.Student registrationNumber, int studentExamId) {
+        this.documentUploaded = documentUploaded;
+        this.examId = examId;
+        this.grade = grade;
+        this.gradeChecked = gradeChecked;
+        this.participated = participated;
+        this.registrationNumber = registrationNumber;
+        this.studentExamId = studentExamId;
     }
-
 
     /**
      * Gets the documentUploaded value for this StudentExam.
@@ -60,7 +58,6 @@ public class StudentExam  implements java.io.Serializable {
         return documentUploaded;
     }
 
-
     /**
      * Sets the documentUploaded value for this StudentExam.
      * 
@@ -69,7 +66,6 @@ public class StudentExam  implements java.io.Serializable {
     public void setDocumentUploaded(java.lang.Boolean documentUploaded) {
         this.documentUploaded = documentUploaded;
     }
-
 
     /**
      * Gets the examId value for this StudentExam.
@@ -80,7 +76,6 @@ public class StudentExam  implements java.io.Serializable {
         return examId;
     }
 
-
     /**
      * Sets the examId value for this StudentExam.
      * 
@@ -89,7 +84,6 @@ public class StudentExam  implements java.io.Serializable {
     public void setExamId(thi.iis.project.pruefungen.webservices.Exam examId) {
         this.examId = examId;
     }
-
 
     /**
      * Gets the grade value for this StudentExam.
@@ -100,7 +94,6 @@ public class StudentExam  implements java.io.Serializable {
         return grade;
     }
 
-
     /**
      * Sets the grade value for this StudentExam.
      * 
@@ -109,7 +102,6 @@ public class StudentExam  implements java.io.Serializable {
     public void setGrade(java.math.BigDecimal grade) {
         this.grade = grade;
     }
-
 
     /**
      * Gets the gradeChecked value for this StudentExam.
@@ -120,7 +112,6 @@ public class StudentExam  implements java.io.Serializable {
         return gradeChecked;
     }
 
-
     /**
      * Sets the gradeChecked value for this StudentExam.
      * 
@@ -129,7 +120,6 @@ public class StudentExam  implements java.io.Serializable {
     public void setGradeChecked(java.lang.Boolean gradeChecked) {
         this.gradeChecked = gradeChecked;
     }
-
 
     /**
      * Gets the participated value for this StudentExam.
@@ -140,7 +130,6 @@ public class StudentExam  implements java.io.Serializable {
         return participated;
     }
 
-
     /**
      * Sets the participated value for this StudentExam.
      * 
@@ -149,7 +138,6 @@ public class StudentExam  implements java.io.Serializable {
     public void setParticipated(java.lang.Boolean participated) {
         this.participated = participated;
     }
-
 
     /**
      * Gets the registrationNumber value for this StudentExam.
@@ -160,7 +148,6 @@ public class StudentExam  implements java.io.Serializable {
         return registrationNumber;
     }
 
-
     /**
      * Sets the registrationNumber value for this StudentExam.
      * 
@@ -169,7 +156,6 @@ public class StudentExam  implements java.io.Serializable {
     public void setRegistrationNumber(thi.iis.project.pruefungen.webservices.Student registrationNumber) {
         this.registrationNumber = registrationNumber;
     }
-
 
     /**
      * Gets the studentExamId value for this StudentExam.
@@ -180,7 +166,6 @@ public class StudentExam  implements java.io.Serializable {
         return studentExamId;
     }
 
-
     /**
      * Sets the studentExamId value for this StudentExam.
      * 
@@ -190,6 +175,17 @@ public class StudentExam  implements java.io.Serializable {
         this.studentExamId = studentExamId;
     }
 
+    public JSONObject toJson() {
+        JSONObject result = new JSONObject();
 
+        result.put("examId", examId.toJson());
+        result.put("grade", grade);
+        result.put("gradeChecked", gradeChecked);
+        result.put("participated", participated);
+        result.put("registrationNumber", registrationNumber.toJson());
+        result.put("studentExamId", studentExamId);
+
+        return result;
+    }
 
 }

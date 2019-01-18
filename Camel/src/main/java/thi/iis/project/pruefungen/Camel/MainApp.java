@@ -11,6 +11,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import thi.iis.project.pruefungen.camel.anmeldung.DateListSplitter;
 import thi.iis.project.pruefungen.camel.anmeldung.DatePersistedAckAggregator;
 import thi.iis.project.pruefungen.camel.anmeldung.PostInitDataToCamunda;
+import thi.iis.project.pruefungen.camel.anmeldung.PostStudentExamToCamunda;
 import thi.iis.project.pruefungen.camel.anmeldung.RegistrationListTransformer;
 import thi.iis.project.pruefungen.camel.archive.ArchiveListener;
 import thi.iis.project.pruefungen.camel.archive.ArchiveRouteBuilder;
@@ -44,7 +45,7 @@ public class MainApp {
         main.addRouteBuilder(new DocumentStatusRequestListener());
         main.addRouteBuilder(new DocumentStatusReplyListener());
         main.addRouteBuilder(new DatePersistedAckAggregator());
-
+        main.addRouteBuilder(new PostStudentExamToCamunda());
         
         //Prüfungskontrolle
         main.addRouteBuilder(new ThirdTryRouter());

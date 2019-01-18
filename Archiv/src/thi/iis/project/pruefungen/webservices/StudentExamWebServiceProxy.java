@@ -44,6 +44,12 @@ public class StudentExamWebServiceProxy implements thi.iis.project.pruefungen.we
     return studentExamWebService;
   }
   
+  public thi.iis.project.pruefungen.webservices.StudentExam[] selectByExamId(java.lang.String arg0) throws java.rmi.RemoteException{
+    if (studentExamWebService == null)
+      _initStudentExamWebServiceProxy();
+    return studentExamWebService.selectByExamId(arg0);
+  }
+  
   public thi.iis.project.pruefungen.webservices.StudentExam selectByRegistrationNameAndExamId(java.lang.String arg0, java.lang.String arg1) throws java.rmi.RemoteException{
     if (studentExamWebService == null)
       _initStudentExamWebServiceProxy();
