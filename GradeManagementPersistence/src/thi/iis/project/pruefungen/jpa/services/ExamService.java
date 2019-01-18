@@ -65,7 +65,7 @@ public class ExamService implements ExamServiceLocal {
      */
     @Override
     public Date getFirstExamDate() {
-        TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e ORDER BY e.date asc", Exam.class);
+        TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e WHERE date IS NOT NULL ORDER BY e.date asc", Exam.class);
         query.setMaxResults(1);
         Exam e = query.getSingleResult();
         return e.getDate();

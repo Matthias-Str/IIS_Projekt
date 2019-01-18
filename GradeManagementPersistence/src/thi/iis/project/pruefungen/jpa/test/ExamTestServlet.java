@@ -63,7 +63,7 @@ public class ExamTestServlet extends HttpServlet {
         writer.println("Current Exam:" + e.toString());
         
         Date d = examService.getFirstExamDate();
-        writer.println(d.toString());
+        writer.println("first exam date: " + d.toString());
 	}
 
 	/**
