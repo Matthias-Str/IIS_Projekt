@@ -7,6 +7,9 @@
 
 package thi.iis.project.pruefungen.webservices;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class StudentExam  implements java.io.Serializable {
     /**
      * 

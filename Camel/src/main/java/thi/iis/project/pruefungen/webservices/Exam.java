@@ -9,6 +9,8 @@ package thi.iis.project.pruefungen.webservices;
 
 import java.text.SimpleDateFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import net.sf.json.JSONObject;
 
 public class Exam  implements java.io.Serializable {
