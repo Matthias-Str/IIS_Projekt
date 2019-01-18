@@ -1,5 +1,7 @@
 package thi.iis.project.pruefungen.webservices;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.jws.WebService;
 
@@ -24,5 +26,14 @@ public class StudentExamWebService {
      */
     public void create(StudentExam studentExam) {
         studentExamService.create(studentExam);
+    }
+    
+    /**
+     * select studentExams by Exam Id
+     * @param examId
+     * @return List<StudentExam>
+     */
+    public List<StudentExam> selectByExamId(String examId){
+        return studentExamService.selectByExamId(examId);
     }
 }

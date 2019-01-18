@@ -1,10 +1,14 @@
 package thi.iis.project.pruefungen.jpa.services;
 
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
+import thi.iis.project.pruefungen.jpa.entities.Exam;
 import thi.iis.project.pruefungen.jpa.entities.StudentExam;
 
 /**
@@ -35,5 +39,12 @@ public class StudentExamService implements StudentExamServiceLocal {
     @Override
     public void create(StudentExam studentExam) {
         em.merge(studentExam);
+    }
+    
+    @Override
+    public List<StudentExam> selectByExamId(String examId){
+        TypedQuery<StudentExam> query = em.createQuery("SELECT se FROM StudentExam se WHERE exam_id like :id", StudentExam.class);
+        query.setParameter("id", examId);
+        return query.getResultList();
     }
 }
