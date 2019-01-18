@@ -25,4 +25,15 @@ public interface StudentExamServiceLocal {
     public List<StudentExam> selectAll();
   //MHoepp
     public List<StudentExam> selectFromExam(Exam ex);
+
+    /**
+     * select student exam by exam is
+     * @param examId
+     * @return List<StudentExam>
+     */
+    List<StudentExam> selectByExamId(String examId);
+
+    StudentExam selectByRegistrationNameAndExamId(String registrationName, String examId);
+
+    void update(StudentExam se);
 }

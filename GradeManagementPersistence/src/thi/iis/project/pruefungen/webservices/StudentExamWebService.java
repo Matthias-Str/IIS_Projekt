@@ -31,7 +31,6 @@ public class StudentExamWebService {
     }
     
 
-
     //MHoepp
     public List<StudentExam> selectFromExam(Exam ex)
     {
@@ -42,5 +41,22 @@ public class StudentExamWebService {
     public List<StudentExam> selectAll()
     {
         return studentExamService.selectAll();
+    }
+
+    /**
+     * select studentExams by Exam Id
+     * @param examId
+     * @return List<StudentExam>
+     */
+    public List<StudentExam> selectByExamId(String examId){
+        return studentExamService.selectByExamId(examId);
+    }
+    
+    public void update(StudentExam studentExam){
+        studentExamService.update(studentExam);
+    }
+    
+    public StudentExam selectByRegistrationNameAndExamId(String registrationName, String examId){
+        return studentExamService.selectByRegistrationNameAndExamId(registrationName, examId);
     }
 }

@@ -49,13 +49,26 @@ public class StudentExamService implements StudentExamServiceLocal {
     public void create(StudentExam studentExam) {
         em.merge(studentExam);
     }
-
-    //MHoepp
+    
     @Override
-    public List<StudentExam> selectFromExam(Exam ex)
-    {
-        TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM StudentExam s WHERE exam_id = :id", StudentExam.class);
-        query.setParameter("id", ex.getExamId());
+    public List<StudentExam> selectByExamId(String examId){
+        TypedQuery<StudentExam> query = em.createQuery("SELECT se FROM StudentExam se WHERE exam_id like :id", StudentExam.class);
+        query.setParameter("id", examId);
         return query.getResultList();
+    }
+    
+    @Override
+    public StudentExam selectByRegistrationNameAndExamId(String registrationName, String examId){
+        TypedQuery<StudentExam> query = em.createQuery("SELECT se FROM StudentExam se WHERE exam_id like :id AND registration_name like :name", StudentExam.class);
+        query.setMaxResults(1);
+        query.setParameter("id", examId);
+        query.setParameter("name", registrationName);
+        return query.getSingleResult();
+    }
+    
+    @Override
+    public void update(StudentExam se){
+        em.flush();
+        em.merge(se);
     }
 }

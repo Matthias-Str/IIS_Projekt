@@ -10,6 +10,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import thi.iis.project.pruefungen.anmeldung.GetInitDataListener;
 import thi.iis.project.pruefungen.anmeldung.NewDateListener;
 import thi.iis.project.pruefungen.anmeldung.RegistrationListener;
+import thi.iis.project.pruefungen.anmeldung.RequestRegistrationsListener;
 
 /**
  * Main Class of Anmeldungsmanagement
@@ -39,5 +40,9 @@ public class StartClass {
         // start RegistrationListener
         RegistrationListener regListener = new RegistrationListener(session);
         regListener.startListener();
+        
+        // start RequestRegistrationListener
+        RequestRegistrationsListener reqListener = new RequestRegistrationsListener(session);
+        reqListener.startListener();
     }
 }

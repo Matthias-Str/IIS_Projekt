@@ -16,6 +16,7 @@ public class CamundaRESTJSON {
     Boolean resultEnabled;
     ArrayList<CorrelationKey> correlationKeys = new ArrayList<>();
     ArrayList<ProcessVariable> processVariables = new ArrayList<>();
+    ArrayList<CorrelationKey> localCorrelationKeys = new ArrayList<>();
 
     public CamundaRESTJSON() {
 
@@ -53,6 +54,15 @@ public class CamundaRESTJSON {
         this.processVariables = processVariables;
     }
 
+    
+    public ArrayList<CorrelationKey> getLocalCorrelationKeys() {
+        return localCorrelationKeys;
+    }
+
+    public void setLocalCorrelationKeys(ArrayList<CorrelationKey> localCorrelationKeys) {
+        this.localCorrelationKeys = localCorrelationKeys;
+    }
+
     /**
      * Convert the Object to JSON
      * @return JSONObject messageContent that is send to camunda
@@ -71,6 +81,14 @@ public class CamundaRESTJSON {
             result.put("correlationKeys", kKeys);
         }
 
+        if(localCorrelationKeys.size() != 0){
+            JSONObject lkKeys = new JSONObject();
+            for (CorrelationKey kk : localCorrelationKeys) {
+                lkKeys.put(kk.getName(), kk.toJson());
+            }
+            result.put("localCorrelationKeys", lkKeys);
+        }
+        
         JSONObject pVar = new JSONObject();
         for (ProcessVariable pv : processVariables) {
             pVar.put(pv.getName(), pv.toJson());
