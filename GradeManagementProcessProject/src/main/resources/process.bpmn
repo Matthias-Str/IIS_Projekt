@@ -496,7 +496,7 @@
         <bpmn:dataOutputAssociation id="DataOutputAssociation_1q6lei2">
           <bpmn:targetRef>DataObjectReference_0d5nfj4</bpmn:targetRef>
         </bpmn:dataOutputAssociation>
-        <bpmn:multiInstanceLoopCharacteristics camunda:collection="${studentexamlist}" camunda:elementVariable="studentExam" />
+        <bpmn:multiInstanceLoopCharacteristics camunda:collection="${participatedExamList}" camunda:elementVariable="studentExam" />
         <bpmn:endEvent id="EndEvent_0ltrdqz" name="Nach nicht besandenen Drittversuch exmatrikuliert">
           <bpmn:incoming>SequenceFlow_1jcfu10</bpmn:incoming>
         </bpmn:endEvent>
