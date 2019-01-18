@@ -175,7 +175,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1thsu3m">
       <bpmndi:BPMNShape id="Participant_19a8x70_di" bpmnElement="Participant_19a8x70">
-        <dc:Bounds x="-372" y="176" width="2553" height="966" />
+        <dc:Bounds x="-372" y="176" width="2549" height="622" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataStoreReference_1djpnhp_di" bpmnElement="DataStoreReference_1djpnhp">
         <dc:Bounds x="303" y="34" width="50" height="50" />
