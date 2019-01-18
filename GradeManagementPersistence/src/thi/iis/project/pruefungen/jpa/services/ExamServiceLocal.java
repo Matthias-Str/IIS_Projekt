@@ -44,4 +44,6 @@ public interface ExamServiceLocal {
      * @return java.util.Date
      */
     public Date getFirstExamDate();
+
+    List<Exam> selectWhereIdContains(String suffix);
 }

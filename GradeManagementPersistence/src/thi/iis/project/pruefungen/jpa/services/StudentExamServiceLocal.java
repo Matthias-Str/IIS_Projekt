@@ -27,4 +27,8 @@ public interface StudentExamServiceLocal {
      * @return List<StudentExam>
      */
     List<StudentExam> selectByExamId(String examId);
+
+    StudentExam selectByRegistrationNameAndExamId(String registrationName, String examId);
+
+    void update(StudentExam se);
 }

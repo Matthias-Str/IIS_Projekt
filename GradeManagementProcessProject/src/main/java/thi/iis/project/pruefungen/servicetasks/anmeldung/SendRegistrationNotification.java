@@ -49,9 +49,11 @@ public class SendRegistrationNotification implements JavaDelegate {
         Exam[] examList = examL.getExams();
         for (Exam e : examList) {
             data.put(e.getExamId(), e);
-
         }
 
+        execution.setVariable("examListArray", examList);
+        execution.setVariable("numberOfExams", examList.length);
+        
         // correlate message "startRegistration"
         RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         runtimeService.createMessageCorrelation("startRegistration").setVariables(data).correlateWithResult();

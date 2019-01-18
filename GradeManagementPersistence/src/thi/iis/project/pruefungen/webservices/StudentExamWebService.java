@@ -36,4 +36,12 @@ public class StudentExamWebService {
     public List<StudentExam> selectByExamId(String examId){
         return studentExamService.selectByExamId(examId);
     }
+    
+    public void update(StudentExam studentExam){
+        studentExamService.update(studentExam);
+    }
+    
+    public StudentExam selectByRegistrationNameAndExamId(String registrationName, String examId){
+        return studentExamService.selectByRegistrationNameAndExamId(registrationName, examId);
+    }
 }

@@ -57,6 +57,17 @@ public class ExamService implements ExamServiceLocal {
         TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e", Exam.class);
         return query.getResultList();
     }
+    
+    /**
+     * select all exams
+     * @return List<Exam>
+     */
+    @Override
+    public List<Exam> selectWhereIdContains(String suffix) {
+        TypedQuery<Exam> query = em.createQuery("SELECT e FROM Exam e WHERE exam_id like :suffix", Exam.class);
+        query.setParameter("suffix", suffix);
+        return query.getResultList();
+    }
 
     /**
      * get frist exam date

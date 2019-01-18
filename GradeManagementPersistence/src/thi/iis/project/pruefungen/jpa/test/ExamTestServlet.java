@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -64,6 +65,12 @@ public class ExamTestServlet extends HttpServlet {
         
         Date d = examService.getFirstExamDate();
         writer.println("first exam date: " + d.toString());
+        
+        //select by suffix
+        List<Exam> exams = examService.selectWhereIdContains("%ws18%");
+        for(Exam e1 : exams){
+            writer.println(e1.toString());
+        }
 	}
 
 	/**

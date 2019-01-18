@@ -41,7 +41,7 @@ public class FetchInitialDataFromDb {
             // get and set student list
             inputData.setStudentList(studentWS.selectAllStudents());
             // get and set exam list
-            inputData.setExamList(examWS.selectAll());
+            inputData.setExamList(examWS.selectWhereIdContains("%ws18%"));
             // get and set number of students
             inputData.setNumberOfStudents(studentWS.selectAllStudents().length);
             // get and set first exam date

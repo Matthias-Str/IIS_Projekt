@@ -38,4 +38,6 @@ public class StudentWebService {
     public Student selectByRegistrationName(String registrationName) {
         return studentService.selectByRegistrationName(registrationName);
     }
+    
+
 }
