@@ -1,30 +1,22 @@
 package thi.iis.project.pruefungen.servicetasks.anmeldung;
 
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.xml.bind.JAXB;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import thi.iis.project.pruefungen.pojos.DateList;
-
 /**
- * Message Sending Task
- * input: Values that pruefungsamt inserted in user form
+ * Message Sending Task input: Values that pruefungsamt inserted in user form
  * output: text message (xml: DateList) sended to rawRegistrationDates_queue
+ * 
  * @author Katrin Krüger
  *
  */
@@ -35,7 +27,7 @@ public class SendDeadlines implements JavaDelegate {
 
     // default broker URL is : tcp://localhost:61616"
     private static String subject = "rawRegistrationDates_queue"; // Queue Name
-    
+
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         // send data from usertask to anmeldungsmanagement
@@ -43,19 +35,13 @@ public class SendDeadlines implements JavaDelegate {
 
     }
 
-    private void sendToQueue(DelegateExecution execution) throws JMSException{
-        // Get JMS connection from the server and start it
+    private void sendToQueue(DelegateExecution execution) throws JMSException {
+        // connect to active mq
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
         Connection connection = connectionFactory.createConnection();
         connection.start();
-
-        // Create session
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-
-        // Create Queue (if it doesn't already exist)
         Destination destination = session.createQueue(subject);
-
-        // Create message producer
         MessageProducer producer = session.createProducer(destination);
 
         // get Variables
@@ -69,32 +55,22 @@ public class SendDeadlines implements JavaDelegate {
         String examdate_iis = (String) execution.getVariable("input_examdate_iis");
         String examdate_sesa = (String) execution.getVariable("input_examdate_sesa");
         String examdate_itim = (String) execution.getVariable("input_examdate_itim");
-        
-        
-        // add new Dates to List
-        DateList dateList = new DateList();
-        Map<String, String> list = new HashMap<String, String>();
-        list.put("start_registration", start_registration);
-        list.put("end_registration", end_registration);
-        list.put("grade_registration", grade_registration);
-        list.put("announcement_date", announcement_date);
-        list.put("inf_m_kao_ws18",examdate_kao);
-        list.put("inf_m_iis_ws18", examdate_iis);
-        list.put("inf_m_sesa_ws18", examdate_sesa);
-        list.put("inf_m_itim_ws18", examdate_itim);
-        dateList.setDateList(list);
-        
-        
-        // Create messages
-        StringWriter sw = new StringWriter();
-        JAXB.marshal(dateList, sw);
-        String objectToXml= sw.toString();
-        TextMessage message = session.createTextMessage(objectToXml);
+
+        // add new Dates to MapMessage
+        MapMessage message = session.createMapMessage();
+        message.setObject("start_registration", start_registration);
+        message.setObject("end_registration", end_registration);
+        message.setObject("grade_registration", grade_registration);
+        message.setObject("announcement_date", announcement_date);
+        message.setObject("inf_m_kao_ws18", examdate_kao);
+        message.setObject("inf_m_iis_ws18", examdate_iis);
+        message.setObject("inf_m_sesa_ws18", examdate_sesa);
+        message.setObject("inf_m_itim_ws18", examdate_itim);
 
         // Send message to queue
         producer.send(message);
 
         connection.close();
     }
-    
+
 }

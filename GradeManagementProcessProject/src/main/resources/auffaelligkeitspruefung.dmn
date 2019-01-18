@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0zcg6ej" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="auffaelligkeitspruefung" name="Auffälligkeitsprüfung">
+    <extensionElements>
+      <biodi:bounds x="279" y="92" width="180" height="80" />
+      <biodi:edge source="InputData_1plugbd">
+        <biodi:waypoints x="242" y="274" />
+        <biodi:waypoints x="333" y="172" />
+      </biodi:edge>
+      <biodi:edge source="InputData_04nzk3d">
+        <biodi:waypoints x="465" y="273" />
+        <biodi:waypoints x="396" y="172" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_1plugbd" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_04nzk3d" />
+    </informationRequirement>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Durchschnittsnote">
+        <inputExpression id="inputExpression_1" typeRef="double">
+          <text>mean</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1uvgr7w" label="Schlechteste Häufigste Note">
+        <inputExpression id="LiteralExpression_0thj1f8" typeRef="double">
+          <text>mode_max</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0cit60p" label="Beste Häufigste Note">
+        <inputExpression id="LiteralExpression_0vwlj6c" typeRef="double">
+          <text>mode_min</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1j09cio">
+        <inputExpression id="LiteralExpression_1pqinsu" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="auffällig" name="auffaellig" typeRef="boolean" />
+      <rule id="DecisionRule_1vw9h5z">
+        <description>Schlechtere Durchschnittsnote als 3.5</description>
+        <inputEntry id="UnaryTests_010ox7a">
+          <text>&gt; 3.5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17zazks">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15tini8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_059hueb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a426wa">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cqmss9">
+        <description>Häufigste Note 5.0</description>
+        <inputEntry id="UnaryTests_10ag7jj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i18414">
+          <text>5.0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dum4zr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x4i5zw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1560lhm">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19bo0jp">
+        <description>Bessere Durschnittsnote als 2.0</description>
+        <inputEntry id="UnaryTests_0wt2znv">
+          <text>&lt; 2.0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vi4bwl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qsem1z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h4trmh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wqyda4">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k7jokv">
+        <description>Häufigste Note &lt; 1.3</description>
+        <inputEntry id="UnaryTests_0ildsgm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00q8d40">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lzl62x">
+          <text>&lt;= 1.3</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kvinpp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vw6q8u">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pfw9xh">
+        <description>Keine Auffälligkeit gefunden</description>
+        <inputEntry id="UnaryTests_0ayeu2v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yynvsd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qgt4f5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ekhh4f">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qcr2o5">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1plugbd" name="mean">
+    <extensionElements>
+      <biodi:bounds x="158" y="274" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <inputData id="InputData_04nzk3d" name="mode">
+    <extensionElements>
+      <biodi:bounds x="418" y="273" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+</definitions>

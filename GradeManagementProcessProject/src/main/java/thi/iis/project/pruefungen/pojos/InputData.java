@@ -10,16 +10,23 @@ import thi.iis.project.pruefungen.webservices.Deadline;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.Student;
 
-@XmlRootElement(name="inputData")
-public class InputData implements Serializable{
+/**
+ * represents data that is needed in initialization of process
+ * 
+ * @author Katrin Krüger
+ *
+ */
+@XmlRootElement(name = "inputData")
+public class InputData implements Serializable {
+    private static final long serialVersionUID = 1L;
     Deadline[] deadlineList;
     Student[] studentList;
     Exam[] examList;
     int numberOfStudents;
     Date firstExamDate;
-    
-    public InputData(){
-        
+
+    public InputData() {
+
     }
 
     @XmlElement
@@ -65,6 +72,4 @@ public class InputData implements Serializable{
         this.firstExamDate = firstExamDate;
     }
 
-    
-    
 }

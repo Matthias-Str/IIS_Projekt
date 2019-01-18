@@ -23,6 +23,12 @@ import thi.iis.project.pruefungen.webservices.DeadlineWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.ExamWebService;
 import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
 
+/**
+ * Listens to a queue if a new dates is to persist
+ * 
+ * @author Katrin Krüger
+ *
+ */
 public class NewDateListener {
     Session session;
 
@@ -34,13 +40,18 @@ public class NewDateListener {
         this.session = session;
     }
 
+    /**
+     * start listener
+     * 
+     * @throws JMSException
+     */
     public void startListener() throws JMSException {
         // Get or create queue
         Queue queue = session.createQueue("preparedRegistrationDates_queue");
 
         // create new consumer in session
         MessageConsumer consumer = session.createConsumer(queue);
-        
+
         // init new webservices
         final DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
         final ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
@@ -69,6 +80,14 @@ public class NewDateListener {
         consumer.setMessageListener(listener);
     }
 
+    /**
+     * persist the date that was in message body
+     * 
+     * @param deadlineWS
+     * @param examWS
+     * @param sdpAck
+     * @param text
+     */
     private void persistDate(DeadlineWebService deadlineWS, ExamWebService examWS, SendTextMessageToQueue sdpAck,
             String text) {
 
@@ -91,15 +110,12 @@ public class NewDateListener {
                 deadlineWS.createDeadline(cal, curDate.getName());
             }
             // send message int datePersistedAck_queue that data was persisted
-            sdpAck.sendMessage(session, "datePersistedAck_queue", Calendar.getInstance().getTime().toString());
+            sdpAck.sendMessage(session, "datePersistedAck_queue", "date persisted");
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (JMSException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

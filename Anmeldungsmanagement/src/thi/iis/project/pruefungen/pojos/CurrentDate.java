@@ -3,16 +3,22 @@ package thi.iis.project.pruefungen.pojos;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="entry")
-public class CurrentDate{
+/**
+ * DataType for Message transfer of date with name that needs to be persisted
+ * 
+ * @author Katrin Krüger
+ *
+ */
+@XmlRootElement(name = "entry")
+public class CurrentDate {
     String name;
     String date;
-    
-    public CurrentDate(){
-        
+
+    public CurrentDate() {
+
     }
-    
-    @XmlElement(name="key")
+
+    @XmlElement(name = "key")
     public String getName() {
         return name;
     }
@@ -21,7 +27,7 @@ public class CurrentDate{
         this.name = name;
     }
 
-    @XmlElement(name="value")
+    @XmlElement(name = "value")
     public String getDate() {
         return date;
     }
@@ -29,6 +35,5 @@ public class CurrentDate{
     public void setDate(String date) {
         this.date = date;
     }
-    
-    
+
 }

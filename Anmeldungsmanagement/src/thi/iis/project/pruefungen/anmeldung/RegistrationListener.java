@@ -13,11 +13,7 @@ import javax.jms.TextMessage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.XML;
 
-import thi.iis.project.pruefungen.sender.SendTextMessageToQueue;
-import thi.iis.project.pruefungen.webservices.DeadlineWebService;
-import thi.iis.project.pruefungen.webservices.DeadlineWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.ExamWebService;
 import thi.iis.project.pruefungen.webservices.ExamWebServiceProxy;
@@ -28,6 +24,12 @@ import thi.iis.project.pruefungen.webservices.StudentExamWebServiceProxy;
 import thi.iis.project.pruefungen.webservices.StudentWebService;
 import thi.iis.project.pruefungen.webservices.StudentWebServiceProxy;
 
+/**
+ * Listens to queue if a new registration of a students arrives
+ * 
+ * @author Katrin Krüger
+ *
+ */
 public class RegistrationListener {
     Session session;
 
@@ -39,19 +41,17 @@ public class RegistrationListener {
         this.session = session;
     }
 
+    /**
+     * start the listener
+     * 
+     * @throws JMSException
+     */
     public void startListener() throws JMSException {
         // Get or create queue
         Queue queue = session.createQueue("preparedRegistration_queue");
 
         // create new consumer in session
         MessageConsumer consumer = session.createConsumer(queue);
-
-        // init new webservices
-        DeadlineWebService deadlineWS = new DeadlineWebServiceProxy().getDeadlineWebService();
-        ExamWebService examWS = new ExamWebServiceProxy().getExamWebService();
-
-        // init sendSendDatePersistedAck
-        SendTextMessageToQueue sdpAck = new SendTextMessageToQueue();
 
         // Create new MessageListener
         MessageListener listener = new MessageListener() {
@@ -75,6 +75,11 @@ public class RegistrationListener {
         consumer.setMessageListener(listener);
     }
 
+    /**
+     * persist the student registration that is in message body
+     * 
+     * @param text
+     */
     private void persistData(String text) {
         // init webservices
         StudentWebService studentWS = new StudentWebServiceProxy().getStudentWebService();
@@ -82,7 +87,7 @@ public class RegistrationListener {
         StudentExamWebService stundetExamWS = new StudentExamWebServiceProxy().getStudentExamWebService();
         // get text as json Object
         try {
-            JSONObject obj = XML.toJSONObject(text);
+            JSONObject obj = new JSONObject(text);
             JSONObject message = obj.getJSONObject("anmeldung");
             // get username
             String username = message.getString("username");
@@ -103,10 +108,8 @@ public class RegistrationListener {
                 }
             }
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (RemoteException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 

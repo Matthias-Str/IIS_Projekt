@@ -12,6 +12,7 @@ import thi.iis.project.pruefungen.jpa.entities.Student;
 
 /**
  * Session Bean implementation class StudentService
+ * 
  * @author Katrin Krüger
  */
 @Stateless
@@ -20,26 +21,36 @@ public class StudentService implements StudentServiceLocal {
 
     @PersistenceContext
     EntityManager em;
+
     /**
-     * Default constructor. 
+     * Default constructor.
      */
     public StudentService() {
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * select all students
+     * @return List<Student>
+     */
     @Override
-    public List<Student> selectAll() {        
+    public List<Student> selectAll() {
         TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s", Student.class);
         return query.getResultList();
     }
 
+    /**
+     * select student by registration name
+     * 
+     * @param registrationName
+     * @return Student
+     */
     @Override
     public Student selectByRegistrationName(String registrationName) {
-        TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE registration_name = :name", Student.class);
+        TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE registration_name = :name",
+                Student.class);
         query.setParameter("name", registrationName);
         return query.getSingleResult();
     }
-    
-    
 
 }

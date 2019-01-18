@@ -10,41 +10,37 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * The persistent class for the exam database table.
+ * 
  * @author Katrin Krüger
  */
 @Entity
-@Table(name="exam")
-@NamedQuery(name="Exam.findAll", query="SELECT e FROM Exam e")
+@Table(name = "exam")
 public class Exam implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
 
-	@Id
-	@Column(name="exam_id")
-	private String examId;
+    @Id
+    @Column(name = "exam_id")
+    private String examId;
 
-	@JoinColumn(name="professor_id")
-	@ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
-	private Professor professorId;
+    @JoinColumn(name = "professor_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    private Professor professorId;
 
-	private String subject;
-	
+    private String subject;
 
-	public Exam() {
-	}
-	
+    public Exam() {
+    }
 
-	public Exam(String examId, Date date, Professor professorId, String subject) {
+    public Exam(String examId, Date date, Professor professorId, String subject) {
         super();
         this.examId = examId;
         this.date = date;
@@ -52,46 +48,42 @@ public class Exam implements Serializable {
         this.subject = subject;
     }
 
-
     public Date getDate() {
-		return this.date;
-	}
+        return this.date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public String getExamId() {
-		return this.examId;
-	}
+    public String getExamId() {
+        return this.examId;
+    }
 
-	public void setExamId(String examId) {
-		this.examId = examId;
-	}
+    public void setExamId(String examId) {
+        this.examId = examId;
+    }
 
-	public Professor getProfessorId() {
-		return this.professorId;
-	}
+    public Professor getProfessorId() {
+        return this.professorId;
+    }
 
-	public void setProfessorId(Professor professorId) {
-		this.professorId = professorId;
-	}
+    public void setProfessorId(Professor professorId) {
+        this.professorId = professorId;
+    }
 
-	public String getSubject() {
-		return this.subject;
-	}
+    public String getSubject() {
+        return this.subject;
+    }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
     @Override
     public String toString() {
         return "Exam [date=" + date + ", examId=" + examId + ", professorId=" + professorId + ", subject=" + subject
                 + "]";
     }
-	
-	
 
 }

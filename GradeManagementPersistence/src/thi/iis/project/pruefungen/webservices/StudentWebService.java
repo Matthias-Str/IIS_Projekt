@@ -8,17 +8,34 @@ import javax.jws.WebService;
 import thi.iis.project.pruefungen.jpa.entities.Student;
 import thi.iis.project.pruefungen.jpa.services.StudentService;
 
+/**
+ * WebService for Student Modifications
+ * 
+ * @author Katrin Krüger
+ *
+ */
 @WebService
 public class StudentWebService {
 
     @Inject
     StudentService studentService;
-    
-    public List<Student> selectAllStudents(){
+
+    /**
+     * select all students
+     * 
+     * @return List<Student>
+     */
+    public List<Student> selectAllStudents() {
         return studentService.selectAll();
     }
-    
-    public Student selectByRegistrationName(String registrationName){
+
+    /**
+     * select a student by ist registrationName
+     * 
+     * @param registrationName
+     * @return Student
+     */
+    public Student selectByRegistrationName(String registrationName) {
         return studentService.selectByRegistrationName(registrationName);
     }
 }

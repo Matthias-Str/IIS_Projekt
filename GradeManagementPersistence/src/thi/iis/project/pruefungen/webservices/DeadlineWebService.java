@@ -11,6 +11,7 @@ import thi.iis.project.pruefungen.jpa.services.DeadlineService;
 
 /**
  * WebService for Deadline Modification
+ * 
  * @author Katrin Krüger
  *
  */
@@ -20,17 +21,32 @@ public class DeadlineWebService {
     @Inject
     DeadlineService deadlineService;
 
-    public Deadline createDeadline(Date date, String deadlineName){
+    /**
+     * Create a new Deadline
+     * @param date
+     * @param deadlineName
+     * @return created Deadline
+     */
+    public Deadline createDeadline(Date date, String deadlineName) {
         Deadline deadline = new Deadline(date, deadlineName);
         deadlineService.create(deadline);
         return deadline;
     }
-    
-    public Deadline selectDeadlineByName(String name){
+
+    /**
+     * select a deadline by its name
+     * @param name
+     * @return Deadline
+     */
+    public Deadline selectDeadlineByName(String name) {
         return deadlineService.selectByName(name);
     }
-    
-    public List<Deadline> selectAll(){
+
+    /**
+     * select all Deadlines
+     * @return List<Deadline>
+     */
+    public List<Deadline> selectAll() {
         return deadlineService.selectAll();
     }
 }

@@ -11,7 +11,8 @@ import thi.iis.project.pruefungen.jpa.entities.StudentExam;
 import thi.iis.project.pruefungen.jpa.services.StudentExamServiceLocal;
 
 /**
- * WebService for StudentExam Modifications 
+ * WebService for StudentExam Modifications
+ * 
  * @author Katrin Krüger
  *
  */
@@ -19,9 +20,14 @@ import thi.iis.project.pruefungen.jpa.services.StudentExamServiceLocal;
 public class StudentExamWebService {
     @Inject
     StudentExamServiceLocal studentExamService;
-    
-    public void create(StudentExam se){
-        studentExamService.create(se);
+
+    /**
+     * create a new StudentExam
+     * 
+     * @param studentExam
+     */
+    public void create(StudentExam studentExam) {
+        studentExamService.create(studentExam);
     }
     
 
