@@ -10,7 +10,6 @@ package thi.iis.project.pruefungen.webservices;
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
 public class Professor  implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
     private java.lang.String firstname;
 
     private java.lang.String lastname;

@@ -8,7 +8,6 @@
 package thi.iis.project.pruefungen.webservices;
 
 public class Professor  implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
     private java.lang.String firstname;
 
     private java.lang.String lastname;
