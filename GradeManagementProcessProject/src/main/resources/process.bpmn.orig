@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.3">
   <bpmn:collaboration id="Collaboration_0j281o0">
     <bpmn:participant id="Participant_0hz96rl" name="Verwaltung Prüfungsanmeldungen" processRef="VerwaltungPruefungsanmeldung_iden" />
     <bpmn:participant id="Participant_1p2e31r" name="Anmeldungsmanagement" />
@@ -19,8 +19,6 @@
     <bpmn:messageFlow id="MessageFlow_0ru9sdd" sourceRef="SendTask_0hsm21e" targetRef="Participant_1obnyqz" />
     <bpmn:messageFlow id="MessageFlow_1g13adz" name="Studenteninformation" sourceRef="SendTask_0uxzzmj" targetRef="Participant_04c5dz6" />
     <bpmn:messageFlow id="MessageFlow_0wnr4x4" sourceRef="Task_0mwupcj" targetRef="StartEvent_15tqv7m" />
-    <bpmn:messageFlow id="MessageFlow_0h4w1tu" sourceRef="EndEvent_1mmqcha" targetRef="ReceiveTask_1ghgh63" />
-    <bpmn:messageFlow id="MessageFlow_1nqlx4s" sourceRef="SendTask_0h5q6wg" targetRef="ReceiveTask_1kkk4c2" />
   </bpmn:collaboration>
   <bpmn:message id="Message_1xoo7uw" name="startRegistration" />
   <bpmn:message id="Message_0h4y97c" name="NewOrderMessage" />
@@ -589,7 +587,6 @@
             </camunda:properties>
             <camunda:executionListener expression="${execution.setVariable(&#39;deregistration&#39;,false)}" event="take" />
           </bpmn:extensionElements>
-          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${studentExam.grade &gt;= 5}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="SequenceFlow_0h33m65" sourceRef="ServiceTask_12wjt8e" targetRef="ExclusiveGateway_06klofz" />
         <bpmn:sequenceFlow id="SequenceFlow_0q1jywv" name="Ja" sourceRef="ExclusiveGateway_0samit6" targetRef="ManualTask_0rtmobs">
@@ -1552,10 +1549,16 @@
         <di:waypoint x="763" y="4399" />
         <di:waypoint x="812" y="4399" />
       </bpmndi:BPMNEdge>
+<<<<<<< HEAD
+      <bpmndi:BPMNEdge id="MessageFlow_0bxvie4_di" bpmnElement="MessageFlow_0bxvie4">
+        <di:waypoint x="383" y="3007" />
+        <di:waypoint x="383" y="2895" />
+        <di:waypoint x="-5" y="2895" />
+=======
       <bpmndi:BPMNEdge id="SequenceFlow_05w2561_di" bpmnElement="SequenceFlow_05w2561">
-        <di:waypoint x="334" y="3014" />
-        <di:waypoint x="149" y="2890" />
-        <di:waypoint x="-8" y="2994" />
+        <di:waypoint x="1020" y="4398" />
+        <di:waypoint x="1089" y="4398" />
+>>>>>>> 17a5cd1842162e85ae88d6c52ca60fc3f476c379
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_1g13adz_di" bpmnElement="MessageFlow_1g13adz">
         <di:waypoint x="4451" y="3409" />
@@ -1592,23 +1595,17 @@
       <bpmndi:BPMNShape id="SendTask_1me1omm_di" bpmnElement="Task_0mwupcj">
         <dc:Bounds x="1258" y="2096" width="100" height="80" />
       </bpmndi:BPMNShape>
+<<<<<<< HEAD
+      <bpmndi:BPMNEdge id="DataInputAssociation_093cibp_di" bpmnElement="DataInputAssociation_093cibp">
+        <di:waypoint x="896" y="2642" />
+        <di:waypoint x="917" y="2604" />
+=======
       <bpmndi:BPMNEdge id="MessageFlow_0wnr4x4_di" bpmnElement="MessageFlow_0wnr4x4">
         <di:waypoint x="1308" y="2176" />
         <di:waypoint x="1308" y="3278" />
         <di:waypoint x="208" y="3278" />
         <di:waypoint x="208" y="4380" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="MessageFlow_0h4w1tu_di" bpmnElement="MessageFlow_0h4w1tu">
-        <di:waypoint x="5753" y="3593" />
-        <di:waypoint x="5753" y="4030" />
-        <di:waypoint x="639" y="4030" />
-        <di:waypoint x="639" y="4466" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="MessageFlow_1nqlx4s_di" bpmnElement="MessageFlow_1nqlx4s">
-        <di:waypoint x="1569" y="3519" />
-        <di:waypoint x="1569" y="3900" />
-        <di:waypoint x="614" y="3900" />
-        <di:waypoint x="614" y="4280" />
+>>>>>>> 17a5cd1842162e85ae88d6c52ca60fc3f476c379
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
