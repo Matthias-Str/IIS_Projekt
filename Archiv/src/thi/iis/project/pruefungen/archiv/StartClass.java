@@ -30,9 +30,6 @@ public class StartClass {
         PersistDocumentListener persistD = new PersistDocumentListener(session);
         persistD.startListener();
         
-        // start socument status request listener
-        DocumentStatusRequestListener documentL = new DocumentStatusRequestListener(session);
-        documentL.startListener();
         
     }
 }

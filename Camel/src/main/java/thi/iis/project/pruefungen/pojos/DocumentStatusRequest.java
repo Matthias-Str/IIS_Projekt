@@ -2,6 +2,8 @@ package thi.iis.project.pruefungen.pojos;
 
 import java.io.Serializable;
 
+import org.camunda.bpm.engine.impl.util.json.JSONObject;
+
 /**
  * Class represents a request that is send to check if document was uploaded
  * 
@@ -58,5 +60,14 @@ public class DocumentStatusRequest implements Serializable {
         this.processId = processId;
     }
 
+    public JSONObject toJson(){
+        JSONObject result = new JSONObject();
+        
+        result.put("processId", processId);
+        result.put("examId", examId);
+        result.put("registrationName", registrationName);
+        
+        return result;
+    }
     
 }
