@@ -22,6 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src/main/webapp"/>
 	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
@@ -29,7 +30,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/camunda/bpm/camunda-engine/7.10.0/camunda-engine-7.10.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/camunda/bpm/camunda-engine/7.10.0/camunda-engine-7.10.0.jar" sourcepath="/home/lars/.m2/repository/org/camunda/bpm/camunda-engine/7.10.0/camunda-engine-7.10.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/camunda/bpm/model/camunda-bpmn-model/7.10.0/camunda-bpmn-model-7.10.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/camunda/bpm/model/camunda-xml-model/7.10.0/camunda-xml-model-7.10.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/camunda/bpm/model/camunda-cmmn-model/7.10.0/camunda-cmmn-model-7.10.0.jar"/>

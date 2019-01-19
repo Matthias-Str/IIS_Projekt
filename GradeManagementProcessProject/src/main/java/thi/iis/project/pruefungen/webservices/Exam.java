@@ -14,7 +14,7 @@ import java.util.Calendar;
 import org.camunda.bpm.engine.impl.util.json.JSONException;
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
-public class Exam implements java.io.Serializable {
+public class Exam  implements java.io.Serializable {
     private java.util.Calendar date;
 
     private java.lang.String examId;
@@ -26,13 +26,17 @@ public class Exam implements java.io.Serializable {
     public Exam() {
     }
 
-    public Exam(java.util.Calendar date, java.lang.String examId,
-            thi.iis.project.pruefungen.webservices.Professor professorId, java.lang.String subject) {
-        this.date = date;
-        this.examId = examId;
-        this.professorId = professorId;
-        this.subject = subject;
+    public Exam(
+           java.util.Calendar date,
+           java.lang.String examId,
+           thi.iis.project.pruefungen.webservices.Professor professorId,
+           java.lang.String subject) {
+           this.date = date;
+           this.examId = examId;
+           this.professorId = professorId;
+           this.subject = subject;
     }
+
 
     /**
      * Gets the date value for this Exam.
@@ -43,6 +47,7 @@ public class Exam implements java.io.Serializable {
         return date;
     }
 
+
     /**
      * Sets the date value for this Exam.
      * 
@@ -51,6 +56,7 @@ public class Exam implements java.io.Serializable {
     public void setDate(java.util.Calendar date) {
         this.date = date;
     }
+
 
     /**
      * Gets the examId value for this Exam.
@@ -61,6 +67,7 @@ public class Exam implements java.io.Serializable {
         return examId;
     }
 
+
     /**
      * Sets the examId value for this Exam.
      * 
@@ -69,6 +76,7 @@ public class Exam implements java.io.Serializable {
     public void setExamId(java.lang.String examId) {
         this.examId = examId;
     }
+
 
     /**
      * Gets the professorId value for this Exam.
@@ -79,6 +87,7 @@ public class Exam implements java.io.Serializable {
         return professorId;
     }
 
+
     /**
      * Sets the professorId value for this Exam.
      * 
@@ -88,6 +97,7 @@ public class Exam implements java.io.Serializable {
         this.professorId = professorId;
     }
 
+
     /**
      * Gets the subject value for this Exam.
      * 
@@ -96,6 +106,7 @@ public class Exam implements java.io.Serializable {
     public java.lang.String getSubject() {
         return subject;
     }
+
 
     /**
      * Sets the subject value for this Exam.
@@ -107,35 +118,34 @@ public class Exam implements java.io.Serializable {
     }
 
     private java.lang.Object __equalsCalc = null;
-
     public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof Exam))
-            return false;
+        if (!(obj instanceof Exam)) return false;
         Exam other = (Exam) obj;
-        if (obj == null)
-            return false;
-        if (this == obj)
-            return true;
+        if (obj == null) return false;
+        if (this == obj) return true;
         if (__equalsCalc != null) {
             return (__equalsCalc == obj);
         }
         __equalsCalc = obj;
         boolean _equals;
-        _equals = true
-                && ((this.date == null && other.getDate() == null)
-                        || (this.date != null && this.date.equals(other.getDate())))
-                && ((this.examId == null && other.getExamId() == null)
-                        || (this.examId != null && this.examId.equals(other.getExamId())))
-                && ((this.professorId == null && other.getProfessorId() == null)
-                        || (this.professorId != null && this.professorId.equals(other.getProfessorId())))
-                && ((this.subject == null && other.getSubject() == null)
-                        || (this.subject != null && this.subject.equals(other.getSubject())));
+        _equals = true && 
+            ((this.date==null && other.getDate()==null) || 
+             (this.date!=null &&
+              this.date.equals(other.getDate()))) &&
+            ((this.examId==null && other.getExamId()==null) || 
+             (this.examId!=null &&
+              this.examId.equals(other.getExamId()))) &&
+            ((this.professorId==null && other.getProfessorId()==null) || 
+             (this.professorId!=null &&
+              this.professorId.equals(other.getProfessorId()))) &&
+            ((this.subject==null && other.getSubject()==null) || 
+             (this.subject!=null &&
+              this.subject.equals(other.getSubject())));
         __equalsCalc = null;
         return _equals;
     }
 
     private boolean __hashCodeCalc = false;
-
     public synchronized int hashCode() {
         if (__hashCodeCalc) {
             return 0;
@@ -159,8 +169,8 @@ public class Exam implements java.io.Serializable {
     }
 
     // Type metadata
-    private static org.apache.axis.description.TypeDesc typeDesc = new org.apache.axis.description.TypeDesc(Exam.class,
-            true);
+    private static org.apache.axis.description.TypeDesc typeDesc =
+        new org.apache.axis.description.TypeDesc(Exam.class, true);
 
     static {
         typeDesc.setXmlType(new javax.xml.namespace.QName("http://webservices.pruefungen.project.iis.thi/", "exam"));
@@ -181,8 +191,7 @@ public class Exam implements java.io.Serializable {
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("professorId");
         elemField.setXmlName(new javax.xml.namespace.QName("", "professorId"));
-        elemField.setXmlType(
-                new javax.xml.namespace.QName("http://webservices.pruefungen.project.iis.thi/", "professor"));
+        elemField.setXmlType(new javax.xml.namespace.QName("http://webservices.pruefungen.project.iis.thi/", "professor"));
         elemField.setMinOccurs(0);
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);
@@ -205,19 +214,27 @@ public class Exam implements java.io.Serializable {
     /**
      * Get Custom Serializer
      */
-    public static org.apache.axis.encoding.Serializer getSerializer(java.lang.String mechType,
-            java.lang.Class _javaType, javax.xml.namespace.QName _xmlType) {
-        return new org.apache.axis.encoding.ser.BeanSerializer(_javaType, _xmlType, typeDesc);
+    public static org.apache.axis.encoding.Serializer getSerializer(
+           java.lang.String mechType, 
+           java.lang.Class _javaType,  
+           javax.xml.namespace.QName _xmlType) {
+        return 
+          new  org.apache.axis.encoding.ser.BeanSerializer(
+            _javaType, _xmlType, typeDesc);
     }
 
     /**
      * Get Custom Deserializer
      */
-    public static org.apache.axis.encoding.Deserializer getDeserializer(java.lang.String mechType,
-            java.lang.Class _javaType, javax.xml.namespace.QName _xmlType) {
-        return new org.apache.axis.encoding.ser.BeanDeserializer(_javaType, _xmlType, typeDesc);
+    public static org.apache.axis.encoding.Deserializer getDeserializer(
+           java.lang.String mechType, 
+           java.lang.Class _javaType,  
+           javax.xml.namespace.QName _xmlType) {
+        return 
+          new  org.apache.axis.encoding.ser.BeanDeserializer(
+            _javaType, _xmlType, typeDesc);
     }
-
+    
     public Exam fromJson(JSONObject examJson) {
         Exam e = new Exam();
 
@@ -241,5 +258,6 @@ public class Exam implements java.io.Serializable {
         
         return e;
 
-    }
+}
+
 }

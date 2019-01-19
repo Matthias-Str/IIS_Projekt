@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import thi.iis.project.pruefungen.jpa.entities.Exam;
+import thi.iis.project.pruefungen.jpa.entities.Student;
 import thi.iis.project.pruefungen.jpa.entities.StudentExam;
 
 /**
@@ -28,6 +29,14 @@ public class StudentExamService implements StudentExamServiceLocal {
      */
     public StudentExamService() {
         // TODO Auto-generated constructor stub
+    }
+    
+    
+    //MHoepp
+    @Override
+    public List<StudentExam> selectAll() {        
+        TypedQuery<StudentExam> query = em.createQuery("SELECT s FROM StudentExam s", StudentExam.class);
+        return query.getResultList();
     }
 
     /**
@@ -61,5 +70,12 @@ public class StudentExamService implements StudentExamServiceLocal {
     public void update(StudentExam se){
         em.flush();
         em.merge(se);
+    }
+
+
+    @Override
+    public List<StudentExam> selectFromExam(Exam ex) 
+    {
+        return selectByExamId(ex.getExamId());
     }
 }

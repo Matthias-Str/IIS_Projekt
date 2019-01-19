@@ -117,6 +117,8 @@ public class StudentExam implements Serializable {
     public void setStudentExamId(int studentExamId) {
         this.studentExamId = studentExamId;
     }
+    
+    
 
     @Override
     public String toString() {

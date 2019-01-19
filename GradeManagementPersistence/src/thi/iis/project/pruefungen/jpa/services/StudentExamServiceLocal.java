@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import thi.iis.project.pruefungen.jpa.entities.Exam;
 import thi.iis.project.pruefungen.jpa.entities.StudentExam;
 
 /**
@@ -20,6 +21,10 @@ public interface StudentExamServiceLocal {
      * @param studentExam
      */
     public void create(StudentExam se);
+  //MHoepp
+    public List<StudentExam> selectAll();
+  //MHoepp
+    public List<StudentExam> selectFromExam(Exam ex);
 
     /**
      * select student exam by exam is

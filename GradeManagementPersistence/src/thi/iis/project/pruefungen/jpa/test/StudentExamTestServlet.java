@@ -60,6 +60,12 @@ public class StudentExamTestServlet extends HttpServlet {
         writer.println(s.toString());
         StudentExam se = new StudentExam(null, e, null, false, false, s);
         writer.println(se.toString());
+        List<StudentExam> allExams = seWS.selectAll();
+        for(StudentExam stEx : allExams)
+        {
+            writer.println(stEx.toString());
+            
+        }
         seSL.create(se);
         
         // select by exam id and regsitration name
