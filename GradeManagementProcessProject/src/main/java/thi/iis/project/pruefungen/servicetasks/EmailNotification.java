@@ -50,6 +50,7 @@ public class EmailNotification implements JavaDelegate {
             
             if(!mailDestination.contains("demo"))
             {
+                try{
                 Properties emailProperties = System.getProperties();
                 emailProperties = System.getProperties();
                 emailProperties.put("mail.smtp.port", Integer.toString(this.SMTP_PORT));
@@ -68,7 +69,11 @@ public class EmailNotification implements JavaDelegate {
                 Transport transport = mailSession.getTransport("smtp");
                 transport.connect(SMTP_SERVER_ADDRESS,SENDER_EMAIL_IDENTIFIER,SENDER_LOGIN_PASSWORD);
                 transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
-                
+                }catch(Exception e)
+                {
+                    System.out.println("could not establish connection");
+                    System.out.println(mailString);
+                }
             }
             
             

@@ -12,6 +12,8 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
+import thi.iis.project.pruefungen.servicetasks.ValueIdentifiers;
+
 /**
  * request all registrations for ws 18
  * 
@@ -41,7 +43,7 @@ public class RequestRegistrations implements JavaDelegate {
         MessageProducer producer = session.createProducer(destination);
 
         // Create messages
-        String examId = (String) execution.getVariable("examId");
+        String examId = (String) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_NAME);
         
         TextMessage message = session.createTextMessage(examId);
         System.out.println(examId);
