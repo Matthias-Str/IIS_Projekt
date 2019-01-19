@@ -20,6 +20,10 @@ public class StudentExamDataProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        //MHoepp
+        //Process engine is too slow, token not yet at next recieve task, that's why message correlation fails!
+        Thread.sleep(5000);
+        
         RegistrationRequestReply replyContent = exchange.getIn().getBody(RegistrationRequestReply.class);
 
         // init new object that is send back to camunda later
