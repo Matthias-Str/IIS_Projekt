@@ -33,7 +33,8 @@ public class PersistGrade implements JavaDelegate{
     {
         StudentExam se = (StudentExam) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM);
         String grade = (String) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_INPUT_GRADE);
-        
+        StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
+
         
         System.out.println("Recieved Grade: "+grade);
         
@@ -79,6 +80,7 @@ public class PersistGrade implements JavaDelegate{
         }
         
         se.setGradeChecked(false);
+        seWS.update(se);
     }
 
 }
