@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 public class CamundaRESTJSON {
     String messageName;
     Boolean resultEnabled;
+    String processInstanceId;
     ArrayList<CorrelationKey> correlationKeys = new ArrayList<>();
     ArrayList<ProcessVariable> processVariables = new ArrayList<>();
     ArrayList<CorrelationKey> localCorrelationKeys = new ArrayList<>();
@@ -63,6 +64,15 @@ public class CamundaRESTJSON {
         this.localCorrelationKeys = localCorrelationKeys;
     }
 
+    
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
+
     /**
      * Convert the Object to JSON
      * @return JSONObject messageContent that is send to camunda
@@ -72,6 +82,7 @@ public class CamundaRESTJSON {
 
         result.put("messageName", messageName);
         result.put("resultEnabled", resultEnabled);
+        result.put("processInstanceId", processInstanceId);
 
         if (correlationKeys.size() != 0) {
             JSONObject kKeys = new JSONObject();

@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class DocumentStatusRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    String processId;
     String registrationName;
     String examId;
 
@@ -18,11 +19,16 @@ public class DocumentStatusRequest implements Serializable {
         super();
     }
 
-    public DocumentStatusRequest(String registrationName, String examId) {
+
+
+    public DocumentStatusRequest(String processId, String registrationName, String examId) {
         super();
+        this.processId = processId;
         this.registrationName = registrationName;
         this.examId = examId;
     }
+
+
 
     public String getRegistrationName() {
         return registrationName;
@@ -40,4 +46,17 @@ public class DocumentStatusRequest implements Serializable {
         this.examId = examId;
     }
 
+
+
+    public String getProcessId() {
+        return processId;
+    }
+
+
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
+    }
+
+    
 }

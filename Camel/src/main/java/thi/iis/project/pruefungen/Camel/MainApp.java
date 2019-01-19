@@ -15,8 +15,6 @@ import thi.iis.project.pruefungen.camel.anmeldung.PostStudentExamToCamunda;
 import thi.iis.project.pruefungen.camel.anmeldung.RegistrationListTransformer;
 import thi.iis.project.pruefungen.camel.archive.ArchiveListener;
 import thi.iis.project.pruefungen.camel.archive.ArchiveRouteBuilder;
-import thi.iis.project.pruefungen.camel.archive.DocumentStatusReplyListener;
-import thi.iis.project.pruefungen.camel.archive.DocumentStatusRequestListener;
 import thi.iis.project.pruefungen.camel.pruefung.DeregistrationRouteBuilder;
 import thi.iis.project.pruefungen.camel.pruefung.ThirdTryRouter;
 
@@ -42,8 +40,6 @@ public class MainApp {
         main.addRouteBuilder(new PostInitDataToCamunda());
         main.addRouteBuilder(new ArchiveListener());
         main.addRouteBuilder(new ArchiveRouteBuilder());
-        main.addRouteBuilder(new DocumentStatusRequestListener());
-        main.addRouteBuilder(new DocumentStatusReplyListener());
         main.addRouteBuilder(new DatePersistedAckAggregator());
         main.addRouteBuilder(new PostStudentExamToCamunda());
         

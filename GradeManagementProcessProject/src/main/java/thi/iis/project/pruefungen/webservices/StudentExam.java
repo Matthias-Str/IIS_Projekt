@@ -8,7 +8,6 @@
 package thi.iis.project.pruefungen.webservices;
 
 public class StudentExam  implements java.io.Serializable {
-    private static final long serialVersionUID = 1L;
     private java.lang.Boolean documentUploaded;
 
     private thi.iis.project.pruefungen.webservices.Exam examId;
