@@ -44,6 +44,12 @@ public class StudentExamWebServiceProxy implements thi.iis.project.pruefungen.we
     return studentExamWebService;
   }
   
+  public thi.iis.project.pruefungen.webservices.StudentExam[] selectAll() throws java.rmi.RemoteException{
+    if (studentExamWebService == null)
+      _initStudentExamWebServiceProxy();
+    return studentExamWebService.selectAll();
+  }
+  
   public thi.iis.project.pruefungen.webservices.StudentExam[] selectByExamId(java.lang.String arg0) throws java.rmi.RemoteException{
     if (studentExamWebService == null)
       _initStudentExamWebServiceProxy();
@@ -54,7 +60,6 @@ public class StudentExamWebServiceProxy implements thi.iis.project.pruefungen.we
     if (studentExamWebService == null)
       _initStudentExamWebServiceProxy();
     return studentExamWebService.selectByRegistrationNameAndExamId(arg0, arg1);
->>>>>>> master:Archiv/src/thi/iis/project/pruefungen/webservices/StudentExamWebServiceProxy.java
   }
   
   public void create(thi.iis.project.pruefungen.webservices.StudentExam arg0) throws java.rmi.RemoteException{
@@ -63,17 +68,16 @@ public class StudentExamWebServiceProxy implements thi.iis.project.pruefungen.we
     studentExamWebService.create(arg0);
   }
   
-<<<<<<< HEAD:GradeManagementProcessProject/src/main/java/thi/iis/project/pruefungen/webservices/StudentExamWebServiceProxy.java
   public thi.iis.project.pruefungen.webservices.StudentExam[] selectFromExam(thi.iis.project.pruefungen.webservices.Exam arg0) throws java.rmi.RemoteException{
     if (studentExamWebService == null)
       _initStudentExamWebServiceProxy();
     return studentExamWebService.selectFromExam(arg0);
-=======
+  }
+  
   public void update(thi.iis.project.pruefungen.webservices.StudentExam arg0) throws java.rmi.RemoteException{
     if (studentExamWebService == null)
       _initStudentExamWebServiceProxy();
     studentExamWebService.update(arg0);
->>>>>>> master:Archiv/src/thi/iis/project/pruefungen/webservices/StudentExamWebServiceProxy.java
   }
   
   

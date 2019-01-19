@@ -1,7 +1,6 @@
 package thi.iis.project.pruefungen.servicetasks.archive;
 
 import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
@@ -13,6 +12,9 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import thi.iis.project.pruefungen.pojos.DocumentStatusRequest;
+import thi.iis.project.pruefungen.webservices.Exam;
+import thi.iis.project.pruefungen.webservices.Student;
+import thi.iis.project.pruefungen.webservices.StudentExam;
 
 /**
  * implementation of task "Anfrage senden, ob Dokument hochgeladen ist" sends
@@ -42,16 +44,25 @@ public class SendDocumentStatusRequest implements JavaDelegate {
         MessageProducer producer = session.createProducer(destination);
 
         // create new DocumentStatusRequest
-        execution.setVariable("registrationName", "pruefungsamt");
-        execution.setVariable("examId", "inf_m_sesa_ws18");
-        // Student student = (Student) execution.getVariable("student");
-        // String registrationName = student.getRegistrationName();
-        String registrationName = "pruefungsamt";
-        // Exam exam = (Exam) execution.getVariable("exam");
-        // String examId = exam.getExamId();
-        String examId = "inf_m_sesa_ws18";
+        // execution.setVariableLocal("registrationName", "pruefungsamt");
+        // execution.setVariableLocal("examId", "inf_m_sesa_ws18");
+        StudentExam se = (StudentExam) execution.getVariable("studentExam");
+        Student student = se.getRegistrationNumber();
+//        Student student = (Student) execution.getVariable("student");
+        String registrationName = student.getRegistrationName();
+        // String registrationName = "pruefungsamt";
+//        StudentExam studentExam = (StudentExam) execution.getVariable("studentexam");
+//        Exam exam = studentExam.getExamId();
+        Exam exam = se.getExamId();
+        String examId = exam.getExamId();
+        // String examId = "inf_m_sesa_ws18";
         DocumentStatusRequest request = new DocumentStatusRequest(registrationName, examId);
 
+        // set local Variables
+        execution.setVariableLocal("registrationName", registrationName);
+        execution.setVariableLocal("examId", examId);
+        execution.setVariableLocal("documentUploadStatus", "true");
+        
         // Create object messages
         ObjectMessage message = session.createObjectMessage(request);
 
