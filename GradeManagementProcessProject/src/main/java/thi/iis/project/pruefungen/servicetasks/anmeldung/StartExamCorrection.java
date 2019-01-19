@@ -31,6 +31,7 @@ public class StartExamCorrection implements JavaDelegate {
 
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("exam", curExam);
+        data.put(ValueIdentifiers.TIMER_IDENTIFIER_EXAM_START, curExam.getDate().getTime());
         data.put(ValueIdentifiers.VALUE_IDENTIFIER_EXAM_NAME, curExam.getExamId());
         data.put(ValueIdentifiers.VALUE_IDENTIFIER_USERNAME, curExam.getProfessorId().getFirstname() + curExam.getProfessorId().getLastname());
         data.put(ValueIdentifiers.VALUE_IDENTIFIER_ANNOUCEMENT_DATE, announcement_date);
