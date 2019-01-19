@@ -17,6 +17,7 @@ import thi.iis.project.pruefungen.jpa.services.ExamService;
  */
 @WebService
 public class ExamWebService {
+    
 
     @Inject
     ExamService examService;
