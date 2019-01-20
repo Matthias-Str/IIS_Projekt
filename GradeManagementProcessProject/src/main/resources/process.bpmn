@@ -510,10 +510,10 @@
           <bpmn:outgoing>SequenceFlow_1bcv764</bpmn:outgoing>
           <bpmn:outgoing>SequenceFlow_0q1jywv</bpmn:outgoing>
         </bpmn:exclusiveGateway>
-        <bpmn:userTask id="UserTask_0ojnoyl" name="Neue Note eintragen oder belassen" camunda:assignee="${username}">
+        <bpmn:userTask id="UserTask_0ojnoyl" name="Neue Note eintragen" camunda:assignee="${username}">
           <bpmn:extensionElements>
             <camunda:formData>
-              <camunda:formField id="newGrade" label="Neue Note" type="string" />
+              <camunda:formField id="newGrade" label="Neue Note für ${studentExam.getRegistrationNumber().getRegistrationName()} nach Rücksprache" type="string" />
             </camunda:formData>
           </bpmn:extensionElements>
           <bpmn:incoming>SequenceFlow_0zsetmr</bpmn:incoming>

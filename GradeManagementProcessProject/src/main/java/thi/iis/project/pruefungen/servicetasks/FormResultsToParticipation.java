@@ -27,7 +27,6 @@ public class FormResultsToParticipation implements JavaDelegate {
         
         StudentExam[] studentExams = seWS.selectAll();
         List<StudentExam> participatedExamList = new ArrayList<StudentExam>();
-        List<StudentExam> gradedExamList = new ArrayList<StudentExam>();
         
         for(StudentExam se : studentExams)
         {
@@ -58,7 +57,7 @@ public class FormResultsToParticipation implements JavaDelegate {
             System.out.println(se.getRegistrationNumber().getRegistrationName()+ " is not relevant for "+examname+" just for "+se.getExamId().getExamId());
         }
         execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_EXAM_LIST,participatedExamList);
-        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_STUDENT_COUNT,gradedExamList.size());
+        execution.setVariable(ValueIdentifiers.VALUE_IDENTIFIER_PARTICIPATED_STUDENT_COUNT,participatedExamList.size());
     }
 
 }
