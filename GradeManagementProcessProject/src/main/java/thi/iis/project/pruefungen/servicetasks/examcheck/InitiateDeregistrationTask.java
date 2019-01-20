@@ -42,6 +42,8 @@ public class InitiateDeregistrationTask implements JavaDelegate {
         //Simple Message for demonstration purpose
         TextMessage txtMessage = session.createTextMessage(studentExam.getRegistrationNumber().getRegistrationName() + "has to be derigistered");
         
+        System.out.println("Gonna send the textmessage: " + txtMessage);
+        
         producer.send(txtMessage);
         connection.close();
     }

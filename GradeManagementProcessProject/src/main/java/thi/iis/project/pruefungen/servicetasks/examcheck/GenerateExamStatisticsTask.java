@@ -1,5 +1,6 @@
 package thi.iis.project.pruefungen.servicetasks.examcheck;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,10 @@ import java.util.stream.Collectors;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
+import thi.iis.project.pruefungen.servicetasks.ValueIdentifiers;
 import thi.iis.project.pruefungen.webservices.StudentExam;
+import thi.iis.project.pruefungen.webservices.StudentExamWebService;
+import thi.iis.project.pruefungen.webservices.StudentExamWebServiceProxy;
 
 /**
  * 
@@ -21,11 +25,21 @@ public class GenerateExamStatisticsTask implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        Collection<StudentExam> studentexams = (Collection<StudentExam>) execution.getVariable("studentExamList");
-    
-        List<Double> grades = studentexams.stream().map(exam -> exam.getGrade().doubleValue()).collect(Collectors.toList());
         
-        double mean = grades.stream().mapToDouble(Double::doubleValue).sum() / 2;
+        String examName = (String) execution.getVariable("examName");
+        
+        StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
+        Collection<StudentExam> studentexams = Arrays.asList(seWS.selectAll()).stream().filter(exam -> exam.getParticipated() && exam.getExamId().getExamId().equals(examName)).collect(Collectors.toList());
+    
+        if(studentexams == null){
+            System.out.println("Could not find collection");
+        }
+        
+        List<Double> grades = studentexams.stream().filter(exam -> exam.getParticipated() && exam.getGrade() != null).map(exam -> exam.getGrade().doubleValue()).collect(Collectors.toList());
+        
+        System.out.println(grades);
+        
+        double mean = grades.stream().mapToDouble(Double::doubleValue).sum() / Math.max(1, grades.size());
         List<Double> modes = getModes(grades);
         
         double mode_max = modes.stream().max(Double::compare).orElse(-1d);

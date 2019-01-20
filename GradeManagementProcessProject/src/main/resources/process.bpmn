@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.2.3">
   <bpmn:collaboration id="Collaboration_0j281o0">
     <bpmn:participant id="Participant_0hz96rl" name="Verwaltung Prüfungsanmeldungen" processRef="VerwaltungPruefungsanmeldung_iden" />
     <bpmn:participant id="Participant_1p2e31r" name="Anmeldungsmanagement" />
@@ -436,6 +436,30 @@
         <bpmn:outgoing>SequenceFlow_08d3d2y</bpmn:outgoing>
       </bpmn:exclusiveGateway>
       <bpmn:userTask id="UserTask_15bnjaa" name="Auffälligkeit bestätigen" camunda:assignee="pruefungsamt">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="ueberpruefen_exam" label="Prüfung" type="string" defaultValue="${examName}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="ueberpruefen_meangrade" label="Durchschnittsnote" type="string" defaultValue="${mean}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="ueberpruefen_mode" label="Häufigste Note (falls mehrere die höchste):" type="string" defaultValue="${mode_min}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="ueberpruefen_mode2" label="Häufigste Note (falls mehrere die niedrigste; -1: keine Teilnahme):" type="string" defaultValue="${mode_max}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
         <bpmn:incoming>SequenceFlow_08d3d2y</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_0rg7mi2</bpmn:outgoing>
       </bpmn:userTask>
@@ -448,6 +472,10 @@
       <bpmn:dataObjectReference id="DataObjectReference_02lvj3g" name="Prüfungsstatistik" dataObjectRef="DataObject_1qeccnv" />
       <bpmn:dataObject id="DataObject_1qeccnv" />
       <bpmn:subProcess id="SubProcess_0nxm4ze" name="Kontrolle Drittversuch">
+        <bpmn:extensionElements>
+          <camunda:executionListener expression="${execution.setVariableLocal(&#34;thirdTry&#34;,null)}" event="start" />
+          <camunda:executionListener expression="${execution.setVariableLocal(&#34;gradeChanged&#34;, null)}" event="start" />
+        </bpmn:extensionElements>
         <bpmn:incoming>SequenceFlow_1jt01n1</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_0y7kn3o</bpmn:outgoing>
         <bpmn:property id="Property_0dff9nc" name="__targetRef_placeholder" />
@@ -478,16 +506,15 @@
           <bpmn:outgoing>SequenceFlow_0zsetmr</bpmn:outgoing>
         </bpmn:manualTask>
         <bpmn:exclusiveGateway id="ExclusiveGateway_0samit6" name="Drittversuch gescheitert?" default="SequenceFlow_1bcv764">
-          <bpmn:incoming>SequenceFlow_1o5uzsh</bpmn:incoming>
+          <bpmn:incoming>SequenceFlow_0obakhn</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_1bcv764</bpmn:outgoing>
           <bpmn:outgoing>SequenceFlow_0q1jywv</bpmn:outgoing>
         </bpmn:exclusiveGateway>
-        <bpmn:userTask id="UserTask_0ojnoyl" name="Neue Note eintragen oder belassen" camunda:assignee="${profUserName}">
+        <bpmn:userTask id="UserTask_0ojnoyl" name="Neue Note eintragen oder belassen" camunda:assignee="${username}">
           <bpmn:extensionElements>
             <camunda:formData>
               <camunda:formField id="newGrade" label="Neue Note" type="string" />
             </camunda:formData>
-            <camunda:executionListener class="" event="end" />
           </bpmn:extensionElements>
           <bpmn:incoming>SequenceFlow_0zsetmr</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_0b93eo1</bpmn:outgoing>
@@ -501,10 +528,6 @@
             <bpmn:targetRef>Property_0md4ba6</bpmn:targetRef>
           </bpmn:dataInputAssociation>
         </bpmn:serviceTask>
-        <bpmn:userTask id="UserTask_1ldnh1n" name="Ergbniss einsehen" camunda:assignee="pruefungsamt">
-          <bpmn:incoming>SequenceFlow_0obakhn</bpmn:incoming>
-          <bpmn:outgoing>SequenceFlow_1o5uzsh</bpmn:outgoing>
-        </bpmn:userTask>
         <bpmn:startEvent id="StartEvent_0u1qtfk">
           <bpmn:outgoing>SequenceFlow_1if8usg</bpmn:outgoing>
         </bpmn:startEvent>
@@ -523,38 +546,28 @@
             <bpmn:targetRef>Property_0zybqi5</bpmn:targetRef>
           </bpmn:dataInputAssociation>
         </bpmn:serviceTask>
-        <bpmn:sendTask id="SendTask_0uxzzmj" name="Exmatrikulation einleiten" camunda:class="thi.iis.project.pruefungen.servicetasks.examcheck.initiateDeregistrationTask">
+        <bpmn:sendTask id="SendTask_0uxzzmj" name="Exmatrikulation einleiten" camunda:class="thi.iis.project.pruefungen.servicetasks.examcheck.InitiateDeregistrationTask">
           <bpmn:incoming>SequenceFlow_10r00nc</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_1jcfu10</bpmn:outgoing>
         </bpmn:sendTask>
         <bpmn:sequenceFlow id="SequenceFlow_10r00nc" name="Ja" sourceRef="ExclusiveGateway_06klofz" targetRef="SendTask_0uxzzmj" />
-        <bpmn:sequenceFlow id="SequenceFlow_1jcfu10" sourceRef="SendTask_0uxzzmj" targetRef="EndEvent_0ltrdqz">
-          <bpmn:extensionElements>
-            <camunda:executionListener expression="${execution.setVariable(&#39;deregistration&#39;,true)}" event="take" />
-          </bpmn:extensionElements>
-        </bpmn:sequenceFlow>
-        <bpmn:sequenceFlow id="SequenceFlow_1bcv764" name="Nein" sourceRef="ExclusiveGateway_0samit6" targetRef="EndEvent_1l6crg3">
-          <bpmn:extensionElements>
-            <camunda:executionListener expression="${execution.setVariable(&#39;deregistration&#39;,false)}" event="take" />
-          </bpmn:extensionElements>
-        </bpmn:sequenceFlow>
+        <bpmn:sequenceFlow id="SequenceFlow_1jcfu10" sourceRef="SendTask_0uxzzmj" targetRef="EndEvent_0ltrdqz" />
+        <bpmn:sequenceFlow id="SequenceFlow_1bcv764" name="Nein" sourceRef="ExclusiveGateway_0samit6" targetRef="EndEvent_1l6crg3" />
         <bpmn:sequenceFlow id="SequenceFlow_0kjj5vi" name="Nein" sourceRef="ExclusiveGateway_06klofz" targetRef="EndEvent_06i9zz4">
           <bpmn:extensionElements>
             <camunda:properties>
               <camunda:property />
             </camunda:properties>
-            <camunda:executionListener expression="${execution.setVariable(&#39;deregistration&#39;,false)}" event="take" />
           </bpmn:extensionElements>
-          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${studentExam.grade &gt;= 5}</bpmn:conditionExpression>
+          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${gradeChanged}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="SequenceFlow_0h33m65" sourceRef="ServiceTask_12wjt8e" targetRef="ExclusiveGateway_06klofz" />
         <bpmn:sequenceFlow id="SequenceFlow_0q1jywv" name="Ja" sourceRef="ExclusiveGateway_0samit6" targetRef="ManualTask_0rtmobs">
-          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${thirdTry == 'true' and studentExam.grade &gt;= 5}</bpmn:conditionExpression>
+          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${thirdTry}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="SequenceFlow_0zsetmr" sourceRef="ManualTask_0rtmobs" targetRef="UserTask_0ojnoyl" />
-        <bpmn:sequenceFlow id="SequenceFlow_1o5uzsh" sourceRef="UserTask_1ldnh1n" targetRef="ExclusiveGateway_0samit6" />
         <bpmn:sequenceFlow id="SequenceFlow_0b93eo1" sourceRef="UserTask_0ojnoyl" targetRef="ServiceTask_12wjt8e" />
-        <bpmn:sequenceFlow id="SequenceFlow_0obakhn" sourceRef="ServiceTask_06pgds7" targetRef="UserTask_1ldnh1n" />
+        <bpmn:sequenceFlow id="SequenceFlow_0obakhn" sourceRef="ServiceTask_06pgds7" targetRef="ExclusiveGateway_0samit6" />
         <bpmn:sequenceFlow id="SequenceFlow_1if8usg" sourceRef="StartEvent_0u1qtfk" targetRef="ServiceTask_06pgds7" />
       </bpmn:subProcess>
       <bpmn:sequenceFlow id="SequenceFlow_1jt01n1" sourceRef="StartEvent_0h9o021" targetRef="SubProcess_0nxm4ze" />
@@ -1167,15 +1180,17 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SubProcess_0nxm4ze_di" bpmnElement="SubProcess_0nxm4ze" isExpanded="true">
-        <dc:Bounds x="3277" y="3368" width="1445" height="418" />
+        <dc:Bounds x="3277" y="3269" width="1445" height="517" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1jt01n1_di" bpmnElement="SequenceFlow_1jt01n1">
         <di:waypoint x="3207" y="3577" />
-        <di:waypoint x="3277" y="3577" />
+        <di:waypoint x="3242" y="3577" />
+        <di:waypoint x="3242" y="3528" />
+        <di:waypoint x="3277" y="3528" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1q6lei2_di" bpmnElement="DataOutputAssociation_1q6lei2">
-        <di:waypoint x="4573" y="3368" />
-        <di:waypoint x="4774" y="3295" />
+        <di:waypoint x="4722" y="3309" />
+        <di:waypoint x="4774" y="3293" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_0wsg14v_di" bpmnElement="DataInputAssociation_0wsg14v">
         <di:waypoint x="4810" y="3288" />
@@ -1183,11 +1198,13 @@
         <di:waypoint x="4906" y="3537" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataInputAssociation_1mdxv68_di" bpmnElement="DataInputAssociation_1mdxv68">
-        <di:waypoint x="4774" y="3295" />
-        <di:waypoint x="4573" y="3368" />
+        <di:waypoint x="4774" y="3293" />
+        <di:waypoint x="4722" y="3309" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0y7kn3o_di" bpmnElement="SequenceFlow_0y7kn3o">
-        <di:waypoint x="4723" y="3577" />
+        <di:waypoint x="4722" y="3528" />
+        <di:waypoint x="4789" y="3528" />
+        <di:waypoint x="4789" y="3577" />
         <di:waypoint x="4856" y="3577" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0mnist4_di" bpmnElement="DataOutputAssociation_0mnist4">
@@ -1264,9 +1281,6 @@
       <bpmndi:BPMNShape id="ServiceTask_12wjt8e_di" bpmnElement="ServiceTask_12wjt8e">
         <dc:Bounds x="4159" y="3409" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_1ldnh1n_di" bpmnElement="UserTask_1ldnh1n">
-        <dc:Bounds x="3569" y="3409" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_0u1qtfk_di" bpmnElement="StartEvent_0u1qtfk">
         <dc:Bounds x="3298" y="3431" width="36" height="36" />
       </bpmndi:BPMNShape>
@@ -1318,17 +1332,13 @@
         <di:waypoint x="3999" y="3449" />
         <di:waypoint x="4038" y="3449" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1o5uzsh_di" bpmnElement="SequenceFlow_1o5uzsh">
-        <di:waypoint x="3669" y="3449" />
-        <di:waypoint x="3759" y="3449" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0b93eo1_di" bpmnElement="SequenceFlow_0b93eo1">
         <di:waypoint x="4138" y="3449" />
         <di:waypoint x="4159" y="3449" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0obakhn_di" bpmnElement="SequenceFlow_0obakhn">
         <di:waypoint x="3479" y="3449" />
-        <di:waypoint x="3569" y="3449" />
+        <di:waypoint x="3759" y="3449" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1if8usg_di" bpmnElement="SequenceFlow_1if8usg">
         <di:waypoint x="3334" y="3449" />

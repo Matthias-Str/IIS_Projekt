@@ -3,6 +3,8 @@ package thi.iis.project.pruefungen.servicetasks.examcheck;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -20,10 +22,13 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
+import thi.iis.project.pruefungen.servicetasks.ValueIdentifiers;
 import thi.iis.project.pruefungen.webservices.Exam;
 import thi.iis.project.pruefungen.webservices.Professor;
 import thi.iis.project.pruefungen.webservices.Student;
 import thi.iis.project.pruefungen.webservices.StudentExam;
+import thi.iis.project.pruefungen.webservices.StudentExamWebService;
+import thi.iis.project.pruefungen.webservices.StudentExamWebServiceProxy;
 
 /**
  * 
@@ -42,6 +47,8 @@ public class CheckForThirdTryTask implements JavaDelegate{
         Connection connection = connectionFactory.createConnection();
         connection.start();
         
+        StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
+        
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         
         Destination dest = session.createQueue(THIRD_TRY_QUEUE);
@@ -53,35 +60,13 @@ public class CheckForThirdTryTask implements JavaDelegate{
 
         StringWriter writer = new StringWriter();
         
-        Object student_exam = execution.getVariable("studentExam");
+        StudentExam student_exam = (StudentExam) execution.getVariable("studentExam");
         
-        if(student_exam != null){
-            JAXB.marshal(student_exam, writer);
-            
-        } else {
-            System.out.println("----------");
-            System.out.println("USING TEST STUDENT EXAM!!!!");
-            System.out.println("----------");
-            Professor testprof = new Professor();
-            
-            testprof.setFirstname("ulrich");
-            testprof.setLastname("schmidt");
-            
-            Exam testExam = new Exam();
-            testExam.setExamId("inf_m_kao_ws18");
-
-            Student testStudent = new Student();
-            testStudent.setRegistrationName("matthias");
-            
-            StudentExam testStudentExam = new StudentExam();
-            testStudentExam.setExamId(testExam);
-            testStudentExam.setRegistrationNumber(testStudent);
-            testStudentExam.setGrade(BigDecimal.valueOf(5));
-            
-            execution.setVariable("studentExam", testStudentExam);
-       
-            JAXB.marshal(testStudentExam, writer);       
-        }
+        System.out.println("Now Checking Third Try for student_eaxme: " + student_exam);
+        System.out.println(""+student_exam.getRegistrationNumber()+ ": grade: " + student_exam.getGrade());
+        
+        
+        JAXB.marshal(student_exam, writer);
         
         TextMessage studenExamMessage = session.createTextMessage(writer.toString());
         
@@ -91,9 +76,17 @@ public class CheckForThirdTryTask implements JavaDelegate{
         
         Message response = consumer.receive();
         
-        if(response!=null){
-            execution.setVariable("thirdTry", ((ObjectMessage) response).getObject().toString());
-        }
+//        Map<String, Object> camundaVars = new HashMap<String, Object>();
+//        camundaVars.put("examGrade", seWS.selectByRegistrationNameAndExamId(student_exam.getRegistrationNumber().getRegistrationName(), student_exam.getExamId().getExamId()).getGrade().doubleValue());
+//        camundaVars.put("thirdTry", ((TextMessage) response).getText());
+        
+        boolean failedThirdTry = Boolean.parseBoolean(((TextMessage) response).getText()) && seWS.selectByRegistrationNameAndExamId(student_exam.getRegistrationNumber().getRegistrationName(), student_exam.getExamId().getExamId()).getGrade().doubleValue() >= 5d;
+        
+        execution.setVariable("thirdTry", failedThirdTry);
+        System.out.println("ThirdTry: "+ ((TextMessage) response).getText());
+        
+//        execution.setVariablesLocal(camundaVars);
+        
         
         connection.close();
     }

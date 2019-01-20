@@ -1,6 +1,7 @@
 package thi.iis.project.pruefungen.servicetasks;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class PersistGrade implements JavaDelegate{
     {
         StudentExam se = (StudentExam) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_STUDENT_EXAM);
         String grade = (String) execution.getVariable(ValueIdentifiers.VALUE_IDENTIFIER_INPUT_GRADE);
+        
         StudentExamWebService seWS = new StudentExamWebServiceProxy().getStudentExamWebService();
 
         
