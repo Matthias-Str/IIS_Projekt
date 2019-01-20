@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,7 +108,8 @@ public class GeneratePdf implements JavaDelegate
             if(succeededExams>0)
             {
                 double average = succeededExamTotal/succeededExams;
-                argument3_average = Double.toString(average);
+                DecimalFormat df = new DecimalFormat("#.00");
+                argument3_average = df.format(average);
             }
             
             if(allStudentExams.length==0)
